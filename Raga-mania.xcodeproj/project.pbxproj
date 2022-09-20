@@ -1,0 +1,746 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		11EA55BA4CF4EA861AA97F7A /* Pods_Raga_mania_Raga_maniaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82EF24D6F3D35AA542E3C8ED /* Pods_Raga_mania_Raga_maniaUITests.framework */; };
+		9B92837834A200BB2EF96972 /* Pods_Raga_mania.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A295F16255023CB76A56FF48 /* Pods_Raga_mania.framework */; };
+		D72BF7C628D5275700F28CCB /* Raga_maniaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72BF7C528D5275700F28CCB /* Raga_maniaApp.swift */; };
+		D72BF7C828D5275700F28CCB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72BF7C728D5275700F28CCB /* ContentView.swift */; };
+		D72BF7CA28D5276000F28CCB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D72BF7C928D5276000F28CCB /* Assets.xcassets */; };
+		D72BF7CD28D5276000F28CCB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D72BF7CC28D5276000F28CCB /* Preview Assets.xcassets */; };
+		D72BF7D728D5276000F28CCB /* Raga_maniaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72BF7D628D5276000F28CCB /* Raga_maniaTests.swift */; };
+		D72BF7E128D5276100F28CCB /* Raga_maniaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72BF7E028D5276100F28CCB /* Raga_maniaUITests.swift */; };
+		D72BF7E328D5276100F28CCB /* Raga_maniaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72BF7E228D5276100F28CCB /* Raga_maniaUITestsLaunchTests.swift */; };
+		D72BF7F028D95A1400F28CCB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D72BF7EF28D95A1400F28CCB /* GoogleService-Info.plist */; };
+		DE6E6311B79CA5615ED6D9E5 /* Pods_Raga_maniaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B861FEA1352419F5F36A7A /* Pods_Raga_maniaTests.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D72BF7D328D5276000F28CCB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D72BF7BA28D5275700F28CCB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D72BF7C128D5275700F28CCB;
+			remoteInfo = "Raga-mania";
+		};
+		D72BF7DD28D5276100F28CCB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D72BF7BA28D5275700F28CCB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D72BF7C128D5275700F28CCB;
+			remoteInfo = "Raga-mania";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1BE84BDB9D8CA732F6BDF11E /* Pods-Raga-maniaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Raga-maniaTests.debug.xcconfig"; path = "Target Support Files/Pods-Raga-maniaTests/Pods-Raga-maniaTests.debug.xcconfig"; sourceTree = "<group>"; };
+		2383C295C98F557898F339AD /* Pods-Raga-mania.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Raga-mania.release.xcconfig"; path = "Target Support Files/Pods-Raga-mania/Pods-Raga-mania.release.xcconfig"; sourceTree = "<group>"; };
+		3614D900A4F21D84C8303A96 /* Pods-Raga-mania.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Raga-mania.debug.xcconfig"; path = "Target Support Files/Pods-Raga-mania/Pods-Raga-mania.debug.xcconfig"; sourceTree = "<group>"; };
+		46B861FEA1352419F5F36A7A /* Pods_Raga_maniaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Raga_maniaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4FFE472F7771ED4F1D8565D3 /* Pods-Raga-mania-Raga-maniaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Raga-mania-Raga-maniaUITests.debug.xcconfig"; path = "Target Support Files/Pods-Raga-mania-Raga-maniaUITests/Pods-Raga-mania-Raga-maniaUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		82EF24D6F3D35AA542E3C8ED /* Pods_Raga_mania_Raga_maniaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Raga_mania_Raga_maniaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8CB02DE1B9F927109C2CE25C /* Pods-Raga-mania-Raga-maniaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Raga-mania-Raga-maniaUITests.release.xcconfig"; path = "Target Support Files/Pods-Raga-mania-Raga-maniaUITests/Pods-Raga-mania-Raga-maniaUITests.release.xcconfig"; sourceTree = "<group>"; };
+		8CE28979C0A2A56EB20DA2A0 /* Pods-Raga-maniaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Raga-maniaTests.release.xcconfig"; path = "Target Support Files/Pods-Raga-maniaTests/Pods-Raga-maniaTests.release.xcconfig"; sourceTree = "<group>"; };
+		A295F16255023CB76A56FF48 /* Pods_Raga_mania.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Raga_mania.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D72BF7C228D5275700F28CCB /* Raga-mania.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Raga-mania.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D72BF7C528D5275700F28CCB /* Raga_maniaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Raga_maniaApp.swift; sourceTree = "<group>"; };
+		D72BF7C728D5275700F28CCB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D72BF7C928D5276000F28CCB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D72BF7CC28D5276000F28CCB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D72BF7D228D5276000F28CCB /* Raga-maniaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Raga-maniaTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D72BF7D628D5276000F28CCB /* Raga_maniaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Raga_maniaTests.swift; sourceTree = "<group>"; };
+		D72BF7DC28D5276100F28CCB /* Raga-maniaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Raga-maniaUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D72BF7E028D5276100F28CCB /* Raga_maniaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Raga_maniaUITests.swift; sourceTree = "<group>"; };
+		D72BF7E228D5276100F28CCB /* Raga_maniaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Raga_maniaUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		D72BF7EF28D95A1400F28CCB /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D72BF7BF28D5275700F28CCB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B92837834A200BB2EF96972 /* Pods_Raga_mania.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D72BF7CF28D5276000F28CCB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE6E6311B79CA5615ED6D9E5 /* Pods_Raga_maniaTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D72BF7D928D5276100F28CCB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11EA55BA4CF4EA861AA97F7A /* Pods_Raga_mania_Raga_maniaUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5D1F2F53C06EDB1F280CE785 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3614D900A4F21D84C8303A96 /* Pods-Raga-mania.debug.xcconfig */,
+				2383C295C98F557898F339AD /* Pods-Raga-mania.release.xcconfig */,
+				4FFE472F7771ED4F1D8565D3 /* Pods-Raga-mania-Raga-maniaUITests.debug.xcconfig */,
+				8CB02DE1B9F927109C2CE25C /* Pods-Raga-mania-Raga-maniaUITests.release.xcconfig */,
+				1BE84BDB9D8CA732F6BDF11E /* Pods-Raga-maniaTests.debug.xcconfig */,
+				8CE28979C0A2A56EB20DA2A0 /* Pods-Raga-maniaTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		8123893B51B5E212B5A5CBB0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A295F16255023CB76A56FF48 /* Pods_Raga_mania.framework */,
+				82EF24D6F3D35AA542E3C8ED /* Pods_Raga_mania_Raga_maniaUITests.framework */,
+				46B861FEA1352419F5F36A7A /* Pods_Raga_maniaTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D72BF7B928D5275700F28CCB = {
+			isa = PBXGroup;
+			children = (
+				D72BF7C428D5275700F28CCB /* Raga-mania */,
+				D72BF7D528D5276000F28CCB /* Raga-maniaTests */,
+				D72BF7DF28D5276100F28CCB /* Raga-maniaUITests */,
+				D72BF7C328D5275700F28CCB /* Products */,
+				5D1F2F53C06EDB1F280CE785 /* Pods */,
+				8123893B51B5E212B5A5CBB0 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		D72BF7C328D5275700F28CCB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D72BF7C228D5275700F28CCB /* Raga-mania.app */,
+				D72BF7D228D5276000F28CCB /* Raga-maniaTests.xctest */,
+				D72BF7DC28D5276100F28CCB /* Raga-maniaUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D72BF7C428D5275700F28CCB /* Raga-mania */ = {
+			isa = PBXGroup;
+			children = (
+				D72BF7EF28D95A1400F28CCB /* GoogleService-Info.plist */,
+				D72BF7C528D5275700F28CCB /* Raga_maniaApp.swift */,
+				D72BF7C728D5275700F28CCB /* ContentView.swift */,
+				D72BF7C928D5276000F28CCB /* Assets.xcassets */,
+				D72BF7CB28D5276000F28CCB /* Preview Content */,
+			);
+			path = "Raga-mania";
+			sourceTree = "<group>";
+		};
+		D72BF7CB28D5276000F28CCB /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				D72BF7CC28D5276000F28CCB /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		D72BF7D528D5276000F28CCB /* Raga-maniaTests */ = {
+			isa = PBXGroup;
+			children = (
+				D72BF7D628D5276000F28CCB /* Raga_maniaTests.swift */,
+			);
+			path = "Raga-maniaTests";
+			sourceTree = "<group>";
+		};
+		D72BF7DF28D5276100F28CCB /* Raga-maniaUITests */ = {
+			isa = PBXGroup;
+			children = (
+				D72BF7E028D5276100F28CCB /* Raga_maniaUITests.swift */,
+				D72BF7E228D5276100F28CCB /* Raga_maniaUITestsLaunchTests.swift */,
+			);
+			path = "Raga-maniaUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D72BF7C128D5275700F28CCB /* Raga-mania */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D72BF7E628D5276100F28CCB /* Build configuration list for PBXNativeTarget "Raga-mania" */;
+			buildPhases = (
+				93B015B0E8C48A271B8D712F /* [CP] Check Pods Manifest.lock */,
+				D72BF7BE28D5275700F28CCB /* Sources */,
+				D72BF7BF28D5275700F28CCB /* Frameworks */,
+				D72BF7C028D5275700F28CCB /* Resources */,
+				C349B9BE24D83C2BD0B36A9D /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Raga-mania";
+			productName = "Raga-mania";
+			productReference = D72BF7C228D5275700F28CCB /* Raga-mania.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D72BF7D128D5276000F28CCB /* Raga-maniaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D72BF7E928D5276100F28CCB /* Build configuration list for PBXNativeTarget "Raga-maniaTests" */;
+			buildPhases = (
+				BD728A6DF82E673AF216B769 /* [CP] Check Pods Manifest.lock */,
+				D72BF7CE28D5276000F28CCB /* Sources */,
+				D72BF7CF28D5276000F28CCB /* Frameworks */,
+				D72BF7D028D5276000F28CCB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D72BF7D428D5276000F28CCB /* PBXTargetDependency */,
+			);
+			name = "Raga-maniaTests";
+			productName = "Raga-maniaTests";
+			productReference = D72BF7D228D5276000F28CCB /* Raga-maniaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D72BF7DB28D5276100F28CCB /* Raga-maniaUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D72BF7EC28D5276100F28CCB /* Build configuration list for PBXNativeTarget "Raga-maniaUITests" */;
+			buildPhases = (
+				D1F7982E23800D4B32A23619 /* [CP] Check Pods Manifest.lock */,
+				D72BF7D828D5276100F28CCB /* Sources */,
+				D72BF7D928D5276100F28CCB /* Frameworks */,
+				D72BF7DA28D5276100F28CCB /* Resources */,
+				9C918E332CF44B97B5D5729F /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D72BF7DE28D5276100F28CCB /* PBXTargetDependency */,
+			);
+			name = "Raga-maniaUITests";
+			productName = "Raga-maniaUITests";
+			productReference = D72BF7DC28D5276100F28CCB /* Raga-maniaUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D72BF7BA28D5275700F28CCB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1340;
+				LastUpgradeCheck = 1340;
+				TargetAttributes = {
+					D72BF7C128D5275700F28CCB = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
+					D72BF7D128D5276000F28CCB = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = D72BF7C128D5275700F28CCB;
+					};
+					D72BF7DB28D5276100F28CCB = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = D72BF7C128D5275700F28CCB;
+					};
+				};
+			};
+			buildConfigurationList = D72BF7BD28D5275700F28CCB /* Build configuration list for PBXProject "Raga-mania" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D72BF7B928D5275700F28CCB;
+			productRefGroup = D72BF7C328D5275700F28CCB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D72BF7C128D5275700F28CCB /* Raga-mania */,
+				D72BF7D128D5276000F28CCB /* Raga-maniaTests */,
+				D72BF7DB28D5276100F28CCB /* Raga-maniaUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D72BF7C028D5275700F28CCB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D72BF7CD28D5276000F28CCB /* Preview Assets.xcassets in Resources */,
+				D72BF7CA28D5276000F28CCB /* Assets.xcassets in Resources */,
+				D72BF7F028D95A1400F28CCB /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D72BF7D028D5276000F28CCB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D72BF7DA28D5276100F28CCB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		93B015B0E8C48A271B8D712F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Raga-mania-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9C918E332CF44B97B5D5729F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Raga-mania-Raga-maniaUITests/Pods-Raga-mania-Raga-maniaUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Raga-mania-Raga-maniaUITests/Pods-Raga-mania-Raga-maniaUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Raga-mania-Raga-maniaUITests/Pods-Raga-mania-Raga-maniaUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BD728A6DF82E673AF216B769 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Raga-maniaTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C349B9BE24D83C2BD0B36A9D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Raga-mania/Pods-Raga-mania-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Raga-mania/Pods-Raga-mania-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Raga-mania/Pods-Raga-mania-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D1F7982E23800D4B32A23619 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Raga-mania-Raga-maniaUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D72BF7BE28D5275700F28CCB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D72BF7C828D5275700F28CCB /* ContentView.swift in Sources */,
+				D72BF7C628D5275700F28CCB /* Raga_maniaApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D72BF7CE28D5276000F28CCB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D72BF7D728D5276000F28CCB /* Raga_maniaTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D72BF7D828D5276100F28CCB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D72BF7E328D5276100F28CCB /* Raga_maniaUITestsLaunchTests.swift in Sources */,
+				D72BF7E128D5276100F28CCB /* Raga_maniaUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D72BF7D428D5276000F28CCB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D72BF7C128D5275700F28CCB /* Raga-mania */;
+			targetProxy = D72BF7D328D5276000F28CCB /* PBXContainerItemProxy */;
+		};
+		D72BF7DE28D5276100F28CCB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D72BF7C128D5275700F28CCB /* Raga-mania */;
+			targetProxy = D72BF7DD28D5276100F28CCB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		D72BF7E428D5276100F28CCB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D72BF7E528D5276100F28CCB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D72BF7E728D5276100F28CCB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3614D900A4F21D84C8303A96 /* Pods-Raga-mania.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Raga-mania/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.wayne.Raga-mania";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D72BF7E828D5276100F28CCB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2383C295C98F557898F339AD /* Pods-Raga-mania.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Raga-mania/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.wayne.Raga-mania";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D72BF7EA28D5276100F28CCB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1BE84BDB9D8CA732F6BDF11E /* Pods-Raga-maniaTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = XKH8QN5NNX;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.wayne.Raga-maniaTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Raga-mania.app/Raga-mania";
+			};
+			name = Debug;
+		};
+		D72BF7EB28D5276100F28CCB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8CE28979C0A2A56EB20DA2A0 /* Pods-Raga-maniaTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = XKH8QN5NNX;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.wayne.Raga-maniaTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Raga-mania.app/Raga-mania";
+			};
+			name = Release;
+		};
+		D72BF7ED28D5276100F28CCB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4FFE472F7771ED4F1D8565D3 /* Pods-Raga-mania-Raga-maniaUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = XKH8QN5NNX;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.wayne.Raga-maniaUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Raga-mania";
+			};
+			name = Debug;
+		};
+		D72BF7EE28D5276100F28CCB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8CB02DE1B9F927109C2CE25C /* Pods-Raga-mania-Raga-maniaUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = XKH8QN5NNX;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.wayne.Raga-maniaUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Raga-mania";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D72BF7BD28D5275700F28CCB /* Build configuration list for PBXProject "Raga-mania" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D72BF7E428D5276100F28CCB /* Debug */,
+				D72BF7E528D5276100F28CCB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D72BF7E628D5276100F28CCB /* Build configuration list for PBXNativeTarget "Raga-mania" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D72BF7E728D5276100F28CCB /* Debug */,
+				D72BF7E828D5276100F28CCB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D72BF7E928D5276100F28CCB /* Build configuration list for PBXNativeTarget "Raga-maniaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D72BF7EA28D5276100F28CCB /* Debug */,
+				D72BF7EB28D5276100F28CCB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D72BF7EC28D5276100F28CCB /* Build configuration list for PBXNativeTarget "Raga-maniaUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D72BF7ED28D5276100F28CCB /* Debug */,
+				D72BF7EE28D5276100F28CCB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D72BF7BA28D5275700F28CCB /* Project object */;
+}

@@ -1,0 +1,6 @@
+framework module Pods_Raga_mania {
+  umbrella header "Pods-Raga-mania-umbrella.h"
+
+  export *
+  module * { export * }
+}
