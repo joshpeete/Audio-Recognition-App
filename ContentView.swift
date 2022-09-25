@@ -6,31 +6,49 @@
 //
 
 import SwiftUI
+import Firebase
+
+class FirebaseManager: NSObject {
+    let auth: Auth
+    static let shared = FirebaseManager()
+    override init() {
+        FirebaseApp.configure()
+        self.auth = Auth.auth()
+        super.init()
+    }
+}
+
 struct ContentView: View {
     
-    @State private var email=""
-    @State private var password=""
-    @State private var select=false
+    @State private var email = ""
+    @State private var password = ""
+    @State private var select = false
+    @State var loginStatusMessage = ""
+    
+    init(){
+        FirebaseApp.configure()
+    }
     
     var body: some View {
         NavigationView{
             ScrollView{
                 VStack(spacing:12){
-                    Picker(selection: $select, label: Text("Picker here")){
-                        Text("Login")
+                    Picker(selection: $select, label: Text("Toggle Button")){
+                        Text("Create Account")
                             .tag(true)
                             .foregroundColor(.white)
-                        Text("Create Account")
+                        Text("Login")
                             .tag(false)
                             .foregroundColor(.black)
                     }.pickerStyle(SegmentedPickerStyle())
+                    
                     if select{
                         Button{
                             
                         }label: {
                             Image(systemName: "person.fill")
                                 .font(.system(size: 75))
-                                .padding(12)
+                                .padding(28)
                         }
                         
                     }
@@ -62,7 +80,7 @@ struct ContentView: View {
                                 .font(.system(size: 16))
                                 .padding(12)
                         }
-                                        }
+                }
                 Rectangle()
                     .frame(width: 350, height: 1)
                     .foregroundColor(.black)
@@ -72,27 +90,65 @@ struct ContentView: View {
                 }label: {
                     HStack{
                         Spacer()
-                        Text("Create Account")
+                        Text(select ? "Create Account" :"Log In")
                             .foregroundColor(.white)
                             .padding(.vertical,20)
-                            .font(.system(size: 24))
+                            .font(.system(size: 24, weight: .semibold))
                         Spacer()
                     }.background(Color.blue)
                         .frame(width: 250, height: 100, alignment: .center)
                         .padding()
                 }
+                Text(self.loginStatusMessage)
+                    .foregroundColor(.red)
                 
-            }.navigationTitle(select ? "Log In" :" Create Account")
+            }.navigationTitle(select ? "Create Account" :"Log In")
                 .padding()
                 .background(
-                        LinearGradient(gradient: Gradient(colors: [.yellow, .green]), startPoint: .top, endPoint: .bottom)
-                    )
-               
+                    LinearGradient(gradient: Gradient(colors: [.yellow, .green]), startPoint: .top, endPoint: .bottom)
+                )
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
+        
+        func handleAction() {
+            if select {
+                loginUser()
+            } else {
+                createNewAccount()
+            }
         }
         
+        func loginUser() {
+            FirebaseManager.shared.auth.signIn(withEmail: email, password: password) { result, err in
+                if let err = err {
+                    print("Failed to login user:", err)
+                    self.loginStatusMessage = "Failed to login user: \(err)"
+                    return
+                }
+                
+                print("Successfully logged in as user: \(result?.user.uid ?? "")")
+                
+                self.loginStatusMessage = "Successfully logged in as user: \(result?.user.uid ?? "")"
+            }
+        }
+        
+        
+        func createNewAccount() {
+            FirebaseManager.shared.auth.createUser(withEmail: email, password: password) { result, err in
+                if let err = err {
+                    print("Failed to create user:", err)
+                    self.loginStatusMessage = "Failed to create user: \(err)"
+                    return
+                }
+                
+                print("Successfully created user: \(result?.user.uid ?? "")")
+                
+                self.loginStatusMessage = "Successfully created user: \(result?.user.uid ?? "")"
+            }
+        }
     }
+    
 }
-
 
 
 struct ContentView_Previews: PreviewProvider {
