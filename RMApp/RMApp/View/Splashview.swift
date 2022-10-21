@@ -1,0 +1,51 @@
+//
+//  Splashview.swift
+//  Raga-Mania
+//
+//  Created by Joshua Peete on 9/22/22.
+//
+
+import SwiftUI
+import Firebase
+
+struct Splashview: View {
+    @State private var isActive = false
+    @State private var size = 0.8
+    @State private var opacity = 0.5
+    
+    var body: some View{
+        if isActive{
+            ContentView()//if the app is turned on show the registration/login page
+        }else{//if the app isnt turned on yet show the splash screen
+        VStack{
+            VStack{
+                Image(systemName: "music.quarternote.3")//logo
+                    .font(.system(size: 80))
+                    .foregroundColor(.green)
+                Text("Raga-Mania")//title
+                    .font(Font.custom("Baskerville-Bold", size: 26))
+                    .foregroundColor(.white.opacity(0.80))
+            }
+        .scaleEffect(size)
+        .opacity(opacity)
+        .onAppear{
+            withAnimation(.easeIn(duration: 1.2)){//fading animation
+                self.size = 0.9
+                self.opacity = 1.0
+            }
+        }
+    }
+    .onAppear {
+            DispatchQueue.main.asyncAfter(deadline:.now() + 2.0) {
+                self.isActive = true//activation
+            }
+        }
+    }
+}
+}
+
+struct Previews_Splashview_Previews: PreviewProvider {
+    static var previews: some View {
+        Splashview()
+    }
+}
