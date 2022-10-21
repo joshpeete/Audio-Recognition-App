@@ -7,15 +7,6 @@
 
 import SwiftUI
 
-struct Track: Identifiable{
-    var id = UUID().uuidString
-    //Track info
-    var title: String
-    var artist: String
-    var artwork: String
-    var genres: [String]
-    
-}
 struct CardView: View {
     var cover: String
     @State private var offset = CGSize.zero
