@@ -50,6 +50,8 @@ struct ContentView: View {
                             .foregroundColor(.white)
                             .keyboardType(.emailAddress)
                             .autocapitalization(.none)
+                            .font(.system(size: 16))
+                            .bold()
                             .textFieldStyle(.plain)
                             .padding(12)
                             .placeholder(when: email.isEmpty){
@@ -66,6 +68,8 @@ struct ContentView: View {
                         SecureField("Password",text:$password)
                             .foregroundColor(.white)
                             .textFieldStyle(.plain)
+                            .bold()
+                            .font(.system(size: 16))
                             .padding(12)
                             .placeholder(when: password.isEmpty){
                                 Text("Password")

@@ -40,9 +40,11 @@ struct JHomescreen: View {
                         Text("Home")
                             .tag(true)
                             .foregroundColor(.white)
+                            .font(.largeTitle)
                         Text("Saved")
                             .tag(false)
                             .foregroundColor(.black)
+                            .font(.largeTitle)
                     }
                     .font(.largeTitle)
                     .pickerStyle(SegmentedPickerStyle())
@@ -92,10 +94,7 @@ struct JHomescreen: View {
                                             .foregroundColor(color.opacity(0.9))
                                             .shadow(radius: 4)
                                         HStack{
-                                            Text("Press the Microphone")
-                                                .foregroundColor(.white)
-                                                .bold()
-                                            Text("to Get Started")
+                                            Text("Press the Microphone \n to Get Started")
                                                 .foregroundColor(.white)
                                                 .bold()
                                         }
@@ -163,10 +162,10 @@ struct JHomescreen: View {
                             }
                         }
                     }.padding()
-                        .onAppear{
-                            let url = Bundle.main.url(forResource: "sound", withExtension: "mp3")
-                            self.getData()
-                        }
+                        //.onAppear{
+                         //   let url = Bundle.main.url(forResource: "sound", withExtension: "mp3")
+                         //   self.getData()
+                       // }
                 }
             }
             .navigationTitle("Raga-Mania")
@@ -203,7 +202,7 @@ func addData(filename: String, length: String){
 }
  
     func getData(){
-        let asset = AVAsset(url: self.audioPlayer.url!)
+    //    let asset = AVAsset(url: self.audioPlayer.url!)
     }
     
     func playSound1(){
