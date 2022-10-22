@@ -8,8 +8,10 @@
 import SwiftUI
 import AVFoundation
 import Firebase
+import FirebaseStorage
 import UIKit
 import MobileCoreServices
+import FirebaseFirestore
 
 var player:AVAudioPlayer!
 
@@ -36,6 +38,9 @@ struct JHomescreen: View {
         NavigationView{
             ScrollView{
                 VStack(spacing:12){
+                    Button(action: { FirebaseInterface.instance.signOut() }) {
+                                                           Text("Sign Out")
+                                                       }
                     Picker(selection: $select, label: Text("Toggle Button")){
                         Text("Home")
                             .tag(true)
@@ -119,28 +124,6 @@ struct JHomescreen: View {
                         }else{
                             VStack{
                                 Button(action:{
-                                    self.playSound1()
-                                    self.addData(filename: "sample-9s", length: "9sec")
-                                })
-                                {Text("Saved Raga 1")}
-                                    .padding()
-                                
-                                Button(action:{
-                                    self.playSound2()
-                                    self.addData(filename: "sample-6s", length: "6sec")
-                                })
-                                {Text("Saved Raga 2")}
-                                    .padding()
-                                
-                                Button(action:{
-                                    self.playSound3()
-                                    self.addData(filename: "sample-15s", length: "15sec")
-
-                                })
-                                {Text("Saved Raga 3")}
-                                    .padding()
-                                
-                                Button(action:{
                                     //self.importFiles(filename: "sample-15s", length: )
                                 })
                                 {Text("Import Files")}
@@ -149,7 +132,7 @@ struct JHomescreen: View {
                                 Button(action:{
                                     isImporting.toggle()
                                     self.addData(filename: "", length: "")
-
+                                    
                                 })
                                 {Text("Import")}
                                     .padding()
@@ -162,10 +145,10 @@ struct JHomescreen: View {
                             }
                         }
                     }.padding()
-                        //.onAppear{
-                         //   let url = Bundle.main.url(forResource: "sound", withExtension: "mp3")
-                         //   self.getData()
-                       // }
+                    //.onAppear{
+                    //   let url = Bundle.main.url(forResource: "sound", withExtension: "mp3")
+                    //   self.getData()
+                    // }
                 }
             }
             .navigationTitle("Raga-Mania")
@@ -190,58 +173,19 @@ struct JHomescreen: View {
             }
         }
     }
-
     
     
-func addData(filename: String, length: String){
-    let db = Firestore.firestore()
-    db.collection("sample").addDocument(data: ["song": filename, "length": length]){error in
-        if error == nil{
+    
+    func addData(filename: String, length: String){
+        let db = Firestore.firestore()
+        db.collection("sample").addDocument(data: ["song": filename, "length": length]){error in
+            if error == nil{
+            }
         }
     }
-}
- 
+    
     func getData(){
-    //    let asset = AVAsset(url: self.audioPlayer.url!)
-    }
-    
-    func playSound1(){
-        let url = Bundle.main.url(forResource: "sample-9s", withExtension: "mp3")
-        guard url != nil else{
-            return
-        }
-        do{
-            player = try AVAudioPlayer(contentsOf: url!)
-            player?.play()
-        }catch{
-            print("error")
-        }
-    }
-    
-    func playSound2(){
-        let url = Bundle.main.url(forResource: "sample-6s", withExtension: "mp3")
-        guard url != nil else{
-            return
-        }
-        do{
-            player = try AVAudioPlayer(contentsOf: url!)
-            player?.play()
-        }catch{
-            print("error")
-        }
-    }
-    
-    func playSound3(){
-        let url = Bundle.main.url(forResource: "sample-15s", withExtension: "mp3")
-        guard url != nil else{
-            return
-        }
-        do{
-            player = try AVAudioPlayer(contentsOf: url!)
-            player?.play()
-        }catch{
-            print("error")
-        }
+        //    let asset = AVAsset(url: self.audioPlayer.url!)
     }
 }
 
