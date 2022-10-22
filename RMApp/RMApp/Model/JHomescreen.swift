@@ -30,6 +30,7 @@ struct JHomescreen: View {
     @State private var color: Color = .black
     @StateObject var shazamSession = ShazamRecognizer()
     @State private var isImporting: Bool = false
+    @State var audioPlayer: AVAudioPlayer!
     
     var body: some View {
         NavigationView{
@@ -42,7 +43,9 @@ struct JHomescreen: View {
                         Text("Saved")
                             .tag(false)
                             .foregroundColor(.black)
-                    }.pickerStyle(SegmentedPickerStyle())
+                    }
+                    .font(.largeTitle)
+                    .pickerStyle(SegmentedPickerStyle())
                     VStack{
                         if select {
                             ZStack{
@@ -122,12 +125,14 @@ struct JHomescreen: View {
                                 })
                                 {Text("Saved Raga 1")}
                                     .padding()
+                                
                                 Button(action:{
                                     self.playSound2()
                                     self.addData(filename: "sample-6s", length: "6sec")
                                 })
                                 {Text("Saved Raga 2")}
                                     .padding()
+                                
                                 Button(action:{
                                     self.playSound3()
                                     self.addData(filename: "sample-15s", length: "15sec")
@@ -135,11 +140,13 @@ struct JHomescreen: View {
                                 })
                                 {Text("Saved Raga 3")}
                                     .padding()
+                                
                                 Button(action:{
                                     //self.importFiles(filename: "sample-15s", length: )
                                 })
                                 {Text("Import Files")}
                                     .padding()
+                                
                                 Button(action:{
                                     isImporting.toggle()
                                     self.addData(filename: "", length: "")
@@ -147,19 +154,28 @@ struct JHomescreen: View {
                                 })
                                 {Text("Import")}
                                     .padding()
+                                
+                                Button(action:{
+                                    //
+                                })
+                                {Image(systemName:"playpause.fill")}
+                                    .padding()
                             }
                         }
-                    }
+                    }.padding()
+                        .onAppear{
+                            let url = Bundle.main.url(forResource: "sound", withExtension: "mp3")
+                            self.getData()
+                        }
                 }
             }
-            
             .navigationTitle("Raga-Mania")
             .padding()
             .background(
                 LinearGradient(gradient: Gradient(colors: [.yellow, .green]), startPoint: .top, endPoint: .bottom))
             .fileImporter(
                 isPresented: $isImporting,
-                allowedContentTypes: [UTType.plainText],
+                allowedContentTypes: [.mp3],
                 allowsMultipleSelection: false
             ) { result in
                 do {
@@ -175,6 +191,7 @@ struct JHomescreen: View {
             }
         }
     }
+
     
     
 func addData(filename: String, length: String){
@@ -184,6 +201,10 @@ func addData(filename: String, length: String){
         }
     }
 }
+ 
+    func getData(){
+        let asset = AVAsset(url: self.audioPlayer.url!)
+    }
     
     func playSound1(){
         let url = Bundle.main.url(forResource: "sample-9s", withExtension: "mp3")
