@@ -17,6 +17,9 @@ struct ContentView: View {
     @State private var password = ""
     @State private var select = false
     @State private var isActive = false
+    @State private var showResetPasswordConfirmation = false
+    @State private var resetPasswordConfirmationAlert = false
+    
     @ObservedObject var firebase = FirebaseInterface.instance
 
     var body: some View {
@@ -93,6 +96,44 @@ struct ContentView: View {
                             .frame(width: 250, height: 100, alignment: .center)
                             .padding()
                     }
+                    
+                    Button {
+                        showResetPasswordConfirmation = true
+                    } label: {
+                        Text("Forgot password")
+                            .foregroundColor(.white)
+                    }
+                    .alert(
+                        "Reset password",
+                        isPresented: $showResetPasswordConfirmation) {
+                            Button {
+                                resetPassword()
+                            } label: {
+                                Text("Reset password")
+                            }.keyboardShortcut(.defaultAction)
+                            Button {
+                                
+                            } label: {
+                                Text("Cancel")
+                            }.keyboardShortcut(.cancelAction)
+
+                        } message: {
+                            Text("Reset password for \(email)?")
+                        }
+                        .alert(
+                            "Email sent",
+                            isPresented: $resetPasswordConfirmationAlert) {
+                                
+                                Button {
+                                    
+                                } label: {
+                                    Text("OK")
+                                }.keyboardShortcut(.defaultAction)
+
+                            } message: {
+                                Text("A password reset email was sent to \(email). Check your email and follow instructions.")
+                            }
+
                 }.navigationTitle(select ? "Login" :"Create Account")
                     .padding()
                     .background(
@@ -182,6 +223,16 @@ struct ContentView: View {
             //isActive = false
         }
     }
+    
+    func resetPassword() {
+        Auth.auth().sendPasswordReset(withEmail: email) { error in
+            if error == nil {
+                self.resetPasswordConfirmationAlert = true
+            }
+            // error aler
+        }
+    }
+    
 }
 
 
