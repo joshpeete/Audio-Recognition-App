@@ -56,10 +56,11 @@ struct JHomescreen: View {
                                 }
                             }else{
                                 VStack{
-                                    Button(action:{
-                                        self.playSound1()
-                                    })
-                                    {Text("Saved Raga 1")}
+//                                    Button(action:{
+//                                        self.playSound1()
+//                                    })
+//                                    {Text("Saved Raga 1")}
+                                    Button(action: {printres()}){Text("RuN")}
                                         .padding()
                                     Button(action:{
                                         self.playSound2()

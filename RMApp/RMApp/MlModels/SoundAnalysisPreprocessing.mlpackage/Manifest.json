@@ -1,0 +1,24 @@
+{
+    "fileFormatVersion": "1.0.0",
+    "itemInfoEntries": {
+        "3982FE65-B7D6-42A6-980D-BA0FA57D85ED": {
+            "author": "com.apple.CoreML",
+            "description": "External FeatureDescription Overlay",
+            "name": "FeatureDescriptions.json",
+            "path": "com.apple.CoreML/FeatureDescriptions.json"
+        },
+        "B29A2CA5-D8E2-40B4-B677-F9546B84E3F8": {
+            "author": "com.apple.CoreML",
+            "description": "External Metadata Overlay",
+            "name": "Metadata.json",
+            "path": "com.apple.CoreML/Metadata.json"
+        },
+        "FB3638A4-29D5-4E71-8063-636D6CDFF589": {
+            "author": "com.apple.CoreML",
+            "description": "CoreML Model Specification",
+            "name": "SoundAnalysisPreprocessing.mlmodel",
+            "path": "com.apple.CoreML/SoundAnalysisPreprocessing.mlmodel"
+        }
+    },
+    "rootModelIdentifier": "FB3638A4-29D5-4E71-8063-636D6CDFF589"
+}
