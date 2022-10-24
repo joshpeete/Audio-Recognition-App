@@ -12,6 +12,10 @@ import Firebase
 struct RMAppApp: App {
     init(){
         FirebaseApp.configure()
+        //This will change the font size
+           UISegmentedControl.appearance().setTitleTextAttributes([.font : UIFont.preferredFont(forTextStyle: .headline)], for: .highlighted)
+           UISegmentedControl.appearance().setTitleTextAttributes([.font : UIFont.preferredFont(forTextStyle: .largeTitle)], for: .normal)
+            
     }
     
     var body: some Scene {

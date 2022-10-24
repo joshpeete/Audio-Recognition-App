@@ -32,7 +32,7 @@ struct ContentView: View {
                             Text("Login")
                                 .tag(true)
                                 .foregroundColor(.white)
-                            Text("Create Account")
+                            Text("Register")
                                 .tag(false)//start on create account tab
                                 .foregroundColor(.black)
                         }.pickerStyle(SegmentedPickerStyle())
@@ -64,7 +64,7 @@ struct ContentView: View {
                                     .padding(12)
                             }
                         Rectangle()//line under email
-                            .frame(width: 350, height: 1)
+                            .frame(width: 400, height: 1)
                             .foregroundColor(.black)
                         
                         SecureField("Password",text:$password)
@@ -82,7 +82,7 @@ struct ContentView: View {
                             }
                     }
                     Rectangle()//line under password
-                        .frame(width: 350, height: 1)
+                        .frame(width: 400, height: 1)
                         .foregroundColor(.black)
                     
                     Button{
@@ -92,10 +92,12 @@ struct ContentView: View {
                             Text(select ? "Login" :"Create Account")
                                 .foregroundColor(.white)
                                 .padding()
+                                .cornerRadius(12)
                                 .font(.system(size: 24, weight: .semibold))
                         }.background(Color.blue)
                             .frame(width: 250, height: 100, alignment: .center)
                             .padding()
+                            .cornerRadius(12)
                     }
                             ZStack{
                                 Button {

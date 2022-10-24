@@ -25,7 +25,6 @@ struct Track: Identifiable{
 }
 
 struct JHomescreen: View {
-    private var cover: [String] = ["sound1.mp3","sound2.mp3","sound3.mp3"].reversed()
     @State private var select = false
     @State private var start = false
     @State private var saved = ""
@@ -55,8 +54,10 @@ struct JHomescreen: View {
                                 .foregroundColor(.black)
                                 .font(.largeTitle)
                         }
-                        .font(.largeTitle)
                         .pickerStyle(SegmentedPickerStyle())
+                        .font(.largeTitle)
+                        .padding()
+                        
                         VStack{
                             if select {
 //Start of HomePage
@@ -98,7 +99,7 @@ struct JHomescreen: View {
                                     }else{
                                         ZStack{
                                             Rectangle()
-                                                .frame(width: 380,height: 420)
+                                                .frame(width: 380,height: 370)
                                                 .cornerRadius(12)
                                                 .foregroundColor(color.opacity(0.9))
                                                 .shadow(radius: 4)
@@ -131,6 +132,8 @@ struct JHomescreen: View {
                                         //
                                         Text("\(track.title)")
                                             .padding()
+                                            .foregroundColor(.black)
+                                            .border(.black, width: 4)
                                         
                                         Button(action:{
                                             isImporting.toggle()
