@@ -17,10 +17,12 @@ struct ContentView: View {
     @State private var password = ""
     @State private var select = false
     @State private var isActive = false
-    @State private var userIsLoggedIn = false
-
+    @State private var showResetPasswordConfirmation = false
+    @State private var resetPasswordConfirmationAlert = false
+    @ObservedObject var firebase = FirebaseInterface.instance
+    
     var body: some View {
-        if userIsLoggedIn{
+        if firebase.userIsLoggedIn{
             JHomescreen()//if the user creates an account or logs in send them to the home page
         }else{
             NavigationView{
@@ -86,26 +88,63 @@ struct ContentView: View {
                     Button{
                         handleAction()
                     }label: {
-                        HStack{
-                            Spacer()
+                        ZStack{
                             Text(select ? "Login" :"Create Account")
                                 .foregroundColor(.white)
-                                .padding(.vertical,20)
+                                .padding()
                                 .font(.system(size: 24, weight: .semibold))
-                            Spacer()
                         }.background(Color.blue)
                             .frame(width: 250, height: 100, alignment: .center)
                             .padding()
                     }
-                }.navigationTitle(select ? "Login" :"Create Account")
-                    .padding()
-                    .background(
-                        LinearGradient(gradient: Gradient(colors: [.yellow, .green]), startPoint: .top, endPoint: .bottom)
-                    )
+                            ZStack{
+                                Button {
+                                    showResetPasswordConfirmation = true
+                                } label: {
+                                    Text("Forgot password?")
+                                        .foregroundColor(.blue)
+                                        .padding()
+                                }
+                                .alert(
+                                    "Reset password",
+                                    isPresented: $showResetPasswordConfirmation) {
+                                        Button {
+                                            resetPassword()
+                                        } label: {
+                                            Text("Reset password")
+                                        }
+                                        .keyboardShortcut(.defaultAction)
+                                        .padding()
+                                        Button {
+                                            
+                                        } label: {
+                                            Text("Cancel")
+                                        }
+                                        .keyboardShortcut(.cancelAction)
+                                        .padding()
+                                        
+                                    } message: {
+                                        Text("Reset password for \(email)?")
+                                    }
+                                    .alert(
+                                        "Email sent",
+                                        isPresented: $resetPasswordConfirmationAlert) {
+                                            
+                                            Button {
+                                                
+                                            } label: {
+                                                Text("OK")
+                                            }.keyboardShortcut(.defaultAction)
+                                            
+                                        } message: {
+                                            Text("A password reset email was sent to \(email). Check your email and follow instructions.")
+                                        }
+                            }
+                    }
+                .navigationTitle(select ? "Login" :"Create Account")
+                .background(LinearGradient(gradient: Gradient(colors: [.yellow, .green]), startPoint: .top, endPoint: .bottom))
             }
             .navigationViewStyle(StackNavigationViewStyle())
-            .ignoresSafeArea()
-            
         }
     }
     func handleAction() {//links buttons to functions
@@ -116,27 +155,35 @@ struct ContentView: View {
         }
     }
     
+    //vaishu and josh
     func loginUser() {//login func
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             if let error = error{
                 print(error.localizedDescription)
             }
-            else if let user = user {
-                print(user)
-                userIsLoggedIn = true
-                isActive = false
-            }
+            firebase.userIsLoggedIn = true
+            isActive = false
+            Playlist.instance.update()
         }
     }
     
     func createNewAccount() {//createacc func
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
-           if error != nil {
+            if error != nil {
                 print(error?.localizedDescription ?? "")
-    }
+            }
             //add text pop-up that says user account created
             //userIsLoggedIn = true
             //isActive = false
+        }
+    }
+    
+    func resetPassword() {
+        Auth.auth().sendPasswordReset(withEmail: email) { error in
+            if error == nil {
+                self.resetPasswordConfirmationAlert = true
+            }
+            // error aler
         }
     }
 }
