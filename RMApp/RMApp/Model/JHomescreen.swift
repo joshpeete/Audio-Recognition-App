@@ -59,6 +59,7 @@ struct JHomescreen: View {
                         .pickerStyle(SegmentedPickerStyle())
                         VStack{
                             if select {
+//Start of HomePage
                                 ZStack{
                                     if let track = shazamSession.matchedTrack{
                                         //Blurred Image
@@ -97,9 +98,8 @@ struct JHomescreen: View {
                                     }else{
                                         ZStack{
                                             Rectangle()
-                                                .frame(width: 320,height: 350)
-                                                .border(.white,width: 6.0)
-                                                .cornerRadius(4)
+                                                .frame(width: 380,height: 420)
+                                                .cornerRadius(12)
                                                 .foregroundColor(color.opacity(0.9))
                                                 .shadow(radius: 4)
                                             HStack{
@@ -122,11 +122,11 @@ struct JHomescreen: View {
                                 }
                                 .alert(shazamSession.errorMsg, isPresented: $shazamSession.showError){
                                     Button("Close",role: .cancel){
-                                        
                                     }
                                 }
+//End of HomePage
                             }else{
-                                ZStack{
+//Start of Saved Page
                                     ForEach(playlist.tracks) { track in
                                         //
                                         Text("\(track.title)")
@@ -168,8 +168,8 @@ struct JHomescreen: View {
                                             Swift.print(error.localizedDescription)
                                         }
                                 }
-                                }
                             }
+//End of Saved Page
                         }
                     }
                 }

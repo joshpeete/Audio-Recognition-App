@@ -145,6 +145,7 @@ struct ContentView: View {
                 .background(LinearGradient(gradient: Gradient(colors: [.yellow, .green]), startPoint: .top, endPoint: .bottom))
             }
             .navigationViewStyle(StackNavigationViewStyle())
+            .ignoresSafeArea()
         }
     }
     func handleAction() {//links buttons to functions
