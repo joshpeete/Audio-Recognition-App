@@ -23,7 +23,7 @@ struct ContentView: View {
     
     var body: some View {
         if firebase.userIsLoggedIn{
-            JHomescreen()//if the user creates an account or logs in send them to the home page
+            JHomescreen()//if the user creates an account AND logs in send them to the home page
         }else{
             NavigationView{
                 ScrollView{
@@ -31,7 +31,7 @@ struct ContentView: View {
                         Picker(selection: $select, label: Text("Toggle Button")){
                             Text("Login")
                                 .tag(true)
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                             Text("Register")
                                 .tag(false)//start on create account tab
                                 .foregroundColor(.black)
@@ -90,23 +90,24 @@ struct ContentView: View {
                     }label: {
                         ZStack{
                             Text(select ? "Login" :"Create Account")
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                                 .padding()
-                                .cornerRadius(12)
                                 .font(.system(size: 24, weight: .semibold))
-                        }.background(Color.blue)
-                            .frame(width: 250, height: 100, alignment: .center)
-                            .padding()
-                            .cornerRadius(12)
+                        }
+                        .cornerRadius(12)
+                        .background(Color.blue)
+                        .frame(width: 250, height: 100, alignment: .center)
+                        .padding()
                     }
                             ZStack{
                                 Button {
                                     showResetPasswordConfirmation = true
                                 } label: {
                                     Text("Forgot password?")
-                                        .foregroundColor(.blue)
+                                        .foregroundColor(.black)
                                         .padding()
                                 }
+                                .buttonStyle(.bordered)
                                 .alert(
                                     "Reset password",
                                     isPresented: $showResetPasswordConfirmation) {
@@ -151,10 +152,14 @@ struct ContentView: View {
         }
     }
     func handleAction() {//links buttons to functions
-        if select {
-            loginUser()
-        } else {
-            createNewAccount()
+        if email.isEmpty || password.isEmpty{
+            
+        }else{
+            if select {
+                loginUser()
+            } else {
+                createNewAccount()
+            }
         }
     }
     
@@ -186,7 +191,7 @@ struct ContentView: View {
             if error == nil {
                 self.resetPasswordConfirmationAlert = true
             }
-            // error aler
+            // error alert
         }
     }
 }

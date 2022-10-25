@@ -48,7 +48,7 @@ struct JHomescreen: View {
                         Picker(selection: $select, label: Text("Toggle Button")){
                             Text("Home")
                                 .tag(true)
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                                 .font(.largeTitle)
                             Text("Saved")
                                 .tag(false)
@@ -189,6 +189,7 @@ struct JHomescreen: View {
             }
             .navigationTitle("Raga-Mania")
             .padding()
+            .foregroundColor(.black)
             .background(
                 LinearGradient(gradient: Gradient(colors: [.yellow, .green]), startPoint: .top, endPoint: .bottom))
         }
