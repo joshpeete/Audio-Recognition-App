@@ -1,0 +1,15 @@
+{
+  "Outputs" : {
+    "preprocessedAudioSamples" : {
+      "MLFeatureShortDescription" : "--"
+    }
+  },
+  "Inputs" : {
+    "audioSamples" : {
+      "MLFeatureShortDescription" : "--"
+    }
+  },
+  "TrainingInputs" : {
+
+  }
+}

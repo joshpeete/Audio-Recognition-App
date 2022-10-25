@@ -34,6 +34,13 @@
 		D7296A7C28E3B34A00D0049E /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = D7296A7B28E3B34A00D0049E /* FirebaseStorage */; };
 		D7296A7E28E3B81800D0049E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D7296A7D28E3B81800D0049E /* GoogleService-Info.plist */; };
 		D7296A8028E3DD2B00D0049E /* JHomescreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7296A7F28E3DD2B00D0049E /* JHomescreen.swift */; };
+		FB2CB4A92903097700202DD6 /* PythonKit in Frameworks */ = {isa = PBXBuildFile; productRef = FB2CB4A82903097700202DD6 /* PythonKit */; };
+		FB2CB4AB29036E1600202DD6 /* InputConversion.py in Resources */ = {isa = PBXBuildFile; fileRef = FB2CB4AA29036E1600202DD6 /* InputConversion.py */; };
+		FB2CB4AD29036E7B00202DD6 /* asavari01.wav in Resources */ = {isa = PBXBuildFile; fileRef = FB2CB4AC29036E7B00202DD6 /* asavari01.wav */; };
+		FB5CA16429060C54008A0960 /* SoundAnalysisPreprocessing.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = FB5CA1622905DFF4008A0960 /* SoundAnalysisPreprocessing.mlpackage */; };
+		FB5CA16529060C5B008A0960 /* MlModelV3.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = FB5CA15E2905C12C008A0960 /* MlModelV3.mlmodel */; };
+		FB5CA16929065B04008A0960 /* MLModelRnn.mlkitmodel in Sources */ = {isa = PBXBuildFile; fileRef = FB5CA16829065B04008A0960 /* MLModelRnn.mlkitmodel */; };
+		FB7C6E3029027798004507E5 /* RagaRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7C6E2F29027798004507E5 /* RagaRecognizer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +88,12 @@
 		D7296A6228E3A22400D0049E /* Splashview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Splashview.swift; sourceTree = "<group>"; };
 		D7296A7D28E3B81800D0049E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D7296A7F28E3DD2B00D0049E /* JHomescreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JHomescreen.swift; sourceTree = "<group>"; };
+		FB2CB4AA29036E1600202DD6 /* InputConversion.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = InputConversion.py; sourceTree = "<group>"; };
+		FB2CB4AC29036E7B00202DD6 /* asavari01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = asavari01.wav; sourceTree = "<group>"; };
+		FB5CA15E2905C12C008A0960 /* MlModelV3.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MlModelV3.mlmodel; sourceTree = "<group>"; };
+		FB5CA1622905DFF4008A0960 /* SoundAnalysisPreprocessing.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = SoundAnalysisPreprocessing.mlpackage; sourceTree = "<group>"; };
+		FB5CA16829065B04008A0960 /* MLModelRnn.mlkitmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MLModelRnn.mlkitmodel; sourceTree = "<group>"; };
+		FB7C6E2F29027798004507E5 /* RagaRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RagaRecognizer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +105,7 @@
 				D7296A7C28E3B34A00D0049E /* FirebaseStorage in Frameworks */,
 				D7296A7628E3B34A00D0049E /* FirebaseAuth in Frameworks */,
 				D7296A7A28E3B34A00D0049E /* FirebaseFirestore in Frameworks */,
+				FB2CB4A92903097700202DD6 /* PythonKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,14 +139,12 @@
 		D728F9B128FF19B5009989EB /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				D728F9C529070D6A009989EB /* New Group */,
-				D728F9B92904B100009989EB /* FirebaseInterface.swift */,
-				D728F9BB2904B10A009989EB /* DownloadManager.swift */,
-				D728F9C32906D827009989EB /* InputConversion.py */,
-				D728F9BF2906D817009989EB /* asavari01.wav */,
-				D728F9BD2904B114009989EB /* Playlist.swift */,
-				D728F9CA29072C59009989EB /* RagaRecognizer.swift */,
+
+				FB2CB4AC29036E7B00202DD6 /* asavari01.wav */,
+				FB2CB4AA29036E1600202DD6 /* InputConversion.py */,
+
 				D728F9B528FF78E3009989EB /* ShazamRecognizer.swift */,
+				FB7C6E2F29027798004507E5 /* RagaRecognizer.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -157,6 +169,7 @@
 		D7296A2C28E3A1B900D0049E = {
 			isa = PBXGroup;
 			children = (
+				FB2CB4A4290303D200202DD6 /* Packages */,
 				D7296A3728E3A1B900D0049E /* RMApp */,
 				D7296A4828E3A1BA00D0049E /* RMAppTests */,
 				D7296A5228E3A1BA00D0049E /* RMAppUITests */,
@@ -177,6 +190,7 @@
 		D7296A3728E3A1B900D0049E /* RMApp */ = {
 			isa = PBXGroup;
 			children = (
+				FB7C6E312902781E004507E5 /* MlModels */,
 				D728F9B128FF19B5009989EB /* ViewModel */,
 				D728F9AF28FF199E009989EB /* View */,
 				D728F9B228FF19BF009989EB /* Model */,
@@ -217,6 +231,23 @@
 			path = RMAppUITests;
 			sourceTree = "<group>";
 		};
+		FB2CB4A4290303D200202DD6 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		FB7C6E312902781E004507E5 /* MlModels */ = {
+			isa = PBXGroup;
+			children = (
+				FB5CA1622905DFF4008A0960 /* SoundAnalysisPreprocessing.mlpackage */,
+				FB5CA16829065B04008A0960 /* MLModelRnn.mlkitmodel */,
+				FB5CA15E2905C12C008A0960 /* MlModelV3.mlmodel */,
+			);
+			path = MlModels;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -238,6 +269,7 @@
 				D7296A7728E3B34A00D0049E /* FirebaseDatabase */,
 				D7296A7928E3B34A00D0049E /* FirebaseFirestore */,
 				D7296A7B28E3B34A00D0049E /* FirebaseStorage */,
+				FB2CB4A82903097700202DD6 /* PythonKit */,
 			);
 			productName = RMApp;
 			productReference = D7296A3528E3A1B900D0049E /* RMApp.app */;
@@ -313,6 +345,7 @@
 			mainGroup = D7296A2C28E3A1B900D0049E;
 			packageReferences = (
 				D7296A7428E3B34A00D0049E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				FB2CB4A72903097700202DD6 /* XCRemoteSwiftPackageReference "PythonKit" */,
 			);
 			productRefGroup = D7296A3628E3A1B900D0049E /* Products */;
 			projectDirPath = "";
@@ -331,13 +364,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7296A4028E3A1BA00D0049E /* Preview Assets.xcassets in Resources */,
+				FB2CB4AD29036E7B00202DD6 /* asavari01.wav in Resources */,
 				D728F9A928F8EEF5009989EB /* sample-6s.mp3 in Resources */,
 				D728F9C02906D817009989EB /* asavari01.wav in Resources */,
 				D7296A3D28E3A1BA00D0049E /* Assets.xcassets in Resources */,
 				D728F9A528EE2130009989EB /* sample-9s.mp3 in Resources */,
 				D728F9A728F8EEE7009989EB /* sample-15s.mp3 in Resources */,
 				D7296A7E28E3B81800D0049E /* GoogleService-Info.plist in Resources */,
-				D728F9C42906D828009989EB /* InputConversion.py in Resources */,
+
+				FB2CB4AB29036E1600202DD6 /* InputConversion.py in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,14 +398,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7296A6328E3A22400D0049E /* Splashview.swift in Sources */,
+				FB5CA16929065B04008A0960 /* MLModelRnn.mlkitmodel in Sources */,
+				FB7C6E3029027798004507E5 /* RagaRecognizer.swift in Sources */,
 				D7296A8028E3DD2B00D0049E /* JHomescreen.swift in Sources */,
-				D728F9BE2904B114009989EB /* Playlist.swift in Sources */,
+
+				FB5CA16529060C5B008A0960 /* MlModelV3.mlmodel in Sources */,
+
 				D728F9B628FF78E3009989EB /* ShazamRecognizer.swift in Sources */,
 				D728F9C729070DDE009989EB /* MLModelRnn.mlkitmodel in Sources */,
 				D728F9BC2904B10B009989EB /* DownloadManager.swift in Sources */,
 				D728F9CB29072C59009989EB /* RagaRecognizer.swift in Sources */,
 				D728F9C929070DE6009989EB /* SoundAnalysisPreprocessing.mlmodel in Sources */,
 				D7296A3B28E3A1B900D0049E /* ContentView.swift in Sources */,
+				FB5CA16429060C54008A0960 /* SoundAnalysisPreprocessing.mlpackage in Sources */,
 				D7296A3928E3A1B900D0049E /* RMAppApp.swift in Sources */,
 				D728F9A328EDED7D009989EB /* CardView.swift in Sources */,
 				D728F9BA2904B100009989EB /* FirebaseInterface.swift in Sources */,
@@ -531,10 +571,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = RMApp/RMApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				COREML_CODEGEN_LANGUAGE = Swift;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"RMApp/Preview Content\"";
 				DEVELOPMENT_TEAM = XKH8QN5NNX;
 				ENABLE_PREVIEWS = YES;
+				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app requires access to the Microphone to use ShazamKit";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -562,10 +604,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = RMApp/RMApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				COREML_CODEGEN_LANGUAGE = Swift;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"RMApp/Preview Content\"";
 				DEVELOPMENT_TEAM = XKH8QN5NNX;
 				ENABLE_PREVIEWS = YES;
+				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app requires access to the Microphone to use ShazamKit";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -712,6 +756,14 @@
 				minimumVersion = 9.0.0;
 			};
 		};
+		FB2CB4A72903097700202DD6 /* XCRemoteSwiftPackageReference "PythonKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pvieito/PythonKit";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -734,6 +786,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D7296A7428E3B34A00D0049E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		FB2CB4A82903097700202DD6 /* PythonKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB2CB4A72903097700202DD6 /* XCRemoteSwiftPackageReference "PythonKit" */;
+			productName = PythonKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -86,7 +86,6 @@ func testModel()->SoundAnalysisPreprocessingOutput?
 
 
 
-
 func testModel2()->MLModelRnnOutput?
 {
     let multi = testModel()!.preprocessedAudioSamplesShapedArray
@@ -111,20 +110,16 @@ func testModel2()->MLModelRnnOutput?
 
 
 
+
 func printres()->String!{
     let pred = testModel()!.preprocessedAudioSamples
    
+
     let pred3 = testModel()!.preprocessedAudioSamplesShapedArray
     let pred4 = testModel()!.self
     
     
     let ohgod=testModel2()!.IdentityShapedArray
-    
-   
-    
-    //print(ohgod)
-    
-    
     
     
     var singlresult = ohgod.scalars
