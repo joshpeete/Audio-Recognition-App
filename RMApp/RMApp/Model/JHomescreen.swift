@@ -33,6 +33,7 @@ struct JHomescreen: View {
     @State private var isImporting: Bool = false
     @State var audioPlayer: AVAudioPlayer!
     @ObservedObject var playlist = Playlist.instance
+    @State var flag = false
     
     var body: some View{
         NavigationView{
@@ -157,7 +158,16 @@ struct JHomescreen: View {
                                                 .padding()
                                                 .buttonStyle(.bordered)
                                         }
+                                        Button(action: {flag = true}){Text("Raga")}
+                                            .padding()
+                                            .buttonStyle(.bordered)
+                                        if flag == true{
+                                            VStack{
+                                                Text("\(printres())")
+                                            }
+                                        }
                                     }
+                                
                                     .fileImporter( isPresented: $isImporting, allowedContentTypes: [.wav], allowsMultipleSelection: false) { result in
                                         do {
                                             guard let selectedFile: URL = try result.get().first else { return }

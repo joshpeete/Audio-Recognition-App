@@ -15,6 +15,11 @@
 		D728F9BA2904B100009989EB /* FirebaseInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D728F9B92904B100009989EB /* FirebaseInterface.swift */; };
 		D728F9BC2904B10B009989EB /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D728F9BB2904B10A009989EB /* DownloadManager.swift */; };
 		D728F9BE2904B114009989EB /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = D728F9BD2904B114009989EB /* Playlist.swift */; };
+		D728F9C02906D817009989EB /* asavari01.wav in Resources */ = {isa = PBXBuildFile; fileRef = D728F9BF2906D817009989EB /* asavari01.wav */; };
+		D728F9C42906D828009989EB /* InputConversion.py in Resources */ = {isa = PBXBuildFile; fileRef = D728F9C32906D827009989EB /* InputConversion.py */; };
+		D728F9C729070DDE009989EB /* MLModelRnn.mlkitmodel in Sources */ = {isa = PBXBuildFile; fileRef = D728F9C629070DDE009989EB /* MLModelRnn.mlkitmodel */; };
+		D728F9C929070DE6009989EB /* SoundAnalysisPreprocessing.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = D728F9C829070DE6009989EB /* SoundAnalysisPreprocessing.mlmodel */; };
+		D728F9CB29072C59009989EB /* RagaRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D728F9CA29072C59009989EB /* RagaRecognizer.swift */; };
 		D7296A3928E3A1B900D0049E /* RMAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7296A3828E3A1B900D0049E /* RMAppApp.swift */; };
 		D7296A3B28E3A1B900D0049E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7296A3A28E3A1B900D0049E /* ContentView.swift */; };
 		D7296A3D28E3A1BA00D0049E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7296A3C28E3A1BA00D0049E /* Assets.xcassets */; };
@@ -58,6 +63,11 @@
 		D728F9B92904B100009989EB /* FirebaseInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseInterface.swift; sourceTree = "<group>"; };
 		D728F9BB2904B10A009989EB /* DownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		D728F9BD2904B114009989EB /* Playlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
+		D728F9BF2906D817009989EB /* asavari01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = asavari01.wav; sourceTree = "<group>"; };
+		D728F9C32906D827009989EB /* InputConversion.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = InputConversion.py; sourceTree = "<group>"; };
+		D728F9C629070DDE009989EB /* MLModelRnn.mlkitmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MLModelRnn.mlkitmodel; sourceTree = "<group>"; };
+		D728F9C829070DE6009989EB /* SoundAnalysisPreprocessing.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = SoundAnalysisPreprocessing.mlmodel; sourceTree = "<group>"; };
+		D728F9CA29072C59009989EB /* RagaRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RagaRecognizer.swift; sourceTree = "<group>"; };
 		D7296A3528E3A1B900D0049E /* RMApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RMApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7296A3828E3A1B900D0049E /* RMAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMAppApp.swift; sourceTree = "<group>"; };
 		D7296A3A28E3A1B900D0049E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -115,9 +125,13 @@
 		D728F9B128FF19B5009989EB /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				D728F9C529070D6A009989EB /* New Group */,
 				D728F9B92904B100009989EB /* FirebaseInterface.swift */,
 				D728F9BB2904B10A009989EB /* DownloadManager.swift */,
+				D728F9C32906D827009989EB /* InputConversion.py */,
+				D728F9BF2906D817009989EB /* asavari01.wav */,
 				D728F9BD2904B114009989EB /* Playlist.swift */,
+				D728F9CA29072C59009989EB /* RagaRecognizer.swift */,
 				D728F9B528FF78E3009989EB /* ShazamRecognizer.swift */,
 			);
 			path = ViewModel;
@@ -126,9 +140,18 @@
 		D728F9B228FF19BF009989EB /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D728F9C629070DDE009989EB /* MLModelRnn.mlkitmodel */,
+				D728F9C829070DE6009989EB /* SoundAnalysisPreprocessing.mlmodel */,
 				D7296A7F28E3DD2B00D0049E /* JHomescreen.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		D728F9C529070D6A009989EB /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		D7296A2C28E3A1B900D0049E = {
@@ -309,10 +332,12 @@
 			files = (
 				D7296A4028E3A1BA00D0049E /* Preview Assets.xcassets in Resources */,
 				D728F9A928F8EEF5009989EB /* sample-6s.mp3 in Resources */,
+				D728F9C02906D817009989EB /* asavari01.wav in Resources */,
 				D7296A3D28E3A1BA00D0049E /* Assets.xcassets in Resources */,
 				D728F9A528EE2130009989EB /* sample-9s.mp3 in Resources */,
 				D728F9A728F8EEE7009989EB /* sample-15s.mp3 in Resources */,
 				D7296A7E28E3B81800D0049E /* GoogleService-Info.plist in Resources */,
+				D728F9C42906D828009989EB /* InputConversion.py in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,7 +366,10 @@
 				D7296A8028E3DD2B00D0049E /* JHomescreen.swift in Sources */,
 				D728F9BE2904B114009989EB /* Playlist.swift in Sources */,
 				D728F9B628FF78E3009989EB /* ShazamRecognizer.swift in Sources */,
+				D728F9C729070DDE009989EB /* MLModelRnn.mlkitmodel in Sources */,
 				D728F9BC2904B10B009989EB /* DownloadManager.swift in Sources */,
+				D728F9CB29072C59009989EB /* RagaRecognizer.swift in Sources */,
+				D728F9C929070DE6009989EB /* SoundAnalysisPreprocessing.mlmodel in Sources */,
 				D7296A3B28E3A1B900D0049E /* ContentView.swift in Sources */,
 				D7296A3928E3A1B900D0049E /* RMAppApp.swift in Sources */,
 				D728F9A328EDED7D009989EB /* CardView.swift in Sources */,
