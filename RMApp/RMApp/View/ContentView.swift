@@ -99,51 +99,51 @@ struct ContentView: View {
                         .frame(width: 250, height: 100, alignment: .center)
                         .padding()
                     }
-                            ZStack{
+                    ZStack{
+                        Button {
+                            showResetPasswordConfirmation = true
+                        } label: {
+                            Text("Forgot password?")
+                                .foregroundColor(.black)
+                                .padding()
+                        }
+                        .buttonStyle(.bordered)
+                        .alert(
+                            "Reset password",
+                            isPresented: $showResetPasswordConfirmation) {
                                 Button {
-                                    showResetPasswordConfirmation = true
+                                    resetPassword()
                                 } label: {
-                                    Text("Forgot password?")
-                                        .foregroundColor(.black)
-                                        .padding()
+                                    Text("Reset password")
                                 }
-                                .buttonStyle(.bordered)
-                                .alert(
-                                    "Reset password",
-                                    isPresented: $showResetPasswordConfirmation) {
-                                        Button {
-                                            resetPassword()
-                                        } label: {
-                                            Text("Reset password")
-                                        }
-                                        .keyboardShortcut(.defaultAction)
-                                        .padding()
-                                        Button {
-                                            
-                                        } label: {
-                                            Text("Cancel")
-                                        }
-                                        .keyboardShortcut(.cancelAction)
-                                        .padding()
-                                        
-                                    } message: {
-                                        Text("Reset password for \(email)?")
-                                    }
-                                    .alert(
-                                        "Email sent",
-                                        isPresented: $resetPasswordConfirmationAlert) {
-                                            
-                                            Button {
-                                                
-                                            } label: {
-                                                Text("OK")
-                                            }.keyboardShortcut(.defaultAction)
-                                            
-                                        } message: {
-                                            Text("A password reset email was sent to \(email). Check your email and follow instructions.")
-                                        }
+                                .keyboardShortcut(.defaultAction)
+                                .padding()
+                                Button {
+                                    
+                                } label: {
+                                    Text("Cancel")
+                                }
+                                .keyboardShortcut(.cancelAction)
+                                .padding()
+                                
+                            } message: {
+                                Text("Reset password for \(email)?")
                             }
+                            .alert(
+                                "Email sent",
+                                isPresented: $resetPasswordConfirmationAlert) {
+                                    
+                                    Button {
+                                        
+                                    } label: {
+                                        Text("OK")
+                                    }.keyboardShortcut(.defaultAction)
+                                    
+                                } message: {
+                                    Text("A password reset email was sent to \(email). Check your email and follow instructions.")
+                                }
                     }
+                }
                 .navigationTitle(select ? "Login" :"Create Account")
                 .background(LinearGradient(gradient: Gradient(colors: [.yellow, .green]), startPoint: .top, endPoint: .bottom))
             }
@@ -151,16 +151,27 @@ struct ContentView: View {
             .ignoresSafeArea()
         }
     }
+    
+    
     func handleAction() {//links buttons to functions
         if email.isEmpty || password.isEmpty{
             
         }else{
-            if select {
-                loginUser()
-            } else {
-                createNewAccount()
+            if isValidEmail(email){
+                if select {
+                    loginUser()
+                } else {
+                    createNewAccount()
+                }
             }
         }
+    }
+    
+    func isValidEmail(_ email: String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        
+        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailPred.evaluate(with: email)
     }
     
     //vaishu and josh
