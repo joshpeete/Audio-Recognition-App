@@ -128,8 +128,14 @@ struct JHomescreen: View {
                                 }
 //End of HomePage
                             }else{
+                                
+                                if flag == true{
+                                    VStack{
+                                        Label("Raga: \(printres())", systemImage: "music.note.list").background(.white, in: RoundedRectangle(cornerRadius: 8))
+                                    }
+                                }
 //Start of Saved Page
-                                    ForEach(playlist.tracks) { track in
+                                ForEach(playlist.tracks) { track in
                                         //
                                         Text("\(track.title)")
                                             .padding()
@@ -158,15 +164,17 @@ struct JHomescreen: View {
                                                 .padding()
                                                 .buttonStyle(.bordered)
                                         }
-                                        Button(action: {flag = true}){Text("Identify Raga")}
+                                    Button(action: {self.flag = true}){Text("Identify Raga")}
                                             .padding()
                                             .buttonStyle(.bordered).foregroundColor(.black)
-                                        if flag == true{
-                                            VStack{
-                                                Text("\(printres())")
-                                            }
-                                        }
+                                       
                                     }
+                                
+//                                if flag == true{
+//                                    VStack{
+//                                        Text("\(printres())")
+//                                    }
+//                                }
                                 
                                 HStack{ Button(action:{
                                     isImporting.toggle()
@@ -174,7 +182,21 @@ struct JHomescreen: View {
                                 })
                                 {Text("Import Your Song Here")}
                                         .padding().foregroundColor(.black)
-                                    .buttonStyle(.bordered)}
+                                    .buttonStyle(.bordered)
+                                    
+                                    
+                                    
+                                    
+//                                    Button(action:{
+//
+//                                    })
+//                                    {Text("play test")}
+//                                            .padding().foregroundColor(.black)
+//                                        .buttonStyle(.bordered)
+//
+                                    
+                                    
+                                }
                                 
                                     .fileImporter( isPresented: $isImporting, allowedContentTypes: [.wav], allowsMultipleSelection: false) { result in
                                         do {

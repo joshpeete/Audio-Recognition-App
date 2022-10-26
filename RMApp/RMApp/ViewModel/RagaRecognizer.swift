@@ -8,15 +8,64 @@
 import Foundation
 import Swift
 import CoreML
-
-
-
-
+import Firebase
 import AVFoundation
-//import CoreML
-// ...
+
+
+
+
+func playTest(soundWithPath path: String) {
+    
+    DownloadManager.instance.download(filePath: path) { data, error in
+        print("Download of \(path) complete")
+        if let data = data {
+            player = try? AVAudioPlayer(data: data)
+            player?.play()
+        } else if let error = error {
+            print("Failed to download \(path): \(error)")
+        }
+    }
+}
+
+
+
+//func readWavIntoFloats(soundWithPath path: String) -> [Float] {
+//
+//    var emptyFloats: Array<Float> = Array()
+//    var floatArray: Array<Float> = Array()
+//
+//    DownloadManager.instance.download(filePath: path) {data, error in
+//        print("Download of \(path) complete")
+//
+//
+//
+////           let url = Bundle.main.url(forResource: "asavari01", withExtension: "wav")
+////            let file = try! AVAudioFile(forReading: url!)
+//
+//        let url = Bundle.main.url(forResource: "asavari01", withExtension: "wav")
+//         let file = try! AVAudioFile(forReading: url!)
+//
+//
+//
+//            let format = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: file.fileFormat.sampleRate, channels: 1, interleaved: false)!
+//            let buf = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 15600)!
+//            try! file.read(into: buf)
+//
+//            // this makes a copy, you might not want that
+//           var floatArray = Array(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:Int(buf.frameLength)))
+//
+////        return emptyFloats
+//
+//
+//    }
+//    return floatArray
+//
+//}
+
+// "file:///Users/umairahmed/Library/Developer/CoreSimulator/Devices/DDDB660D-7B43-4AF8-A808-18EB6387B068/data/Containers/Bundle/Application/A2BC2D05-6160-4B00-8266-B142E9014918/RMApp.app/asavari01.wav"
 
 func readWavIntoFloats(fname: String, ext: String) -> [Float] {
+
 
     let url = Bundle.main.url(forResource: fname, withExtension: ext)
     let file = try! AVAudioFile(forReading: url!)
@@ -53,7 +102,7 @@ func convertToMLMultiArray(from array: [Float]) -> MLMultiArray {
 
 
 
-
+//"Gdh5rCXVtANytKA3i2onaiiR0Xs1/Blinding Lights (The Weeknd Lofi Cover).wav"
 
 
 
@@ -61,6 +110,7 @@ func testModel()->SoundAnalysisPreprocessingOutput?
 {
     
     let arr = readWavIntoFloats(fname: "asavari01", ext: "wav")
+//    let arr = readWavIntoFloats(soundWithPath: "Gdh5rCXVtANytKA3i2onaiiR0Xs1/Blinding Lights (The Weeknd Lofi Cover).wav")
 
     
    
@@ -73,6 +123,7 @@ func testModel()->SoundAnalysisPreprocessingOutput?
         let config = MLModelConfiguration()
         let model = try SoundAnalysisPreprocessing(configuration: config)
         let prediction = try model.prediction(audioSamples: multi)
+        
         
         return prediction
     }
