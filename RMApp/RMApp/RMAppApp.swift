@@ -12,9 +12,9 @@ import Firebase
 struct RMAppApp: App {
     init(){
         FirebaseApp.configure()
-        //This will change the font size
+        //This will change the font size of the picker
            UISegmentedControl.appearance().setTitleTextAttributes([.font : UIFont.preferredFont(forTextStyle: .headline)], for: .highlighted)
-           UISegmentedControl.appearance().setTitleTextAttributes([.font : UIFont.preferredFont(forTextStyle: .largeTitle)], for: .normal)
+           UISegmentedControl.appearance().setTitleTextAttributes([.font : UIFont.preferredFont(forTextStyle: .headline)], for: .normal)
             
     }
     

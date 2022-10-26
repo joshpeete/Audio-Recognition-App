@@ -125,7 +125,6 @@
 		D728F9B128FF19B5009989EB /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				D728F9C529070D6A009989EB /* New Group */,
 				D728F9B92904B100009989EB /* FirebaseInterface.swift */,
 				D728F9BB2904B10A009989EB /* DownloadManager.swift */,
 				D728F9C32906D827009989EB /* InputConversion.py */,
@@ -145,13 +144,6 @@
 				D7296A7F28E3DD2B00D0049E /* JHomescreen.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		D728F9C529070D6A009989EB /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		D7296A2C28E3A1B900D0049E = {

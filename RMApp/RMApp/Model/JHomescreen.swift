@@ -57,11 +57,11 @@ struct JHomescreen: View {
                         }
                         .pickerStyle(SegmentedPickerStyle())
                         .font(.largeTitle)
-                        .padding()
+                        .padding(10)
                         
                         VStack{
                             if select {
-//Start of HomePage
+//Start of HomePage - Josh
                                 ZStack{
                                     if let track = shazamSession.matchedTrack{
                                         //Blurred Image
@@ -126,9 +126,18 @@ struct JHomescreen: View {
                                     Button("Close",role: .cancel){
                                     }
                                 }
-//End of HomePage
+//End of HomePage - Josh
                             }else{
-//Start of Saved Page
+                                
+                                if flag == true{
+                                    VStack{
+                                        Label("Raga: \(printres())", systemImage: "music.note.list").font(.system(size: 20)).background(.white, in: RoundedRectangle(cornerRadius: 1))
+                                        
+                                    }
+                                }
+                                
+//Start of Saved Page - Josh
+                                
                                     ForEach(playlist.tracks) { track in
                                         //
                                         Text("\(track.title)")
@@ -136,13 +145,6 @@ struct JHomescreen: View {
                                             .foregroundColor(.black)
                                             .border(.black, width: 4)
                                         
-                                        Button(action:{
-                                            isImporting.toggle()
-                                            self.addData(filename: "", length: "")
-                                        })
-                                        {Text("Import Your Song Here")}
-                                            .padding()
-                                            .buttonStyle(.bordered)
                                         HStack{
                                             Button(action:{
                                                 play(soundWithPath: track.path)
@@ -154,18 +156,22 @@ struct JHomescreen: View {
                                             Button(action:{
                                                 pause(soundWithPath: track.path)
                                             })
-                                            {Image(systemName:"pause.fill")}
+                                            {Image(systemName:"stop.fill")}
                                                 .padding()
                                                 .buttonStyle(.bordered)
                                         }
-                                        Button(action: {flag = true}){Text("Raga")}
+                                        Button(action: {self.flag = true}){Text("Identify Raga")}
                                             .padding()
-                                            .buttonStyle(.bordered)
-                                        if flag == true{
-                                            VStack{
-                                                Text("\(printres())")
-                                            }
-                                        }
+                                            .buttonStyle(.bordered).foregroundColor(.black)
+                                    }
+                                
+                                    HStack{ Button(action:{
+                                        isImporting.toggle()
+                                        self.addData(filename: "", length: "")
+                                    })
+                                    {Text("Import Your Song Here")}
+                                            .padding().foregroundColor(.black)
+                                        .buttonStyle(.bordered)
                                     }
                                 
                                     .fileImporter( isPresented: $isImporting, allowedContentTypes: [.wav], allowsMultipleSelection: false) { result in
@@ -182,7 +188,7 @@ struct JHomescreen: View {
                                         }
                                 }
                             }
-//End of Saved Page
+//End of Saved Page - Josh
                         }
                     }
                 }
@@ -214,7 +220,7 @@ struct JHomescreen: View {
             print("Download of \(path) complete")
             if let data = data {
                 player = try? AVAudioPlayer(data: data)
-                player?.pause()
+                player?.stop()
             } else if let error = error {
                 print("Failed to download \(path): \(error)")
             }
@@ -255,6 +261,15 @@ struct JHomescreen: View {
         }
     }
 }
+
+//func deleteData(filename: String, length: String){
+//    let db = Firestore.firestore()
+  //  db.collection("sample").removeLast(data: ["song": filename, "length": length]){error in
+ //       if error == nil {
+  //      }
+//    }
+//}
+
 
 struct JHomescreen_Previews: PreviewProvider {
     static var previews: some View {

@@ -36,6 +36,7 @@ struct ContentView: View {
                                 .tag(false)//start on create account tab
                                 .foregroundColor(.black)
                         }.pickerStyle(SegmentedPickerStyle())
+                            .foregroundColor(.black)
                         
                         if select{
                             Button{
@@ -44,8 +45,53 @@ struct ContentView: View {
                                 Image(systemName: "music.quarternote.3")
                                     .foregroundColor(.black)
                                     .font(.system(size: 90))
-                                    .padding(28)
+                                    .offset(y: 50)
                             }
+                            
+                            ZStack{
+                                Button {
+                                    showResetPasswordConfirmation = true
+                                } label: {
+                                    Text("Forgot password?")
+                                        .foregroundColor(.black)
+                                        .padding()
+                                }
+                                .buttonStyle(.bordered)
+                                .alert(
+                                    "Reset password",
+                                    isPresented: $showResetPasswordConfirmation) {
+                                        Button {
+                                            resetPassword()
+                                        } label: {
+                                            Text("Reset password")
+                                        }
+                                        .keyboardShortcut(.defaultAction)
+                                        .padding()
+                                        Button {
+                                            
+                                        } label: {
+                                            Text("Cancel")
+                                        }
+                                        .keyboardShortcut(.cancelAction)
+                                        .padding()
+                                        
+                                    } message: {
+                                        Text("Reset password for \(email)?")
+                                    }
+                                    .alert(
+                                        "Email sent",
+                                        isPresented: $resetPasswordConfirmationAlert) {
+                                            
+                                            Button {
+                                                
+                                            } label: {
+                                                Text("OK")
+                                            }.keyboardShortcut(.defaultAction)
+                                            
+                                        } message: {
+                                            Text("A password reset email was sent to \(email). Check your email and follow instructions.")
+                                        }
+                            }.offset(y: 350)
                             
                         }
                         TextField("Email",text:$email)
@@ -87,68 +133,27 @@ struct ContentView: View {
                     
                     Button{
                         handleAction()
-                    }label: {
+                    }
+                label: {
                         ZStack{
                             Text(select ? "Login" :"Create Account")
                                 .foregroundColor(.black)
                                 .padding()
+                                .cornerRadius(12)
                                 .font(.system(size: 24, weight: .semibold))
                         }
-                        .cornerRadius(12)
                         .background(Color.blue)
                         .frame(width: 250, height: 100, alignment: .center)
                         .padding()
                     }
-                    ZStack{
-                        Button {
-                            showResetPasswordConfirmation = true
-                        } label: {
-                            Text("Forgot password?")
-                                .foregroundColor(.black)
-                                .padding()
-                        }
-                        .buttonStyle(.bordered)
-                        .alert(
-                            "Reset password",
-                            isPresented: $showResetPasswordConfirmation) {
-                                Button {
-                                    resetPassword()
-                                } label: {
-                                    Text("Reset password")
-                                }
-                                .keyboardShortcut(.defaultAction)
-                                .padding()
-                                Button {
-                                    
-                                } label: {
-                                    Text("Cancel")
-                                }
-                                .keyboardShortcut(.cancelAction)
-                                .padding()
-                                
-                            } message: {
-                                Text("Reset password for \(email)?")
-                            }
-                            .alert(
-                                "Email sent",
-                                isPresented: $resetPasswordConfirmationAlert) {
-                                    
-                                    Button {
-                                        
-                                    } label: {
-                                        Text("OK")
-                                    }.keyboardShortcut(.defaultAction)
-                                    
-                                } message: {
-                                    Text("A password reset email was sent to \(email). Check your email and follow instructions.")
-                                }
-                    }
+                    
                 }
                 .navigationTitle(select ? "Login" :"Create Account")
                 .background(LinearGradient(gradient: Gradient(colors: [.yellow, .green]), startPoint: .top, endPoint: .bottom))
             }
             .navigationViewStyle(StackNavigationViewStyle())
             .ignoresSafeArea()
+            .foregroundColor(.black)
         }
     }
     
