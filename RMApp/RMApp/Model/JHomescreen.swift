@@ -39,9 +39,9 @@ struct JHomescreen: View {
         NavigationView{
             VStack(spacing:12){
                 Button(action: { FirebaseInterface.instance.signOut() }) {
-                    Text("Sign Out")
+                    Text("Sign Out").foregroundColor(.red)
                 }
-                .padding(.bottom)
+                .padding(.bottom).foregroundColor(.black)
                 .buttonStyle(.bordered)
                 ScrollView{
                     VStack {
@@ -136,13 +136,13 @@ struct JHomescreen: View {
                                             .foregroundColor(.black)
                                             .border(.black, width: 4)
                                         
-                                        Button(action:{
-                                            isImporting.toggle()
-                                            self.addData(filename: "", length: "")
-                                        })
-                                        {Text("Import Your Song Here")}
-                                            .padding()
-                                            .buttonStyle(.bordered)
+//                                        Button(action:{
+//                                            isImporting.toggle()
+//                                            self.addData(filename: "", length: "")
+//                                        })
+//                                        {Text("Import Your Song Here")}
+//                                            .padding()
+//                                            .buttonStyle(.bordered)
                                         HStack{
                                             Button(action:{
                                                 play(soundWithPath: track.path)
@@ -158,15 +158,23 @@ struct JHomescreen: View {
                                                 .padding()
                                                 .buttonStyle(.bordered)
                                         }
-                                        Button(action: {flag = true}){Text("Raga")}
+                                        Button(action: {flag = true}){Text("Identify Raga")}
                                             .padding()
-                                            .buttonStyle(.bordered)
+                                            .buttonStyle(.bordered).foregroundColor(.black)
                                         if flag == true{
                                             VStack{
                                                 Text("\(printres())")
                                             }
                                         }
                                     }
+                                
+                                HStack{ Button(action:{
+                                    isImporting.toggle()
+                                    self.addData(filename: "", length: "")
+                                })
+                                {Text("Import Your Song Here")}
+                                        .padding().foregroundColor(.black)
+                                    .buttonStyle(.bordered)}
                                 
                                     .fileImporter( isPresented: $isImporting, allowedContentTypes: [.wav], allowsMultipleSelection: false) { result in
                                         do {

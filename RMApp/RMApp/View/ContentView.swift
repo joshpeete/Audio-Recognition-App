@@ -31,7 +31,7 @@ struct ContentView: View {
                         Picker(selection: $select, label: Text("Toggle Button")){
                             Text("Login")
                                 .tag(true)
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                             Text("Register")
                                 .tag(false)//start on create account tab
                                 .foregroundColor(.black)
@@ -49,7 +49,7 @@ struct ContentView: View {
                             
                         }
                         TextField("Email",text:$email)
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
                             .keyboardType(.emailAddress)
                             .autocapitalization(.none)
                             .font(.system(size: 16))
@@ -68,7 +68,7 @@ struct ContentView: View {
                             .foregroundColor(.black)
                         
                         SecureField("Password",text:$password)
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
                             .textFieldStyle(.plain)
                             .bold()
                             .font(.system(size: 16))
