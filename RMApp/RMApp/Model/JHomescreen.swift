@@ -46,12 +46,12 @@ struct JHomescreen: View {
                 ScrollView{
                     VStack {
                         Picker(selection: $select, label: Text("Toggle Button")){
-                            Text("Home")
-                                .tag(true)
-                                .foregroundColor(.black)
-                                .font(.largeTitle)
                             Text("Saved")
                                 .tag(false)
+                                .foregroundColor(.black)
+                                .font(.largeTitle)
+                            Text("Home")
+                                .tag(true)
                                 .foregroundColor(.black)
                                 .font(.largeTitle)
                         }
