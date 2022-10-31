@@ -91,7 +91,7 @@ struct ContentView: View {
                                         } message: {
                                             Text("A password reset email was sent to \(email). Check your email and follow instructions.")
                                         }
-                            }.offset(y: 350)
+                            }.offset(y: 335)
                             
                         }
                         TextField("Email",text:$email)
@@ -142,10 +142,9 @@ struct ContentView: View {
                                 .cornerRadius(12)
                                 .font(.system(size: 24, weight: .semibold))
                         }
-                        .background(Color.blue)
-                        .frame(width: 250, height: 100, alignment: .center)
-                        .padding()
                     }
+                .buttonStyle(.bordered)
+                .padding()
                     
                 }
                 .navigationTitle(select ? "Login" :"Create Account")
