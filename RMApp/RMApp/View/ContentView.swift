@@ -16,7 +16,6 @@ struct ContentView: View {
     @State private var logOut = ""
     @State private var password = ""
     @State private var select = false
-    @State private var isActive = false
     @State private var showResetPasswordConfirmation = false
     @State private var resetPasswordConfirmationAlert = false
     @ObservedObject var firebase = FirebaseInterface.instance
@@ -185,7 +184,6 @@ struct ContentView: View {
                 print(error.localizedDescription)
             }
             firebase.userIsLoggedIn = true
-            isActive = false
             Playlist.instance.update()
         }
     }
