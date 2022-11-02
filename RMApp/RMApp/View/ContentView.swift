@@ -54,8 +54,10 @@ struct ContentView: View {
                                     Text("Forgot password?")
                                         .foregroundColor(.black)
                                         .padding()
+                                        .font(.system(size: 24, weight: .semibold))
                                 }
-                                .buttonStyle(.bordered)
+                                .buttonStyle(.borderedProminent)
+                                .tint(.gray)
                                 .alert(
                                     "Reset password",
                                     isPresented: $showResetPasswordConfirmation) {
@@ -94,7 +96,7 @@ struct ContentView: View {
                             
                         }
                         TextField("Email",text:$email)
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
                             .keyboardType(.emailAddress)
                             .autocapitalization(.none)
                             .font(.system(size: 16))
@@ -109,11 +111,11 @@ struct ContentView: View {
                                     .padding(12)
                             }
                         Rectangle()//line under email
-                            .frame(width: 400, height: 1)
+                            .frame(width: 375, height: 1)
                             .foregroundColor(.black)
                         
                         SecureField("Password",text:$password)
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
                             .textFieldStyle(.plain)
                             .bold()
                             .font(.system(size: 16))
@@ -127,7 +129,7 @@ struct ContentView: View {
                             }
                     }
                     Rectangle()//line under password
-                        .frame(width: 400, height: 1)
+                        .frame(width: 375, height: 1)
                         .foregroundColor(.black)
                     
                     Button{
@@ -142,12 +144,11 @@ struct ContentView: View {
                                 .font(.system(size: 24, weight: .semibold))
                         }
                     }
-                .buttonStyle(.bordered)
+                .buttonStyle(.borderedProminent)
                 .padding()
-                    
                 }
                 .navigationTitle(select ? "Login" :"Create Account")
-                .background(LinearGradient(gradient: Gradient(colors: [.yellow, .green]), startPoint: .top, endPoint: .bottom))
+                .background(LinearGradient(gradient: Gradient(colors: [.white, .gray]), startPoint: .top, endPoint: .bottom))
             }
             .navigationViewStyle(StackNavigationViewStyle())
             .ignoresSafeArea()

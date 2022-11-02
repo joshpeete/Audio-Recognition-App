@@ -17,11 +17,10 @@ var player:AVAudioPlayer!
 
 struct Track: Identifiable{
     var id = UUID().uuidString
-    //Track info
     var title: String
     var artist: String
     var artwork: URL
-    
+    var appleMusicURL: URL
 }
 
 struct JHomescreen: View {
@@ -47,11 +46,11 @@ struct JHomescreen: View {
                     VStack {
                         Picker(selection: $select, label: Text("Toggle Button")){
                             Text("Saved")
-                                .tag(false)
+                                .tag(true)
                                 .foregroundColor(.black)
                                 .font(.largeTitle)
                             Text("Home")
-                                .tag(true)
+                                .tag(false)
                                 .foregroundColor(.black)
                                 .font(.largeTitle)
                         }
@@ -61,7 +60,66 @@ struct JHomescreen: View {
                         
                         VStack{
                             if select {
-//Start of HomePage - Josh
+                                //Start of Saved Page - Josh
+                                if flag == true{
+                                    VStack{
+                                        Label("Raga: \(printres())", systemImage: "music.note.list").font(.system(size: 20)).background(.white, in: RoundedRectangle(cornerRadius: 1))
+                                        
+                                    }
+                                }
+                                
+                                ForEach(playlist.tracks) { track in
+                                    //
+                                    Text("\(track.title)")
+                                        .padding()
+                                        .foregroundColor(.black)
+                                        .border(.black, width: 4)
+                                    
+                                    HStack{
+                                        Button(action:{
+                                            play(soundWithPath: track.path)
+                                        })
+                                        {Image(systemName:"play.fill")}
+                                            .padding()
+                                            .buttonStyle(.bordered)
+                                        
+                                        Button(action:{
+                                            pause(soundWithPath: track.path)
+                                        })
+                                        {Image(systemName:"stop.fill")}
+                                            .padding()
+                                            .buttonStyle(.bordered)
+                                    }
+                                    Button(action: {self.flag = true}){Text("Identify Raga")}
+                                        .padding()
+                                        .buttonStyle(.bordered).foregroundColor(.black)
+                                }
+                                
+                                HStack{ Button(action:{
+                                    isImporting.toggle()
+                                    self.addData(filename: "", length: "")
+                                })
+                                    {Text("Import Your Song Here")}
+                                        .padding().foregroundColor(.black)
+                                        .buttonStyle(.bordered)
+                                }
+                                
+                                .fileImporter( isPresented: $isImporting, allowedContentTypes: [.wav], allowsMultipleSelection: false) { result in
+                                    do {
+                                        guard let selectedFile: URL = try result.get().first else { return }
+                                        guard selectedFile.startAccessingSecurityScopedResource() else { return }
+                                        let data = try Data(contentsOf: selectedFile)
+                                        
+                                        upload(file: data, name: selectedFile.lastPathComponent)
+                                        
+                                        selectedFile.stopAccessingSecurityScopedResource()
+                                    } catch {
+                                        Swift.print(error.localizedDescription)
+                                    }
+                                }
+//End of Saved Page - Josh
+ //Start of Home Page
+                            }else{
                                 ZStack{
                                     if let track = shazamSession.matchedTrack{
                                         //Blurred Image
@@ -96,8 +154,9 @@ struct JHomescreen: View {
                                             
                                             Text("Artist: **\(track.artist)**")
                                         }
-                                        
+                                        //show the requested song
                                     }else{
+                                        //or show the instructions
                                         ZStack{
                                             Rectangle()
                                                 .frame(width: 380,height: 370)
@@ -110,6 +169,8 @@ struct JHomescreen: View {
                                                     .bold()
                                             }
                                         }
+                                        .buttonStyle(.bordered)
+                                        .shadow(radius: 4)
                                     }
                                 }
                                 
@@ -126,80 +187,29 @@ struct JHomescreen: View {
                                     Button("Close",role: .cancel){
                                     }
                                 }
-//End of HomePage - Josh
-                            }else{
                                 
-                                if flag == true{
-                                    VStack{
-                                        Label("Raga: \(printres())", systemImage: "music.note.list").font(.system(size: 20)).background(.white, in: RoundedRectangle(cornerRadius: 1))
-                                        
+                                if let track = shazamSession.matchedTrack{
+                                    
+                                    Link(destination: track.appleMusicURL){
+                                        Text("Add to your Library")
                                     }
-                                }
-                                
-//Start of Saved Page - Josh
-                                
-                                    ForEach(playlist.tracks) { track in
-                                        //
-                                        Text("\(track.title)")
-                                            .padding()
-                                            .foregroundColor(.black)
-                                            .border(.black, width: 4)
-                                        
-                                        HStack{
-                                            Button(action:{
-                                                play(soundWithPath: track.path)
-                                            })
-                                            {Image(systemName:"play.fill")}
-                                                .padding()
-                                                .buttonStyle(.bordered)
-                                            
-                                            Button(action:{
-                                                pause(soundWithPath: track.path)
-                                            })
-                                            {Image(systemName:"stop.fill")}
-                                                .padding()
-                                                .buttonStyle(.bordered)
-                                        }
-                                        Button(action: {self.flag = true}){Text("Identify Raga")}
-                                            .padding()
-                                            .buttonStyle(.bordered).foregroundColor(.black)
-                                    }
-                                
-                                    HStack{ Button(action:{
-                                        isImporting.toggle()
-                                        self.addData(filename: "", length: "")
-                                    })
-                                    {Text("Import Your Song Here")}
-                                            .padding().foregroundColor(.black)
-                                        .buttonStyle(.bordered)
-                                    }
-                                
-                                    .fileImporter( isPresented: $isImporting, allowedContentTypes: [.wav], allowsMultipleSelection: false) { result in
-                                        do {
-                                            guard let selectedFile: URL = try result.get().first else { return }
-                                            guard selectedFile.startAccessingSecurityScopedResource() else { return }
-                                            let data = try Data(contentsOf: selectedFile)
-                                            
-                                            upload(file: data, name: selectedFile.lastPathComponent)
-                                            
-                                            selectedFile.stopAccessingSecurityScopedResource()
-                                        } catch {
-                                            Swift.print(error.localizedDescription)
-                                        }
+                                    .buttonStyle(.bordered)
+                                    .shadow(radius: 4)
+                                    //End of HomePage - Josh
                                 }
                             }
-//End of Saved Page - Josh
                         }
                     }
+                    
                 }
+                
             }
             .navigationTitle("Raga-Mania")
-            .padding()
             .foregroundColor(.black)
-            .background(
-                LinearGradient(gradient: Gradient(colors: [.yellow, .green]), startPoint: .top, endPoint: .bottom))
+            .background(LinearGradient(gradient: Gradient(colors: [.white, .gray]), startPoint: .top, endPoint: .bottom))
         }
     }
+    
     
     
     //this allows the uploaded file to be played - vaishu
