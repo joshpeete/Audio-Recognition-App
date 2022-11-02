@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4528932A2912453300CE9F00 /* Convert Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452893292912453300CE9F00 /* Convert Audio.swift */; };
 		D728F9A328EDED7D009989EB /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D728F9A228EDED7D009989EB /* CardView.swift */; };
 		D728F9A528EE2130009989EB /* sample-9s.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D728F9A428EE2130009989EB /* sample-9s.mp3 */; };
 		D728F9A728F8EEE7009989EB /* sample-15s.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D728F9A628F8EEE7009989EB /* sample-15s.mp3 */; };
@@ -54,6 +55,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		452893292912453300CE9F00 /* Convert Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Convert Audio.swift"; sourceTree = "<group>"; };
 		D728F9A228EDED7D009989EB /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		D728F9A428EE2130009989EB /* sample-9s.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "sample-9s.mp3"; sourceTree = "<group>"; };
 		D728F9A628F8EEE7009989EB /* sample-15s.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "sample-15s.mp3"; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				D728F9C629070DDE009989EB /* MLModelRnn.mlkitmodel */,
 				D728F9C829070DE6009989EB /* SoundAnalysisPreprocessing.mlmodel */,
 				D7296A7F28E3DD2B00D0049E /* JHomescreen.swift */,
+				452893292912453300CE9F00 /* Convert Audio.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 				D728F9C929070DE6009989EB /* SoundAnalysisPreprocessing.mlmodel in Sources */,
 				D7296A3B28E3A1B900D0049E /* ContentView.swift in Sources */,
 				D7296A3928E3A1B900D0049E /* RMAppApp.swift in Sources */,
+				4528932A2912453300CE9F00 /* Convert Audio.swift in Sources */,
 				D728F9A328EDED7D009989EB /* CardView.swift in Sources */,
 				D728F9BA2904B100009989EB /* FirebaseInterface.swift in Sources */,
 			);

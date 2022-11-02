@@ -131,7 +131,8 @@ struct JHomescreen: View {
                                 
                                 if flag == true{
                                     VStack{
-                                        Label("Raga: \(printres())", systemImage: "music.note.list").background(.white, in: RoundedRectangle(cornerRadius: 8))
+                                        Label("Raga: \(printres())", systemImage: "music.note.list").font(.system(size: 20)).background(.white, in: RoundedRectangle(cornerRadius: 1))
+                                           
                                     }
                                 }
 //Start of Saved Page
@@ -176,41 +177,53 @@ struct JHomescreen: View {
 //                                    }
 //                                }
                                 
-                                HStack{ Button(action:{
+                                HStack{
+                                    Button(action:{
+                                        printStuff()
+                                    })
+                                    {Text("play test")}
+                                            .padding().foregroundColor(.black)
+                                        .buttonStyle(.bordered)
+                                    
+                                    Button(action:{
                                     isImporting.toggle()
                                     self.addData(filename: "", length: "")
                                 })
                                 {Text("Import Your Song Here")}
                                         .padding().foregroundColor(.black)
-                                    .buttonStyle(.bordered)
-                                    
-                                    
-                                    
-                                    
-//                                    Button(action:{
+//                                    .buttonStyle(.bordered).fileImporter( isPresented: $isImporting, allowedContentTypes: [.wav], allowsMultipleSelection: false) { result in
+//                                        do {
+//                                            guard let selectedFile: URL = try result.get().first else { return }
+//                                            guard selectedFile.startAccessingSecurityScopedResource() else { return }
+//                                            let data = try Data(contentsOf: selectedFile)
 //
-//                                    })
-//                                    {Text("play test")}
-//                                            .padding().foregroundColor(.black)
-//                                        .buttonStyle(.bordered)
+//                                            upload(file: data, name: selectedFile.lastPathComponent)
 //
+//                                            selectedFile.stopAccessingSecurityScopedResource()
+//                                        } catch {
+//                                            Swift.print(error.localizedDescription)
+//                                        }
+//                                }
+                                    
+                                
+
                                     
                                     
                                 }
                                 
-                                    .fileImporter( isPresented: $isImporting, allowedContentTypes: [.wav], allowsMultipleSelection: false) { result in
-                                        do {
-                                            guard let selectedFile: URL = try result.get().first else { return }
-                                            guard selectedFile.startAccessingSecurityScopedResource() else { return }
-                                            let data = try Data(contentsOf: selectedFile)
-                                            
-                                            upload(file: data, name: selectedFile.lastPathComponent)
-                                            
-                                            selectedFile.stopAccessingSecurityScopedResource()
-                                        } catch {
-                                            Swift.print(error.localizedDescription)
-                                        }
-                                }
+//                                    .fileImporter( isPresented: $isImporting, allowedContentTypes: [.wav], allowsMultipleSelection: false) { result in
+//                                        do {
+//                                            guard let selectedFile: URL = try result.get().first else { return }
+//                                            guard selectedFile.startAccessingSecurityScopedResource() else { return }
+//                                            let data = try Data(contentsOf: selectedFile)
+//
+//                                            upload(file: data, name: selectedFile.lastPathComponent)
+//
+//                                            selectedFile.stopAccessingSecurityScopedResource()
+//                                        } catch {
+//                                            Swift.print(error.localizedDescription)
+//                                        }
+//                                }
                             }
 //End of Saved Page
                         }
@@ -232,6 +245,7 @@ struct JHomescreen: View {
             if let data = data {
                 player = try? AVAudioPlayer(data: data)
                 player?.play()
+                
             } else if let error = error {
                 print("Failed to download \(path): \(error)")
             }
@@ -271,6 +285,32 @@ struct JHomescreen: View {
                 print("Failed to update \(name): \(error)")
             } else {
                 self.playlist.update()
+            }
+        }
+        return fileRef.fullPath
+    }
+    
+    func upload2(file: Data, name: String) -> String {
+        guard let uid = Auth.auth().currentUser?.uid else { return "" }
+        let userTracks = Firestore.firestore().collection("users").document(uid).collection("tracks")
+        
+        let ref = Storage.storage().reference()
+        let fileRef = ref.child(uid).child(name)
+        let uploadTask = fileRef.putData(file, metadata: nil) { metadata, error in
+            if let error = error {
+                print("Failed to upload \(name): \(error)")
+            }
+            print("Completed upload of \(name)")
+        }
+        uploadTask.resume()
+        //tracks for updating files vaishu
+        userTracks.addDocument(data: ["song": name, "filePath": fileRef.fullPath]) {error in
+            
+            if let error = error {
+                print("Failed to update \(name): \(error)")
+            } else {
+                self.playlist.update()
+                
             }
         }
         return fileRef.fullPath
