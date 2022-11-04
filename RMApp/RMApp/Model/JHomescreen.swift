@@ -60,11 +60,10 @@ struct JHomescreen: View {
                         
                         VStack{
                             if select {
-                                //Start of Saved Page - Josh
+//Start of Saved Page - Josh
                                 if flag == true{
                                     VStack{
                                         Label("Raga: \(printres())", systemImage: "music.note.list").font(.system(size: 20)).background(.white, in: RoundedRectangle(cornerRadius: 1))
-                                        
                                     }
                                 }
                                 
@@ -117,12 +116,12 @@ struct JHomescreen: View {
                                         Swift.print(error.localizedDescription)
                                     }
                                 }
-//End of Saved Page - Josh
- //Start of Home Page
+ //End of Saved Page - Josh
                             }else{
+//Start of Home Page
                                 ZStack{
                                     if let track = shazamSession.matchedTrack{
-                                        //Blurred Image
+                                        //Blurred Image in the back
                                         AsyncImage(url: track.artwork){phase in
                                             if let image = phase.image{
                                                 image
@@ -274,9 +273,9 @@ struct JHomescreen: View {
 
 //func deleteData(filename: String, length: String){
 //    let db = Firestore.firestore()
-  //  db.collection("sample").removeLast(data: ["song": filename, "length": length]){error in
- //       if error == nil {
-  //      }
+//  db.collection("sample").removeLast(data: ["song": filename, "length": length]){error in
+//       if error == nil {
+//      }
 //    }
 //}
 

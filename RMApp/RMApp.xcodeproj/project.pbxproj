@@ -34,6 +34,8 @@
 		D7296A7C28E3B34A00D0049E /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = D7296A7B28E3B34A00D0049E /* FirebaseStorage */; };
 		D7296A7E28E3B81800D0049E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D7296A7D28E3B81800D0049E /* GoogleService-Info.plist */; };
 		D7296A8028E3DD2B00D0049E /* JHomescreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7296A7F28E3DD2B00D0049E /* JHomescreen.swift */; };
+		FB7C6E3029027798004507E5 /* RagaRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7C6E2F29027798004507E5 /* RagaRecognizer.swift */; };
+		FB7C6E3329027875004507E5 /* Mlmodel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = FB7C6E3229027875004507E5 /* Mlmodel.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +83,8 @@
 		D7296A6228E3A22400D0049E /* Splashview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Splashview.swift; sourceTree = "<group>"; };
 		D7296A7D28E3B81800D0049E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D7296A7F28E3DD2B00D0049E /* JHomescreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JHomescreen.swift; sourceTree = "<group>"; };
+		FB7C6E2F29027798004507E5 /* RagaRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RagaRecognizer.swift; sourceTree = "<group>"; };
+		FB7C6E3229027875004507E5 /* Mlmodel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Mlmodel.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +136,7 @@
 				D728F9BD2904B114009989EB /* Playlist.swift */,
 				D728F9CA29072C59009989EB /* RagaRecognizer.swift */,
 				D728F9B528FF78E3009989EB /* ShazamRecognizer.swift */,
+				FB7C6E2F29027798004507E5 /* RagaRecognizer.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -169,6 +174,7 @@
 		D7296A3728E3A1B900D0049E /* RMApp */ = {
 			isa = PBXGroup;
 			children = (
+				FB7C6E312902781E004507E5 /* MlModels */,
 				D728F9B128FF19B5009989EB /* ViewModel */,
 				D728F9AF28FF199E009989EB /* View */,
 				D728F9B228FF19BF009989EB /* Model */,
@@ -207,6 +213,14 @@
 				D7296A5528E3A1BA00D0049E /* RMAppUITestsLaunchTests.swift */,
 			);
 			path = RMAppUITests;
+			sourceTree = "<group>";
+		};
+		FB7C6E312902781E004507E5 /* MlModels */ = {
+			isa = PBXGroup;
+			children = (
+				FB7C6E3229027875004507E5 /* Mlmodel.mlmodel */,
+			);
+			path = MlModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -355,6 +369,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7296A6328E3A22400D0049E /* Splashview.swift in Sources */,
+				FB7C6E3329027875004507E5 /* Mlmodel.mlmodel in Sources */,
+				FB7C6E3029027798004507E5 /* RagaRecognizer.swift in Sources */,
 				D7296A8028E3DD2B00D0049E /* JHomescreen.swift in Sources */,
 				D728F9BE2904B114009989EB /* Playlist.swift in Sources */,
 				D728F9B628FF78E3009989EB /* ShazamRecognizer.swift in Sources */,
