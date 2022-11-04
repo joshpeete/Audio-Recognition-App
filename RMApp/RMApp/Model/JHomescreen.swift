@@ -40,7 +40,7 @@ struct JHomescreen: View {
                 Button(action: { FirebaseInterface.instance.signOut() }) {
                     Text("Sign Out")
                 }
-                .padding(.bottom)
+                .padding()
                 .buttonStyle(.bordered)
                 ScrollView{
                     VStack {
