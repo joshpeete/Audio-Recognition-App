@@ -16,13 +16,15 @@ struct ContentView: View {
     @State private var logOut = ""
     @State private var password = ""
     @State private var select = false
+    @State private var isActive = false
     @State private var showResetPasswordConfirmation = false
     @State private var resetPasswordConfirmationAlert = false
-    @ObservedObject var firebase = FirebaseInterface.instance
     
+    @ObservedObject var firebase = FirebaseInterface.instance
+
     var body: some View {
         if firebase.userIsLoggedIn{
-            JHomescreen()//if the user creates an account AND logs in send them to the home page
+            JHomescreen()//if the user creates an account or logs in send them to the home page
         }else{
             NavigationView{
                 ScrollView{
@@ -30,12 +32,11 @@ struct ContentView: View {
                         Picker(selection: $select, label: Text("Toggle Button")){
                             Text("Login")
                                 .tag(true)
-                                .foregroundColor(.black)
-                            Text("Register")
+                                .foregroundColor(.white)
+                            Text("Create Account")
                                 .tag(false)//start on create account tab
                                 .foregroundColor(.black)
                         }.pickerStyle(SegmentedPickerStyle())
-                            .foregroundColor(.black)
                         
                         if select{
                             Button{
@@ -44,63 +45,14 @@ struct ContentView: View {
                                 Image(systemName: "music.quarternote.3")
                                     .foregroundColor(.black)
                                     .font(.system(size: 90))
-                                    .offset(y: 50)
+                                    .padding(28)
                             }
-                            
-                            ZStack{
-                                Button {
-                                    showResetPasswordConfirmation = true
-                                } label: {
-                                    Text("Forgot password?")
-                                        .foregroundColor(.black)
-                                        .padding()
-                                        .font(.system(size: 24, weight: .semibold))
-                                }
-                                .buttonStyle(.borderedProminent)
-                                .tint(.gray)
-                                .alert(
-                                    "Reset password",
-                                    isPresented: $showResetPasswordConfirmation) {
-                                        Button {
-                                            resetPassword()
-                                        } label: {
-                                            Text("Reset password")
-                                        }
-                                        .keyboardShortcut(.defaultAction)
-                                        .padding()
-                                        Button {
-                                            
-                                        } label: {
-                                            Text("Cancel")
-                                        }
-                                        .keyboardShortcut(.cancelAction)
-                                        .padding()
-                                        
-                                    } message: {
-                                        Text("Reset password for \(email)?")
-                                    }
-                                    .alert(
-                                        "Email sent",
-                                        isPresented: $resetPasswordConfirmationAlert) {
-                                            
-                                            Button {
-                                                
-                                            } label: {
-                                                Text("OK")
-                                            }.keyboardShortcut(.defaultAction)
-                                            
-                                        } message: {
-                                            Text("A password reset email was sent to \(email). Check your email and follow instructions.")
-                                        }
-                            }.offset(y: 335)
                             
                         }
                         TextField("Email",text:$email)
-                            .foregroundColor(.black)
+                            .foregroundColor(.white)
                             .keyboardType(.emailAddress)
                             .autocapitalization(.none)
-                            .font(.system(size: 16))
-                            .bold()
                             .textFieldStyle(.plain)
                             .padding(12)
                             .placeholder(when: email.isEmpty){
@@ -111,14 +63,12 @@ struct ContentView: View {
                                     .padding(12)
                             }
                         Rectangle()//line under email
-                            .frame(width: 375, height: 1)
+                            .frame(width: 350, height: 1)
                             .foregroundColor(.black)
                         
                         SecureField("Password",text:$password)
-                            .foregroundColor(.black)
+                            .foregroundColor(.white)
                             .textFieldStyle(.plain)
-                            .bold()
-                            .font(.system(size: 16))
                             .padding(12)
                             .placeholder(when: password.isEmpty){
                                 Text("Password")
@@ -129,61 +79,109 @@ struct ContentView: View {
                             }
                     }
                     Rectangle()//line under password
-                        .frame(width: 375, height: 1)
+                        .frame(width: 350, height: 1)
                         .foregroundColor(.black)
                     
                     Button{
                         handleAction()
-                    }
-                label: {
-                        ZStack{
+                    }label: {
+                        HStack{
+                            Spacer()
                             Text(select ? "Login" :"Create Account")
-                                .foregroundColor(.black)
-                                .padding()
-                                .cornerRadius(12)
+                                .foregroundColor(.white)
+                                .padding(.vertical,20)
                                 .font(.system(size: 24, weight: .semibold))
-                        }
+                            Spacer()
+                        }.background(Color.blue)
+                            .frame(width: 250, height: 100, alignment: .center)
+                            .padding()
                     }
-                .buttonStyle(.borderedProminent)
-                .padding()
-                }
-                .navigationTitle(select ? "Login" :"Create Account")
-                .background(LinearGradient(gradient: Gradient(colors: [.white, .gray]), startPoint: .top, endPoint: .bottom))
+                    
+                    Button {
+                        showResetPasswordConfirmation = true
+                    } label: {
+                        Text("Forgot password")
+                            .foregroundColor(.white)
+                    }
+                    .alert(
+                        "Reset password",
+                        isPresented: $showResetPasswordConfirmation) {
+                            Button {
+                                resetPassword()
+                            } label: {
+                                Text("Reset password")
+                            }.keyboardShortcut(.defaultAction)
+                            Button {
+                                
+                            } label: {
+                                Text("Cancel")
+                            }.keyboardShortcut(.cancelAction)
+
+                        } message: {
+                            Text("Reset password for \(email)?")
+                        }
+                        .alert(
+                            "Email sent",
+                            isPresented: $resetPasswordConfirmationAlert) {
+                                
+                                Button {
+                                    
+                                } label: {
+                                    Text("OK")
+                                }.keyboardShortcut(.defaultAction)
+
+                            } message: {
+                                Text("A password reset email was sent to \(email). Check your email and follow instructions.")
+                            }
+
+                }.navigationTitle(select ? "Login" :"Create Account")
+                    .padding()
+                    .background(
+                        LinearGradient(gradient: Gradient(colors: [.yellow, .green]), startPoint: .top, endPoint: .bottom)
+                    )
             }
             .navigationViewStyle(StackNavigationViewStyle())
             .ignoresSafeArea()
-            .foregroundColor(.black)
-        }
-    }
-func handleAction() {//links buttons to functions
-        if email.isEmpty || password.isEmpty{
             
-        }else{
-            if isValidEmail(email){
-                if select {
-                    loginUser()
-                } else {
-                    createNewAccount()
-                }
-            }
         }
     }
-func isValidEmail(_ email: String) -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        
-        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        return emailPred.evaluate(with: email)
+  /*  Button{
+        handleAction()
+    }label: {
+        VStack{
+            Spacer()
+            Text(select ? "Forgot Password?")
+                .foregroundColor(.white)
+                .padding(.vertical,20)
+                .font(.system(size: 24, weight: .semibold))
+            Spacer()
+        }.background(Color.blue)
+            .frame(width: 250, height: 100, alignment: .center)
+            .padding()
     }
-    
-    //vaishu and josh
+}.navigationTitle(select ? "Forgot Password?")
+    .padding()
+    .background(
+        LinearGradient(gradient: Gradient(colors: [.yellow, .green]), startPoint: .top, endPoint: .bottom)
+    )
+}*/
+    func handleAction() {//links buttons to functions
+        if select {
+            loginUser()
+        } else {
+            createNewAccount()
+        }
+    }
+    //vaishu
     func loginUser() {//login func
-        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
-            if let error = error{
-                print(error.localizedDescription)
-            }
-            firebase.userIsLoggedIn = true
-            Playlist.instance.update()
-
+       Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
+            if error != nil {
+                //if there is an error, print "error"
+               print(error?.localizedDescription ?? "")
+           }
+           firebase.userIsLoggedIn = true
+           isActive = false
+           Playlist.instance.update()
         }
    }
     
@@ -215,11 +213,11 @@ func isValidEmail(_ email: String) -> Bool {
    })
     */
     
-
-        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
-            if error != nil {
+    func createNewAccount() {//createacc func
+        Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
+           if error != nil {
                 print(error?.localizedDescription ?? "")
-            }
+    }
             //add text pop-up that says user account created
             //firebase.userIsLoggedIn = true
             //isActive = false
@@ -231,9 +229,10 @@ func isValidEmail(_ email: String) -> Bool {
             if error == nil {
                 self.resetPasswordConfirmationAlert = true
             }
-            // error alert
+            // error aler
         }
     }
+    
 }
 
 
