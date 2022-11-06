@@ -28,8 +28,9 @@ class ShazamRecognizer: NSObject, ObservableObject, SHSessionDelegate{
         //Match Found
         if let firstItem = match.mediaItems.first{
             //Shows what song is being recognized in the output window
-            print(firstItem.artist ?? "")
-            print(firstItem.title ?? "")
+            DispatchQueue.main.async {
+                self.matchedTrack = Track(title: firstItem.title ?? "", artist: firstItem.artist ?? "", artwork: firstItem.artworkURL ?? URL(string: "")!, appleMusicURL: firstItem.appleMusicURL ?? URL(string: "")!)
+            }
         }
     }
     
