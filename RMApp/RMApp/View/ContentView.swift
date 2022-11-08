@@ -1,4 +1,4 @@
-//
+//STARTING PAGE
 //  ContentView.swift
 //User registration and Login pages
 //Needs auth for email and password still
@@ -155,7 +155,9 @@ struct ContentView: View {
             .foregroundColor(.black)
         }
     }
-func handleAction() {//links buttons to functions
+    
+    
+    func handleAction() {//links buttons to functions
         if email.isEmpty || password.isEmpty{
             
         }else{
@@ -168,7 +170,8 @@ func handleAction() {//links buttons to functions
             }
         }
     }
-func isValidEmail(_ email: String) -> Bool {
+    
+    func isValidEmail(_ email: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
@@ -183,45 +186,16 @@ func isValidEmail(_ email: String) -> Bool {
             }
             firebase.userIsLoggedIn = true
             Playlist.instance.update()
-
         }
-   }
+    }
     
-    
-   /* func forgotPassword() {//forgot pass
-       Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
-            if error != nil {
-                //if there is an error, print "error"
-               print(error?.localizedDescription ?? "")
-           }
-            firebase.userIsLoggedIn = true
-           isActive = false
-        }
-   }
-    Auth.auth().sendPasswordReset(withEmail: resetEmail!, completion: { (error) in
-       //Make sure you execute the following code on the main queue
-       DispatchQueue.main.async {
-           //Use "if let" to access the error, if it is non-nil
-           if let error = error {
-               let resetFailedAlert = UIAlertController(title: "Reset Failed", message: error.localizedDescription, preferredStyle: .alert)
-               resetFailedAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-               self.present(resetFailedAlert, animated: true, completion: nil)
-           } else {
-               let resetEmailSentAlert = UIAlertController(title: "Reset email sent successfully", message: "Check your email", preferredStyle: .alert)
-               resetEmailSentAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-               self.present(resetEmailSentAlert, animated: true, completion: nil)
-           }
-       }
-   })
-    */
-    
-
+    func createNewAccount() {//createacc func
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             if error != nil {
                 print(error?.localizedDescription ?? "")
             }
             //add text pop-up that says user account created
-            //firebase.userIsLoggedIn = true
+            //userIsLoggedIn = true
             //isActive = false
         }
     }

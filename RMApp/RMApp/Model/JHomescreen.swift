@@ -61,12 +61,7 @@ struct JHomescreen: View {
                         VStack{
                             if select {
 //Start of Saved Page - Josh
-                                if flag == true{
-                                    VStack{
-                                        Label("Raga: \(printres())", systemImage: "music.note.list").font(.system(size: 20)).background(.white, in: RoundedRectangle(cornerRadius: 1))
-                                    }
-                                }
-                                
+                              
                                 ForEach(playlist.tracks) { track in
                                     //
                                     Text("\(track.title)")
@@ -89,9 +84,11 @@ struct JHomescreen: View {
                                             .padding()
                                             .buttonStyle(.bordered)
                                     }
-                                    Button(action: {self.flag = true}){Text("Identify Raga")}
-                                        .padding()
-                                        .buttonStyle(.bordered).foregroundColor(.black)
+                                    Label(track.raga, systemImage: "music.note.list").font(.system(size: 20)).background(.white, in: RoundedRectangle(cornerRadius: 1))
+                                        
+                                    
+                                    
+                                    
                                 }
                                 
                                 HStack{ Button(action:{
@@ -108,9 +105,13 @@ struct JHomescreen: View {
                                         guard let selectedFile: URL = try result.get().first else { return }
                                         guard selectedFile.startAccessingSecurityScopedResource() else { return }
                                         let data = try Data(contentsOf: selectedFile)
+
+                                        upload(file: data, name: selectedFile.lastPathComponent,raga: printres(url: selectedFile))
                                         
-                                        upload(file: data, name: selectedFile.lastPathComponent)
                                         
+//                                            ragaTable[selectedFile.lastPathComponent] = printres(url: selectedFile)
+//                                            print(ragaTable)
+
                                         selectedFile.stopAccessingSecurityScopedResource()
                                     } catch {
                                         Swift.print(error.localizedDescription)
@@ -236,8 +237,9 @@ struct JHomescreen: View {
         }
     }
     
-    //vaishu - upload
-    func upload(file: Data, name: String) -> String {
+    
+   
+    func upload(file: Data, name: String, raga: String) -> String {
         guard let uid = Auth.auth().currentUser?.uid else { return "" }
         let userTracks = Firestore.firestore().collection("users").document(uid).collection("tracks")
         
@@ -251,7 +253,7 @@ struct JHomescreen: View {
         }
         uploadTask.resume()
         //tracks for updating files vaishu
-        userTracks.addDocument(data: ["song": name, "filePath": fileRef.fullPath]) {error in
+        userTracks.addDocument(data: ["song": name, "filePath": fileRef.fullPath , "raga" : raga]) {error in
             
             if let error = error {
                 print("Failed to update \(name): \(error)")
@@ -261,6 +263,8 @@ struct JHomescreen: View {
         }
         return fileRef.fullPath
     }
+    
+    
     //vaishu adding data
     func addData(filename: String, length: String){
         let db = Firestore.firestore()
