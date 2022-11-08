@@ -31,9 +31,12 @@ struct JHomescreen: View {
     @State private var color: Color = .gray
     @StateObject var shazamSession = ShazamRecognizer()
     @State private var isImporting: Bool = false
+    @State private var isSaving: Bool = false
     @State var audioPlayer: AVAudioPlayer!
     @ObservedObject var playlist = Playlist.instance
     @State var flag = false
+    var currentRaga = "empty"
+    @State var ragaTable = [String: String]()
     
     var body: some View{
         NavigationView{
@@ -131,45 +134,52 @@ struct JHomescreen: View {
                                 
                                 if flag == true{
                                     VStack{
-                                        Label("Raga: \(printres())", systemImage: "music.note.list").font(.system(size: 20)).background(.white, in: RoundedRectangle(cornerRadius: 1))
+                                        Label("Raga: ", systemImage: "music.note.list").font(.system(size: 20)).background(.white, in: RoundedRectangle(cornerRadius: 1))
                                            
                                     }
                                 }
 //Start of Saved Page
                                 ForEach(playlist.tracks) { track in
-                                        //
-                                        Text("\(track.title)")
+                                    //
+                                    Text("\(track.title)")
+                                        .padding()
+                                        .foregroundColor(.black)
+                                        .border(.black, width: 4)
+                                    
+                                    //                                        Button(action:{
+                                    //                                            isImporting.toggle()
+                                    //                                            self.addData(filename: "", length: "")
+                                    //                                        })
+                                    //                                        {Text("Import Your Song Here")}
+                                    //                                            .padding()
+                                    //                                            .buttonStyle(.bordered)
+                                    HStack{
+                                        Button(action:{
+                                            play(soundWithPath: track.path)
+                                        })
+                                        {Image(systemName:"play.fill")}
                                             .padding()
-                                            .foregroundColor(.black)
-                                            .border(.black, width: 4)
+                                            .buttonStyle(.bordered)
                                         
-//                                        Button(action:{
-//                                            isImporting.toggle()
-//                                            self.addData(filename: "", length: "")
-//                                        })
-//                                        {Text("Import Your Song Here")}
-//                                            .padding()
-//                                            .buttonStyle(.bordered)
-                                        HStack{
-                                            Button(action:{
-                                                play(soundWithPath: track.path)
-                                            })
-                                            {Image(systemName:"play.fill")}
-                                                .padding()
-                                                .buttonStyle(.bordered)
-                                            
-                                            Button(action:{
-                                                pause(soundWithPath: track.path)
-                                            })
-                                            {Image(systemName:"pause.fill")}
-                                                .padding()
-                                                .buttonStyle(.bordered)
-                                        }
-                                    Button(action: {self.flag = true}){Text("Identify Raga")}
+                                        Button(action:{
+                                            pause(soundWithPath: track.path)
+                                        })
+                                        {Image(systemName:"pause.fill")}
                                             .padding()
-                                            .buttonStyle(.bordered).foregroundColor(.black)
-                                       
+                                            .buttonStyle(.bordered)
+                                        
+                                        
                                     }
+                                    //                                    Button(action: {self.flag = true}){Text("Identify Raga")}
+                                    //                                            .padding()
+                                    //                                            .buttonStyle(.bordered).foregroundColor(.black)
+                                    
+                                    
+                                    Label(track.raga, systemImage: "music.note.list").font(.system(size: 20)).background(.white, in: RoundedRectangle(cornerRadius: 1))
+                                        //
+                                    
+                                }
+                                    
                                 
 //                                if flag == true{
 //                                    VStack{
@@ -178,32 +188,30 @@ struct JHomescreen: View {
 //                                }
                                 
                                 HStack{
-                                    Button(action:{
-                                        printStuff()
-                                    })
-                                    {Text("play test")}
-                                            .padding().foregroundColor(.black)
-                                        .buttonStyle(.bordered)
-                                    
+                                   
                                     Button(action:{
                                     isImporting.toggle()
                                     self.addData(filename: "", length: "")
                                 })
                                 {Text("Import Your Song Here")}
                                         .padding().foregroundColor(.black)
-//                                    .buttonStyle(.bordered).fileImporter( isPresented: $isImporting, allowedContentTypes: [.wav], allowsMultipleSelection: false) { result in
-//                                        do {
-//                                            guard let selectedFile: URL = try result.get().first else { return }
-//                                            guard selectedFile.startAccessingSecurityScopedResource() else { return }
-//                                            let data = try Data(contentsOf: selectedFile)
-//
-//                                            upload(file: data, name: selectedFile.lastPathComponent)
-//
-//                                            selectedFile.stopAccessingSecurityScopedResource()
-//                                        } catch {
-//                                            Swift.print(error.localizedDescription)
-//                                        }
-//                                }
+                                    .buttonStyle(.bordered).fileImporter( isPresented: $isImporting, allowedContentTypes: [.wav], allowsMultipleSelection: false) { result in
+                                        do {
+                                            guard let selectedFile: URL = try result.get().first else { return }
+                                            guard selectedFile.startAccessingSecurityScopedResource() else { return }
+                                            let data = try Data(contentsOf: selectedFile)
+
+                                            upload(file: data, name: selectedFile.lastPathComponent,raga: printres(url: selectedFile))
+                                            
+                                            
+//                                            ragaTable[selectedFile.lastPathComponent] = printres(url: selectedFile)
+//                                            print(ragaTable)
+
+                                            selectedFile.stopAccessingSecurityScopedResource()
+                                        } catch {
+                                            Swift.print(error.localizedDescription)
+                                        }
+                                    }
                                     
                                 
 
@@ -265,7 +273,7 @@ struct JHomescreen: View {
     }
     
     //vaishu - upload
-    func upload(file: Data, name: String) -> String {
+    func upload(file: Data, name: String, raga: String) -> String {
         guard let uid = Auth.auth().currentUser?.uid else { return "" }
         let userTracks = Firestore.firestore().collection("users").document(uid).collection("tracks")
         
@@ -279,7 +287,7 @@ struct JHomescreen: View {
         }
         uploadTask.resume()
         //tracks for updating files vaishu
-        userTracks.addDocument(data: ["song": name, "filePath": fileRef.fullPath]) {error in
+        userTracks.addDocument(data: ["song": name, "filePath": fileRef.fullPath , "raga" : raga]) {error in
             
             if let error = error {
                 print("Failed to update \(name): \(error)")
@@ -290,30 +298,12 @@ struct JHomescreen: View {
         return fileRef.fullPath
     }
     
-    func upload2(file: Data, name: String) -> String {
-        guard let uid = Auth.auth().currentUser?.uid else { return "" }
-        let userTracks = Firestore.firestore().collection("users").document(uid).collection("tracks")
+    
+    
+    func createRaga(){
+        //var ragaTable = [String: String]()
         
-        let ref = Storage.storage().reference()
-        let fileRef = ref.child(uid).child(name)
-        let uploadTask = fileRef.putData(file, metadata: nil) { metadata, error in
-            if let error = error {
-                print("Failed to upload \(name): \(error)")
-            }
-            print("Completed upload of \(name)")
-        }
-        uploadTask.resume()
-        //tracks for updating files vaishu
-        userTracks.addDocument(data: ["song": name, "filePath": fileRef.fullPath]) {error in
-            
-            if let error = error {
-                print("Failed to update \(name): \(error)")
-            } else {
-                self.playlist.update()
-                
-            }
-        }
-        return fileRef.fullPath
+        
     }
     //vaishu adding data
     func addData(filename: String, length: String){
@@ -336,4 +326,5 @@ extension View{
         return UIScreen.main.bounds
     }
 }
+
 
