@@ -11,7 +11,7 @@ import Firebase
 
 
 struct ContentView: View {
-    @State private var email = ""
+    @State public var email = ""
     @State private var logOut = ""
     @State private var password = ""
     @State private var select = false
@@ -147,6 +147,7 @@ struct ContentView: View {
                 .padding()
                 }
                 .navigationTitle(select ? "Login" :"Create Account")
+                .padding()
                 .background(LinearGradient(gradient: Gradient(colors: [.white, .gray]), startPoint: .top, endPoint: .bottom))
             }
             .navigationViewStyle(StackNavigationViewStyle())

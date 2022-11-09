@@ -13,8 +13,12 @@ struct RMAppApp: App {
     init(){
         FirebaseApp.configure()
         //This will change the font size of the picker
-        UISegmentedControl.appearance().setTitleTextAttributes([.font : UIFont.preferredFont(forTextStyle: .headline)], for: .highlighted)
+        UISegmentedControl.appearance().selectedSegmentTintColor = .gray
         UISegmentedControl.appearance().setTitleTextAttributes([.font : UIFont.preferredFont(forTextStyle: .headline)], for: .normal)
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor : UIColor.black], for: .normal)
+        UISegmentedControl.appearance().setTitleTextAttributes([.font : UIFont.preferredFont(forTextStyle: .headline)], for: .selected)
+        
+        //Needed to alter the font color for some reason inline declarations dont work
         UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.black]
         
     }

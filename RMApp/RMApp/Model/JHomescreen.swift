@@ -23,6 +23,7 @@ struct Track: Identifiable{
     var appleMusicURL: URL
 }
 
+
 struct JHomescreen: View {
     @State private var select = false
     @State private var start = false
@@ -34,6 +35,7 @@ struct JHomescreen: View {
     @ObservedObject var playlist = Playlist.instance
     @State var flag = false
     @State var showMenu = false
+    @State private var showingSheet = false
     
     var body: some View{
         NavigationView{
@@ -42,18 +44,24 @@ struct JHomescreen: View {
                     VStack {
                             Menu{
                                 Button("Sign Out", action: { FirebaseInterface.instance.signOut() })
-                                Button("Profile", action: profilePage)
+                                Button("Profile") {
+                                            showingSheet = true
+                                        }
+                                .sheet(isPresented: $showingSheet, content: {
+                                            Text("Hello World from Sheet!")
+                                            Text("Hello World from Sheet!")
+                                        })
                                 Button("More Information", action: sendtoLinks)
                             } label: {
                                 Label("", systemImage: "line.horizontal.3")
                             }
-                            .offset(x:120)
-                            .buttonStyle(.bordered)
+                            .imageScale(.large)
+                            .offset(x: 180)
                         
                     
                             
                         Picker(selection: $select, label: Text("Toggle Button")){
-                            Text("Saved")
+                            Text("Recents")
                                 .tag(true)
                                 .foregroundColor(.black)
                                 .font(.largeTitle)
@@ -195,9 +203,9 @@ struct JHomescreen: View {
                                     }
                                 }
                                 
-                                if let track = shazamSession.matchedTrack{
+                                if let Track = shazamSession.matchedTrack{
                                     
-                                    Link(destination: track.appleMusicURL){
+                                    Link(destination: Track.appleMusicURL){
                                         Text("Add to your Library")
                                     }
                                     .buttonStyle(.bordered)
@@ -288,9 +296,7 @@ struct JHomescreen: View {
 //}
 
 
-func profilePage(){
-    
-}
+
 
 func sendtoLinks(){
     
