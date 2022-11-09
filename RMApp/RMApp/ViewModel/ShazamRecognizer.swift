@@ -9,13 +9,17 @@ import SwiftUI
 import ShazamKit
 import AVKit
 
+typealias RecordingCompletion = (URL) -> Void
+
 class ShazamRecognizer: NSObject, ObservableObject, SHSessionDelegate{
     @Published var session = SHSession()
     @Published var audioEngine = AVAudioEngine()
     @Published var errorMsg = ""
     @Published var showError = false
     @Published var isRecording = false
-    
+    var recordingCompletion: RecordingCompletion? = nil
+    var file: AVAudioFile? = nil
+
     //Found Track
     @Published var matchedTrack: Track!
     
@@ -29,7 +33,13 @@ class ShazamRecognizer: NSObject, ObservableObject, SHSessionDelegate{
         if let firstItem = match.mediaItems.first{
             //Shows what song is being recognized in the output window
             DispatchQueue.main.async {
-                self.matchedTrack = Track(title: firstItem.title ?? "", artist: firstItem.artist ?? "", artwork: firstItem.artworkURL ?? URL(string: "")!, appleMusicURL: firstItem.appleMusicURL ?? URL(string: "")!)
+                self.matchedTrack = Track(title: firstItem.title ?? "",
+                                          artist: firstItem.artist ?? "",
+                                          artwork: firstItem.artworkURL ?? URL(string: "")!,
+                                          appleMusicURL: URL(fileURLWithPath: ""),
+                                          path: "")
+                
+                self.callCompletion()
             }
         }
     }
@@ -41,6 +51,7 @@ class ShazamRecognizer: NSObject, ObservableObject, SHSessionDelegate{
             self.showError.toggle()
             //stopping audio recording
             self.stopRecording()
+            self.callCompletion()
         }
     }
     
@@ -51,9 +62,24 @@ class ShazamRecognizer: NSObject, ObservableObject, SHSessionDelegate{
         }
     }
     
+    func callCompletion() {
+        guard let file = file else { return }
+        
+        recordingCompletion?(file.url)
+        recordingCompletion = nil
+        
+        do {
+            try FileManager.default.removeItem(at: file.url)
+            self.file = nil
+        } catch {
+            print(error)
+        }
+    }
     
     //Fetch Music
-    func listenMusic(){
+    func listenMusic(completion: RecordingCompletion?){
+        recordingCompletion = completion
+        
         let audioSession = AVAudioSession.sharedInstance()
         audioSession.requestRecordPermission{ status in
             
@@ -79,12 +105,40 @@ class ShazamRecognizer: NSObject, ObservableObject, SHSessionDelegate{
         
         //removing if already installed
         inputNode.removeTap(onBus: .zero)
+                
         
         //instslling when you tap the button
-        inputNode.installTap(onBus: .zero, bufferSize: 1024, format: format){ buffer, time in
+        inputNode.installTap(onBus: .zero, bufferSize: 1024, format: format){ [weak self] (buffer, time) in
+            do {
+                if self?.file == nil {
+                    var url = try FileManager.default.url(for: .documentDirectory,
+                                                          in: .userDomainMask,
+                                                          appropriateFor: nil,
+                                                          create: true)
+                    
+                    let dateFormatter = DateFormatter()
+                    
+                    dateFormatter.dateStyle = .medium
+                    dateFormatter.timeStyle = .medium
+                    let name = dateFormatter.string(from: Date())
+                    
+                    url = url.appendingPathComponent(name)
+                    
+                    let bufferFormat = buffer.format
+
+                    self?.file = try AVAudioFile(forWriting: url,
+                                                 settings: bufferFormat.settings,
+                                                 commonFormat: bufferFormat.commonFormat,
+                                                 interleaved: bufferFormat.isInterleaved)
+                }
+                
+                try self?.file?.write(from: buffer)
+            } catch {
+                print(error)
+            }
             
-          //ShazamKit Session Start
-            self.session.matchStreamingBuffer(buffer, at: time)
+            //ShazamKit Session Start
+            self?.session.matchStreamingBuffer(buffer, at: time)
         }
         //starting audio matching
         audioEngine.prepare()
@@ -93,7 +147,9 @@ class ShazamRecognizer: NSObject, ObservableObject, SHSessionDelegate{
             try audioEngine.start()
             print("Starting")
             withAnimation{
-                self.isRecording = true
+                DispatchQueue.main.async {
+                    self.isRecording = true
+                }
             }
         }
         catch{

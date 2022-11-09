@@ -21,6 +21,7 @@ struct Track: Identifiable{
     var artist: String
     var artwork: URL
     var appleMusicURL: URL
+    var path: String
 }
 
 struct JHomescreen: View {
@@ -52,7 +53,6 @@ struct JHomescreen: View {
                     }
                 
                 
-                ScrollView{
                     VStack {
                         Picker(selection: $select, label: Text("Toggle Button")){
                             Text("Saved")
@@ -77,33 +77,6 @@ struct JHomescreen: View {
                                     }
                                 }
                                 
-                                ForEach(playlist.tracks) { track in
-                                    //
-                                    Text("\(track.title)")
-                                        .padding()
-                                        .foregroundColor(.black)
-                                        .border(.black, width: 4)
-                                    
-                                    HStack{
-                                        Button(action:{
-                                            play(soundWithPath: track.path)
-                                        })
-                                        {Image(systemName:"play.fill")}
-                                            .padding()
-                                            .buttonStyle(.bordered)
-                                        
-                                        Button(action:{
-                                            pause(soundWithPath: track.path)
-                                        })
-                                        {Image(systemName:"stop.fill")}
-                                            .padding()
-                                            .buttonStyle(.bordered)
-                                    }
-                                    Button(action: {self.flag = true}){Text("Identify Raga")}
-                                        .padding()
-                                        .buttonStyle(.bordered).foregroundColor(.black)
-                                }
-                                
                                 HStack{ Button(action:{
                                     isImporting.toggle()
                                     self.addData(filename: "", length: "")
@@ -119,7 +92,7 @@ struct JHomescreen: View {
                                         guard selectedFile.startAccessingSecurityScopedResource() else { return }
                                         let data = try Data(contentsOf: selectedFile)
                                         
-                                        upload(file: data, name: selectedFile.lastPathComponent)
+                                        upload(data: data, name: selectedFile.lastPathComponent)
                                         
                                         selectedFile.stopAccessingSecurityScopedResource()
                                     } catch {
@@ -127,7 +100,17 @@ struct JHomescreen: View {
                                     }
                                 }
  //End of Saved Page - Josh
+                                List(playlist.tracks) { track in
+                                    NavigationLink(destination: DetailView(track: track)){
+                                        AudioListView(title: track.title)
+                                    }
+                                    .listRowBackground(Color.clear)
+                                }
+                                .listStyle(.plain)
+                                .scrollContentBackground(.hidden)
+                                
                             }else{
+                                ScrollView{
 //Start of Home Page
                                 ZStack{
                                     if let track = shazamSession.matchedTrack{
@@ -185,7 +168,13 @@ struct JHomescreen: View {
                                 
                                 Button{
                                     //Button that starts Shazam functionality
-                                    shazamSession.listenMusic()
+                                    shazamSession.listenMusic() { url in
+                                        do {
+                                            try upload(file: url)
+                                        } catch {
+                                            print(error)
+                                        }
+                                    }
                                 }label: {
                                     Image(systemName: shazamSession.isRecording ? "stop.circle.fill" : "music.mic.circle.fill")
                                         .foregroundColor(.black)
@@ -197,15 +186,17 @@ struct JHomescreen: View {
                                     }
                                 }
                                 
-                                if let track = shazamSession.matchedTrack{
-                                    
-                                    Link(destination: track.appleMusicURL){
-                                        Text("Add to your Library")
-                                    }
-                                    .buttonStyle(.bordered)
-                                    .shadow(radius: 4)
-                                    //End of HomePage - Josh
-                                }
+//                                if let track = shazamSession.matchedTrack{
+//
+//                                    Link(destination: track.appleMusicURL){
+//                                        Text("Add to your Library")
+//                                    }
+//                                    .buttonStyle(.bordered)
+//                                    .shadow(radius: 4)
+//                                    //End of HomePage - Josh
+//                                }
+                                
+                               
                             }
                         }
                     }
@@ -247,13 +238,24 @@ struct JHomescreen: View {
     }
     
     //vaishu - upload
-    func upload(file: Data, name: String) -> String {
+    @discardableResult func upload(file: URL) throws -> String? {
+        guard file.startAccessingSecurityScopedResource() else { return nil }
+        let data = try Data(contentsOf: file)
+        
+        let result = upload(data: data, name: file.lastPathComponent)
+        
+        file.stopAccessingSecurityScopedResource()
+        
+        return result
+    }
+    
+    @discardableResult func upload(data: Data, name: String) -> String {
         guard let uid = Auth.auth().currentUser?.uid else { return "" }
         let userTracks = Firestore.firestore().collection("users").document(uid).collection("tracks")
         
         let ref = Storage.storage().reference()
         let fileRef = ref.child(uid).child(name)
-        let uploadTask = fileRef.putData(file, metadata: nil) { metadata, error in
+        let uploadTask = fileRef.putData(data, metadata: nil) { metadata, error in
             if let error = error {
                 print("Failed to upload \(name): \(error)")
             }
