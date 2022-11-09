@@ -13,12 +13,6 @@ class Playlist: ObservableObject {
     static let instance = Playlist()
     @Published var tracks: [Track] = []
     
-    struct Track: Identifiable {
-        let id = UUID()
-        let path: String
-        let title: String
-    }
-    
     func update() {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         let userTracks = Firestore.firestore().collection("users").document(uid).collection("tracks")
@@ -29,7 +23,11 @@ class Playlist: ObservableObject {
                 let trackList = try await userTracks.getDocuments().documents
                 for json in trackList {
                     if let path = json["filePath"] as? String, let title = json["song"] as? String {
-                        tracks.append(Track(path: path, title: title))
+                        tracks.append(Track(title: title,
+                                            artist: "",
+                                            artwork: URL(fileURLWithPath: ""),
+                                            appleMusicURL: URL(fileURLWithPath: ""),
+                                            path: path))
                     }
                 }
                 
