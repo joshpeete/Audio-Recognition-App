@@ -38,22 +38,20 @@ struct JHomescreen: View {
     var body: some View{
         NavigationView{
             VStack{
-                Button{
-                    self.showMenu.toggle()
-                }label: {
-                    Image(systemName: "line.horizontal.3")
-                        .foregroundColor(.black)
-                }
-                .buttonStyle(.bordered)
-
-                
-                if self.showMenu {
-                    CardView()
-                    }
-                
-                
                 ScrollView{
                     VStack {
+                            Menu{
+                                Button("Sign Out", action: { FirebaseInterface.instance.signOut() })
+                                Button("Profile", action: profilePage)
+                                Button("More Information", action: sendtoLinks)
+                            } label: {
+                                Label("", systemImage: "line.horizontal.3")
+                            }
+                            .offset(x:120)
+                            .buttonStyle(.bordered)
+                        
+                    
+                            
                         Picker(selection: $select, label: Text("Toggle Button")){
                             Text("Saved")
                                 .tag(true)
@@ -211,12 +209,12 @@ struct JHomescreen: View {
                     }
                     
                 }
+                .navigationTitle("Raga-Mania")
+                .foregroundColor(.black)
                 
             }
-            .navigationTitle("Raga-Mania")
-            .foregroundColor(.black)
             .background(LinearGradient(gradient: Gradient(colors: [.white, .gray]), startPoint: .top, endPoint: .bottom))
-        }
+        }.ignoresSafeArea()
     }
     
     
@@ -288,6 +286,15 @@ struct JHomescreen: View {
 //      }
 //    }
 //}
+
+
+func profilePage(){
+    
+}
+
+func sendtoLinks(){
+    
+}
 
 
 struct JHomescreen_Previews: PreviewProvider {

@@ -15,16 +15,10 @@ import FirebaseFirestore
 struct CardView: View {
     @State var showMenu = true
     var body: some View {
-        HStack{
-            Button(action: { FirebaseInterface.instance.signOut() }) {
-                Text("Sign Out")
-            }
-            .padding()
-            .buttonStyle(.bordered)
-        }
+            Text("help")
     }
 }
-    
+
     struct CardView_Previews: PreviewProvider {
         static var previews: some View {
             CardView()
