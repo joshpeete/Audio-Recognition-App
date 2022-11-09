@@ -84,7 +84,9 @@ struct JHomescreen: View {
                                             .padding()
                                             .buttonStyle(.bordered)
                                     }
-                                    Label(track.raga, systemImage: "music.note.list").font(.system(size: 20)).background(.white, in: RoundedRectangle(cornerRadius: 1))
+                                    Label("Raga: " + track.raga, systemImage: "music.note.list").font(.system(size: 20)).background(.white, in: RoundedRectangle(cornerRadius: 1))
+                                    
+                                    Label("Accuracy: " + track.accuracy, systemImage: "percent").font(.system(size: 20)).background(.white, in: RoundedRectangle(cornerRadius: 1))
                                         
                                     
                                     
@@ -106,7 +108,7 @@ struct JHomescreen: View {
                                         guard selectedFile.startAccessingSecurityScopedResource() else { return }
                                         let data = try Data(contentsOf: selectedFile)
 
-                                        upload(file: data, name: selectedFile.lastPathComponent,raga: printres(url: selectedFile))
+                                        upload(file: data, name: selectedFile.lastPathComponent,raga: printres(url: selectedFile), accuracy:printAcc())
                                         
                                         
 //                                            ragaTable[selectedFile.lastPathComponent] = printres(url: selectedFile)
@@ -239,7 +241,7 @@ struct JHomescreen: View {
     
     
    
-    func upload(file: Data, name: String, raga: String) -> String {
+    func upload(file: Data, name: String, raga: String, accuracy: String) -> String {
         guard let uid = Auth.auth().currentUser?.uid else { return "" }
         let userTracks = Firestore.firestore().collection("users").document(uid).collection("tracks")
         
@@ -253,7 +255,7 @@ struct JHomescreen: View {
         }
         uploadTask.resume()
         //tracks for updating files vaishu
-        userTracks.addDocument(data: ["song": name, "filePath": fileRef.fullPath , "raga" : raga]) {error in
+        userTracks.addDocument(data: ["song": name, "filePath": fileRef.fullPath , "raga" : raga, "accuracy" : accuracy]) {error in
             
             if let error = error {
                 print("Failed to update \(name): \(error)")

@@ -15,6 +15,8 @@ import FirebaseStorage
 
 import AVFoundation
 
+public var maxpred: Float  = -1
+
 
 
 //import CoreML
@@ -221,13 +223,13 @@ func printres(url:URL)->String!{
     
     
    
-    let maxpred = singlresult.max()
+    maxpred = singlresult.max() ?? -1
     
         
         
     
-    if (maxpred! > Float(0.1)){
-        idx = singlresult.index(of:maxpred!) ?? 10}
+    if (maxpred > Float(0.1)){
+        idx = singlresult.index(of:maxpred) ?? 10}
    
     
     var myIntValue = Int(idx)
@@ -240,4 +242,9 @@ func printres(url:URL)->String!{
     return finalOutput
   
     
+}
+
+func printAcc()->String!{
+    let maxstring = String(maxpred)
+    return maxstring
 }

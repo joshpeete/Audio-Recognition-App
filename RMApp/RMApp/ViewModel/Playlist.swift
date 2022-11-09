@@ -18,6 +18,7 @@ class Playlist: ObservableObject {
         let path: String
         let title: String
         let raga: String
+        let accuracy: String
     }
     
     func update() {
@@ -29,8 +30,8 @@ class Playlist: ObservableObject {
             do {
                 let trackList = try await userTracks.getDocuments().documents
                 for json in trackList {
-                    if let path = json["filePath"] as? String, let title = json["song"] as? String, let raga = json["raga"] as? String {
-                        tracks.append(Track(path: path, title: title, raga: raga ))
+                    if let path = json["filePath"] as? String, let title = json["song"] as? String, let raga = json["raga"] as? String,let accuracy = json["accuracy"] as? String {
+                        tracks.append(Track(path: path, title: title, raga: raga, accuracy: accuracy ))
                     }
                 }
                 
