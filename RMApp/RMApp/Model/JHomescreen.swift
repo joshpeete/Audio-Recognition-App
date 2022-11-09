@@ -33,15 +33,25 @@ struct JHomescreen: View {
     @State var audioPlayer: AVAudioPlayer!
     @ObservedObject var playlist = Playlist.instance
     @State var flag = false
+    @State var showMenu = false
     
     var body: some View{
         NavigationView{
-            VStack(spacing:12){
-                Button(action: { FirebaseInterface.instance.signOut() }) {
-                    Text("Sign Out")
+            VStack{
+                Button{
+                    self.showMenu.toggle()
+                }label: {
+                    Image(systemName: "line.horizontal.3")
+                        .foregroundColor(.black)
                 }
-                .padding()
                 .buttonStyle(.bordered)
+
+                
+                if self.showMenu {
+                    CardView()
+                    }
+                
+                
                 ScrollView{
                     VStack {
                         Picker(selection: $select, label: Text("Toggle Button")){
