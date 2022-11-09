@@ -20,11 +20,11 @@ struct Splashview: View {
         VStack{
             VStack{
                 Image(systemName: "music.quarternote.3")//logo
-                    .font(.system(size: 80))
-                    .foregroundColor(.green)
+                    .font(.system(size: 100))
+                    .foregroundColor(.black)
                 Text("Raga-Mania")//title
                     .font(Font.custom("Baskerville-Bold", size: 26))
-                    .foregroundColor(.white.opacity(0.80))
+                    .foregroundColor(.black.opacity(0.80))
             }
         .scaleEffect(size)
         .opacity(opacity)
