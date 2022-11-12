@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		648D3E8F291DDB2100197C51 /* AudioNav.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648D3E8E291DDB2100197C51 /* AudioNav.swift */; };
+		648D3E91291EE6EF00197C51 /* RecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648D3E90291EE6EF00197C51 /* RecordButton.swift */; };
 		64E4758B291C1CE100EF7583 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E4758A291C1CE000EF7583 /* DetailView.swift */; };
 		64E4758D291C1D1800EF7583 /* AudioListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E4758C291C1D1800EF7583 /* AudioListView.swift */; };
 		D728F9A328EDED7D009989EB /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D728F9A228EDED7D009989EB /* CardView.swift */; };
@@ -36,7 +38,6 @@
 		D7296A7C28E3B34A00D0049E /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = D7296A7B28E3B34A00D0049E /* FirebaseStorage */; };
 		D7296A7E28E3B81800D0049E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D7296A7D28E3B81800D0049E /* GoogleService-Info.plist */; };
 		D7296A8028E3DD2B00D0049E /* JHomescreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7296A7F28E3DD2B00D0049E /* JHomescreen.swift */; };
-		FB7C6E3029027798004507E5 /* RagaRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7C6E2F29027798004507E5 /* RagaRecognizer.swift */; };
 		FB7C6E3329027875004507E5 /* Mlmodel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = FB7C6E3229027875004507E5 /* Mlmodel.mlmodel */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +59,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		648D3E8E291DDB2100197C51 /* AudioNav.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioNav.swift; sourceTree = "<group>"; };
+		648D3E90291EE6EF00197C51 /* RecordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordButton.swift; sourceTree = "<group>"; };
 		64E4758A291C1CE000EF7583 /* DetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		64E4758C291C1D1800EF7583 /* AudioListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioListView.swift; sourceTree = "<group>"; };
 		D728F9A228EDED7D009989EB /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -87,7 +90,6 @@
 		D7296A6228E3A22400D0049E /* Splashview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Splashview.swift; sourceTree = "<group>"; };
 		D7296A7D28E3B81800D0049E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D7296A7F28E3DD2B00D0049E /* JHomescreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JHomescreen.swift; sourceTree = "<group>"; };
-		FB7C6E2F29027798004507E5 /* RagaRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RagaRecognizer.swift; sourceTree = "<group>"; };
 		FB7C6E3229027875004507E5 /* Mlmodel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Mlmodel.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -123,11 +125,13 @@
 		D728F9AF28FF199E009989EB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				648D3E8E291DDB2100197C51 /* AudioNav.swift */,
 				64E4758C291C1D1800EF7583 /* AudioListView.swift */,
 				64E4758A291C1CE000EF7583 /* DetailView.swift */,
 				D7296A3A28E3A1B900D0049E /* ContentView.swift */,
 				D7296A6228E3A22400D0049E /* Splashview.swift */,
 				D728F9A228EDED7D009989EB /* CardView.swift */,
+				648D3E90291EE6EF00197C51 /* RecordButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -142,7 +146,6 @@
 				D728F9BD2904B114009989EB /* Playlist.swift */,
 				D728F9CA29072C59009989EB /* RagaRecognizer.swift */,
 				D728F9B528FF78E3009989EB /* ShazamRecognizer.swift */,
-				FB7C6E2F29027798004507E5 /* RagaRecognizer.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -374,9 +377,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				648D3E8F291DDB2100197C51 /* AudioNav.swift in Sources */,
 				D7296A6328E3A22400D0049E /* Splashview.swift in Sources */,
 				FB7C6E3329027875004507E5 /* Mlmodel.mlmodel in Sources */,
-				FB7C6E3029027798004507E5 /* RagaRecognizer.swift in Sources */,
 				D7296A8028E3DD2B00D0049E /* JHomescreen.swift in Sources */,
 				D728F9BE2904B114009989EB /* Playlist.swift in Sources */,
 				D728F9B628FF78E3009989EB /* ShazamRecognizer.swift in Sources */,
@@ -385,6 +388,7 @@
 				D728F9BC2904B10B009989EB /* DownloadManager.swift in Sources */,
 				D728F9CB29072C59009989EB /* RagaRecognizer.swift in Sources */,
 				D728F9C929070DE6009989EB /* SoundAnalysisPreprocessing.mlmodel in Sources */,
+				648D3E91291EE6EF00197C51 /* RecordButton.swift in Sources */,
 				D7296A3B28E3A1B900D0049E /* ContentView.swift in Sources */,
 				D7296A3928E3A1B900D0049E /* RMAppApp.swift in Sources */,
 				D728F9A328EDED7D009989EB /* CardView.swift in Sources */,

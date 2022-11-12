@@ -17,9 +17,11 @@ class ShazamRecognizer: NSObject, ObservableObject, SHSessionDelegate{
     @Published var errorMsg = ""
     @Published var showError = false
     @Published var isRecording = false
+    @Published var isListening = false
     var recordingCompletion: RecordingCompletion? = nil
     var file: AVAudioFile? = nil
-
+    var recognize: Bool = true
+    
     //Found Track
     @Published var matchedTrack: Track!
     
@@ -51,15 +53,16 @@ class ShazamRecognizer: NSObject, ObservableObject, SHSessionDelegate{
             self.showError.toggle()
             //stopping audio recording
             self.stopRecording()
-            self.callCompletion()
         }
     }
-    
+    //ur mom
     func stopRecording(){
         audioEngine.stop()
         withAnimation{
             isRecording = false
+            isListening = false
         }
+        self.callCompletion()
     }
     
     func callCompletion() {
@@ -77,8 +80,9 @@ class ShazamRecognizer: NSObject, ObservableObject, SHSessionDelegate{
     }
     
     //Fetch Music
-    func listenMusic(completion: RecordingCompletion?){
+    func listenMusic(shouldRecognize: Bool, completion: RecordingCompletion? = nil){
         recordingCompletion = completion
+        recognize = shouldRecognize
         
         let audioSession = AVAudioSession.sharedInstance()
         audioSession.requestRecordPermission{ status in
@@ -109,36 +113,40 @@ class ShazamRecognizer: NSObject, ObservableObject, SHSessionDelegate{
         
         //instslling when you tap the button
         inputNode.installTap(onBus: .zero, bufferSize: 1024, format: format){ [weak self] (buffer, time) in
-            do {
-                if self?.file == nil {
-                    var url = try FileManager.default.url(for: .documentDirectory,
-                                                          in: .userDomainMask,
-                                                          appropriateFor: nil,
-                                                          create: true)
-                    
-                    let dateFormatter = DateFormatter()
-                    
-                    dateFormatter.dateStyle = .medium
-                    dateFormatter.timeStyle = .medium
-                    let name = dateFormatter.string(from: Date())
-                    
-                    url = url.appendingPathComponent(name)
-                    
-                    let bufferFormat = buffer.format
-
-                    self?.file = try AVAudioFile(forWriting: url,
-                                                 settings: bufferFormat.settings,
-                                                 commonFormat: bufferFormat.commonFormat,
-                                                 interleaved: bufferFormat.isInterleaved)
-                }
-                
-                try self?.file?.write(from: buffer)
-            } catch {
-                print(error)
-            }
-            
             //ShazamKit Session Start
-            self?.session.matchStreamingBuffer(buffer, at: time)
+            if self?.recognize == true {
+                self?.session.matchStreamingBuffer(buffer, at: time)
+            } else {
+                do {
+                    if self?.file == nil {
+                        var url = try FileManager.default.url(for: .documentDirectory,
+                                                              in: .userDomainMask,
+                                                              appropriateFor: nil,
+                                                              create: true)
+                        
+                        let dateFormatter = DateFormatter()
+                        
+                        dateFormatter.dateStyle = .medium
+                        dateFormatter.timeStyle = .medium
+                        let name = dateFormatter.string(from: Date()) + ".wav"
+                        
+                        url = url.appendingPathComponent(name)
+                        
+                        let bufferFormat = buffer.format
+                        
+                        self?.file = try AVAudioFile(forWriting: url,
+                                                     settings: bufferFormat.settings,
+                                                     commonFormat: bufferFormat.commonFormat,
+                                                     interleaved: bufferFormat.isInterleaved)
+                    }
+                    
+                    try self?.file?.write(from: buffer)
+                } catch {
+                    print(error)
+                }
+                //self?.file = try AVAudioFormat( sampleRate: Float32,
+                                                //layout: 1)
+            }
         }
         //starting audio matching
         audioEngine.prepare()
@@ -148,7 +156,11 @@ class ShazamRecognizer: NSObject, ObservableObject, SHSessionDelegate{
             print("Starting")
             withAnimation{
                 DispatchQueue.main.async {
-                    self.isRecording = true
+                    if self.recognize {
+                        self.isListening = true
+                    } else {
+                        self.isRecording = true
+                    }
                 }
             }
         }

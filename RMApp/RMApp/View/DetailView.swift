@@ -16,8 +16,9 @@ import FirebaseFirestore
 struct DetailView: View {
     @ObservedObject var playlist = Playlist.instance
     @State var flag = false
-
-    var track: Track
+    @State var ragaData = ""
+    
+    var track: Playlist.Track
     
     func play(soundWithPath path: String) {
         DownloadManager.instance.download(filePath: path) { data, error in
@@ -43,39 +44,39 @@ struct DetailView: View {
         }
     }
     
-    //vaishu - upload
-    func upload(file: Data, name: String) -> String {
-        guard let uid = Auth.auth().currentUser?.uid else { return "" }
-        let userTracks = Firestore.firestore().collection("users").document(uid).collection("tracks")
-        
-        let ref = Storage.storage().reference()
-        let fileRef = ref.child(uid).child(name)
-        let uploadTask = fileRef.putData(file, metadata: nil) { metadata, error in
-            if let error = error {
-                print("Failed to upload \(name): \(error)")
-            }
-            print("Completed upload of \(name)")
-        }
-        uploadTask.resume()
-        //tracks for updating files vaishu
-        userTracks.addDocument(data: ["song": name, "filePath": fileRef.fullPath]) {error in
-            
-            if let error = error {
-                print("Failed to update \(name): \(error)")
-            } else {
-                self.playlist.update()
-            }
-        }
-        return fileRef.fullPath
-    }
+//    //vaishu - upload
+//    func upload(file: Data, name: String) -> String {
+//        guard let uid = Auth.auth().currentUser?.uid else { return "" }
+//        let userTracks = Firestore.firestore().collection("users").document(uid).collection("tracks")
+//
+//        let ref = Storage.storage().reference()
+//        let fileRef = ref.child(uid).child(name)
+//        let uploadTask = fileRef.putData(file, metadata: nil) { metadata, error in
+//            if let error = error {
+//                print("Failed to upload \(name): \(error)")
+//            }
+//            print("Completed upload of \(name)")
+//        }
+//        uploadTask.resume()
+//        //tracks for updating files vaishu
+//        userTracks.addDocument(data: ["song": name, "filePath": fileRef.fullPath]) {error in
+//
+//            if let error = error {
+//                print("Failed to update \(name): \(error)")
+//            } else {
+//                self.playlist.update()
+//            }
+//        }
+//        return fileRef.fullPath
+//    }
     //vaishu adding data
-    func addData(filename: String, length: String){
-        let db = Firestore.firestore()
-        db.collection("sample").addDocument(data: ["song": filename, "length": length]){error in
-            if error == nil {
-            }
-        }
-    }
+//    func addData(filename: String, length: String){
+//        let db = Firestore.firestore()
+//        db.collection("sample").addDocument(data: ["song": filename, "length": length]){error in
+//            if error == nil {
+//            }
+//        }
+//    }
     
     var body: some View {
         Text("\(track.title)")
@@ -98,22 +99,59 @@ struct DetailView: View {
                 .padding()
                 .buttonStyle(.bordered)
         }
-        Button(action: {flag = true}){Text("Raga")}
-            .padding()
-            .buttonStyle(.bordered).foregroundColor(.black)
-        if flag == true{
-            VStack{
-                Text("\(printres())")
+        Label("Raga: " + track.raga, systemImage: "music.note.list").font(.system(size: 20)).background(.white, in: RoundedRectangle(cornerRadius: 1))
+        Text(ragaData)
+            .onAppear {
+                getRagaData(path: track.path)
             }
-        }    }
-}
-
-struct DetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        DetailView(track: Track(title: "",
-                                artist: "",
-                                artwork: URL(fileURLWithPath: ""),
-                                appleMusicURL: URL(fileURLWithPath: ""),
-                                path: ""))
+    }
+    
+    func getRagaData(path: String) {
+        DownloadManager.instance.download(filePath: path) { data, error in
+            guard let data = data else {
+                if let error = error {
+                    print("Failed to download \(path): \(error)")
+                } else {
+                    print("Failed to download: reason unknown")
+                }
+                
+                return
+            }
+            
+            do {
+                var url = try FileManager.default.url(for: .documentDirectory,
+                                                      in: .userDomainMask,
+                                                      appropriateFor: nil,
+                                                      create: true)
+                
+                let name = "TempAudioFile.wav"
+                url = url.appending(component: name)
+                
+                try data.write(to: url)
+                
+                let result = printres(url: url)
+                if let result = result {
+                    if result.count == 0 {
+                        self.ragaData = "no raga found"
+                    } else {
+                        self.ragaData = result
+                    }
+                } else {
+                    self.ragaData = "no raga found"
+                }
+            } catch {
+                print(error)
+            }
+        }
     }
 }
+
+//struct DetailView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DetailView(track: Track(title: "",
+//                                artist: "",
+//                                artwork: URL(fileURLWithPath: ""),
+//                                appleMusicURL: URL(fileURLWithPath: ""),
+//                                path: ""))
+//    }
+//}
