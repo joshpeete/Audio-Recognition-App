@@ -104,6 +104,7 @@ func readWavIntoFloats(filepath: URL) -> [Float] {
     //let fileUrl = URL(fileURLWithPath: url)
    // let url = URL(fileURLWithPath: storageRef)
     let file = try! AVAudioFile(forReading: filepath)
+    
     let format = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: file.fileFormat.sampleRate, channels: 1, interleaved: false)!
     let buf = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 15600)!
     try! file.read(into: buf)
@@ -111,7 +112,9 @@ func readWavIntoFloats(filepath: URL) -> [Float] {
     // this makes a copy, you might not want that
     floatArray = Array(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:Int(buf.frameLength)))
 
-    //print(floatArray)
+    while(floatArray.count < 15600){
+        floatArray.append(Float(0))
+    }
     return floatArray
 
     //print(floatArray)
@@ -245,6 +248,7 @@ func printres(url:URL)->String!{
 }
 
 func printAcc()->String!{
-    let maxstring = String(maxpred)
+    let roundednum = round(maxpred * 100) / 100.0
+    let maxstring = String(roundednum)
     return maxstring
 }

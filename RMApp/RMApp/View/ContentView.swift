@@ -1,4 +1,4 @@
-//STARTING PAGE
+//
 //  ContentView.swift
 //User registration and Login pages
 //Needs auth for email and password still
@@ -6,7 +6,6 @@
 //
 //  Created by Joshua Peete on 9/21/22.
 //
-
 import SwiftUI
 import Firebase
 
@@ -155,9 +154,7 @@ struct ContentView: View {
             .foregroundColor(.black)
         }
     }
-    
-    
-    func handleAction() {//links buttons to functions
+func handleAction() {//links buttons to functions
         if email.isEmpty || password.isEmpty{
             
         }else{
@@ -170,8 +167,7 @@ struct ContentView: View {
             }
         }
     }
-    
-    func isValidEmail(_ email: String) -> Bool {
+func isValidEmail(_ email: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
@@ -186,16 +182,17 @@ struct ContentView: View {
             }
             firebase.userIsLoggedIn = true
             Playlist.instance.update()
+
         }
-    }
+   }
     
-    func createNewAccount() {//createacc func
+    func createNewAccount(){
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             if error != nil {
                 print(error?.localizedDescription ?? "")
             }
             //add text pop-up that says user account created
-            //userIsLoggedIn = true
+            //firebase.userIsLoggedIn = true
             //isActive = false
         }
     }

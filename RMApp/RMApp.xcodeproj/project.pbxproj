@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4598A65629204FDC007D3AF7 /* RecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4598A65529204FDC007D3AF7 /* RecordButton.swift */; };
 		D728F9A328EDED7D009989EB /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D728F9A228EDED7D009989EB /* CardView.swift */; };
 		D728F9A528EE2130009989EB /* sample-9s.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D728F9A428EE2130009989EB /* sample-9s.mp3 */; };
 		D728F9A728F8EEE7009989EB /* sample-15s.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D728F9A628F8EEE7009989EB /* sample-15s.mp3 */; };
@@ -58,6 +59,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4598A65529204FDC007D3AF7 /* RecordButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordButton.swift; sourceTree = "<group>"; };
 		D728F9A228EDED7D009989EB /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		D728F9A428EE2130009989EB /* sample-9s.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "sample-9s.mp3"; sourceTree = "<group>"; };
 		D728F9A628F8EEE7009989EB /* sample-15s.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "sample-15s.mp3"; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 		D728F9AF28FF199E009989EB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4598A65529204FDC007D3AF7 /* RecordButton.swift */,
 				D7296A3A28E3A1B900D0049E /* ContentView.swift */,
 				D7296A6228E3A22400D0049E /* Splashview.swift */,
 				FBC97ECA291A0F7E0047513C /* DetailView.swift */,
@@ -375,6 +378,7 @@
 			files = (
 				FBC97ECD291A102F0047513C /* AudioNav.swift in Sources */,
 				D7296A6328E3A22400D0049E /* Splashview.swift in Sources */,
+				4598A65629204FDC007D3AF7 /* RecordButton.swift in Sources */,
 				FB7C6E3329027875004507E5 /* Mlmodel.mlmodel in Sources */,
 				FB7C6E3029027798004507E5 /* RagaRecognizer.swift in Sources */,
 				D7296A8028E3DD2B00D0049E /* JHomescreen.swift in Sources */,
