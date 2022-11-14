@@ -13,17 +13,17 @@ struct AudioNav: View {
     var tracks = [""]
     var body: some View {
         //NavigationView {
-            List(tracks, id: \.self) { track in
-//                NavigationLink(
-//                    destination: Text("hello"),
-//                    label: {
-                        AudioListView(title: track)
-
-       //             })
-                
-            }
-    //    }.background(Color.clear)
+        List(tracks, id: \.self) { track in
+            //                NavigationLink(
+            //                    destination: Text("hello"),
+            //                    label: {
+            AudioListView(title: track)
             
+            //             })
+            
+        }
+        //    }.background(Color.clear)
+        
     }
 }
 

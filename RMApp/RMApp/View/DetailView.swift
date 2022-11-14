@@ -18,7 +18,7 @@ struct DetailView: View {
     @State var flag = false
     @State var ragaData = ""
     
-    var track: Playlist.Track
+    var track: Track
     
     func play(soundWithPath path: String) {
         DownloadManager.instance.download(filePath: path) { data, error in
@@ -44,39 +44,39 @@ struct DetailView: View {
         }
     }
     
-//    //vaishu - upload
-//    func upload(file: Data, name: String) -> String {
-//        guard let uid = Auth.auth().currentUser?.uid else { return "" }
-//        let userTracks = Firestore.firestore().collection("users").document(uid).collection("tracks")
-//
-//        let ref = Storage.storage().reference()
-//        let fileRef = ref.child(uid).child(name)
-//        let uploadTask = fileRef.putData(file, metadata: nil) { metadata, error in
-//            if let error = error {
-//                print("Failed to upload \(name): \(error)")
-//            }
-//            print("Completed upload of \(name)")
-//        }
-//        uploadTask.resume()
-//        //tracks for updating files vaishu
-//        userTracks.addDocument(data: ["song": name, "filePath": fileRef.fullPath]) {error in
-//
-//            if let error = error {
-//                print("Failed to update \(name): \(error)")
-//            } else {
-//                self.playlist.update()
-//            }
-//        }
-//        return fileRef.fullPath
-//    }
+    //    //vaishu - upload
+    //    func upload(file: Data, name: String) -> String {
+    //        guard let uid = Auth.auth().currentUser?.uid else { return "" }
+    //        let userTracks = Firestore.firestore().collection("users").document(uid).collection("tracks")
+    //
+    //        let ref = Storage.storage().reference()
+    //        let fileRef = ref.child(uid).child(name)
+    //        let uploadTask = fileRef.putData(file, metadata: nil) { metadata, error in
+    //            if let error = error {
+    //                print("Failed to upload \(name): \(error)")
+    //            }
+    //            print("Completed upload of \(name)")
+    //        }
+    //        uploadTask.resume()
+    //        //tracks for updating files vaishu
+    //        userTracks.addDocument(data: ["song": name, "filePath": fileRef.fullPath]) {error in
+    //
+    //            if let error = error {
+    //                print("Failed to update \(name): \(error)")
+    //            } else {
+    //                self.playlist.update()
+    //            }
+    //        }
+    //        return fileRef.fullPath
+    //    }
     //vaishu adding data
-//    func addData(filename: String, length: String){
-//        let db = Firestore.firestore()
-//        db.collection("sample").addDocument(data: ["song": filename, "length": length]){error in
-//            if error == nil {
-//            }
-//        }
-//    }
+    //    func addData(filename: String, length: String){
+    //        let db = Firestore.firestore()
+    //        db.collection("sample").addDocument(data: ["song": filename, "length": length]){error in
+    //            if error == nil {
+    //            }
+    //        }
+    //    }
     
     var body: some View {
         Text("\(track.title)")

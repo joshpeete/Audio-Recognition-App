@@ -13,12 +13,12 @@ struct AudioListView: View{
     
     var body: some View {
         HStack{
-//            Image(video.imageName)
-//                .resizable()
-//                .scaledToFit()
-//                .frame(height: 70)
-//                .cornerRadius(4)
-//                .padding(.vertical,4)
+            //            Image(video.imageName)
+            //                .resizable()
+            //                .scaledToFit()
+            //                .frame(height: 70)
+            //                .cornerRadius(4)
+            //                .padding(.vertical,4)
             
             VStack(alignment: .leading, spacing: 5) {
                 Text(title)
@@ -26,9 +26,9 @@ struct AudioListView: View{
                     .lineLimit(2)
                     .minimumScaleFactor(0.5)
                 
-//                Text(video.uploadDate)
-//                    .font(.subheadline)
-//                    .foregroundColor(.secondary)
+                //                Text(video.uploadDate)
+                //                    .font(.subheadline)
+                //                    .foregroundColor(.secondary)
                 
             }
         }

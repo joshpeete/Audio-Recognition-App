@@ -17,31 +17,31 @@ struct Splashview: View {
         if isActive{
             ContentView()//if the app is turned on show the registration/login page
         }else{//if the app isnt turned on yet show the splash screen
-        VStack{
             VStack{
-                Image(systemName: "music.quarternote.3")//logo
-                    .font(.system(size: 100))
-                    .foregroundColor(.black)
-                Text("Raga-Mania")//title
-                    .font(Font.custom("Baskerville-Bold", size: 26))
-                    .foregroundColor(.black.opacity(0.80))
+                VStack{
+                    Image(systemName: "music.quarternote.3")//logo
+                        .font(.system(size: 100))
+                        .foregroundColor(.black)
+                    Text("Raga-Mania")//title
+                        .font(Font.custom("Baskerville-Bold", size: 26))
+                        .foregroundColor(.black.opacity(0.80))
+                }
+                .scaleEffect(size)
+                .opacity(opacity)
+                .onAppear{
+                    withAnimation(.easeIn(duration: 1.2)){//fading animation
+                        self.size = 0.9
+                        self.opacity = 1.0
+                    }
+                }
             }
-        .scaleEffect(size)
-        .opacity(opacity)
-        .onAppear{
-            withAnimation(.easeIn(duration: 1.2)){//fading animation
-                self.size = 0.9
-                self.opacity = 1.0
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline:.now() + 2.0) {
+                    self.isActive = true//activation
+                }
             }
         }
     }
-    .onAppear {
-            DispatchQueue.main.asyncAfter(deadline:.now() + 2.0) {
-                self.isActive = true//activation
-            }
-        }
-    }
-}
 }
 
 struct Previews_Splashview_Previews: PreviewProvider {

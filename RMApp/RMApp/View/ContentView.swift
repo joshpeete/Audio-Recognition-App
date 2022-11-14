@@ -135,14 +135,14 @@ struct ContentView: View {
                         handleAction()
                     }
                 label: {
-                        ZStack{
-                            Text(select ? "Login" :"Create Account")
-                                .foregroundColor(.black)
-                                .padding()
-                                .cornerRadius(12)
-                                .font(.system(size: 24, weight: .semibold))
-                        }
+                    ZStack{
+                        Text(select ? "Login" :"Create Account")
+                            .foregroundColor(.black)
+                            .padding()
+                            .cornerRadius(12)
+                            .font(.system(size: 24, weight: .semibold))
                     }
+                }
                 .buttonStyle(.borderedProminent)
                 .padding()
                 }
@@ -154,7 +154,7 @@ struct ContentView: View {
             .foregroundColor(.black)
         }
     }
-func handleAction() {//links buttons to functions
+    func handleAction() {//links buttons to functions
         if email.isEmpty || password.isEmpty{
             
         }else{
@@ -167,7 +167,7 @@ func handleAction() {//links buttons to functions
             }
         }
     }
-func isValidEmail(_ email: String) -> Bool {
+    func isValidEmail(_ email: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
@@ -182,9 +182,9 @@ func isValidEmail(_ email: String) -> Bool {
             }
             firebase.userIsLoggedIn = true
             Playlist.instance.update()
-
+            
         }
-   }
+    }
     
     func createNewAccount(){
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in

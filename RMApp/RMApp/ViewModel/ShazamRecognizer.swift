@@ -37,8 +37,7 @@ class ShazamRecognizer: NSObject, ObservableObject, SHSessionDelegate{
             DispatchQueue.main.async {
                 self.matchedTrack = Track(title: firstItem.title ?? "",
                                           artist: firstItem.artist ?? "",
-                                          artwork: firstItem.artworkURL ?? URL(string: "")!,
-                                          appleMusicURL: URL(fileURLWithPath: ""),
+                                          artwork: firstItem.artworkURL,
                                           path: "")
                 
                 self.callCompletion()
@@ -109,7 +108,7 @@ class ShazamRecognizer: NSObject, ObservableObject, SHSessionDelegate{
         
         //removing if already installed
         inputNode.removeTap(onBus: .zero)
-                
+        
         
         //instslling when you tap the button
         inputNode.installTap(onBus: .zero, bufferSize: 1024, format: format){ [weak self] (buffer, time) in
@@ -145,7 +144,7 @@ class ShazamRecognizer: NSObject, ObservableObject, SHSessionDelegate{
                     print(error)
                 }
                 //self?.file = try AVAudioFormat( sampleRate: Float32,
-                                                //layout: 1)
+                //layout: 1)
             }
         }
         //starting audio matching

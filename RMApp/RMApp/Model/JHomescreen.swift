@@ -19,9 +19,10 @@ struct Track: Identifiable{
     var id = UUID().uuidString
     var title: String
     var artist: String
-    var artwork: URL
-    var appleMusicURL: URL
+    var artwork: URL? = nil
+    var appleMusicURL: URL? = nil
     var path: String
+    var raga: String = ""
 }
 
 struct JHomescreen: View {
@@ -35,6 +36,7 @@ struct JHomescreen: View {
     @ObservedObject var playlist = Playlist.instance
     @State var flag = false
     @State var showMenu = false
+    @State var newButtonAction: Int? = nil
     
     var body: some View{
         NavigationView{
@@ -72,15 +74,29 @@ struct JHomescreen: View {
                         if select {
                             //Start of Saved Page - Josh
                             
-                            HStack{ Button(action:{
-                                isImporting.toggle()
-                                self.addData(filename: "", length: "")
-                            })
-                                {Text("Import Your Song Here")}
+                            HStack {
+                                Button {
+                                    isImporting.toggle()
+                                    self.addData(filename: "", length: "")
+                                } label: {
+                                    Text("Import Your Song Here")
+                                }
+                                .padding().foregroundColor(.black)
+                                .buttonStyle(.bordered)
+                                
+                                // TODO: Replace deprecated NavigiationView with NavigationStack and new style of NavigationLink
+                                NavigationLink(destination: NewButtonAction(),
+                                               tag: 1,
+                                               selection: $newButtonAction) {
+                                    Button {
+                                        newButtonAction = 1
+                                    } label: {
+                                        Text("New Button")
+                                    }
                                     .padding().foregroundColor(.black)
                                     .buttonStyle(.bordered)
+                                }
                             }
-                            
                             .fileImporter( isPresented: $isImporting, allowedContentTypes: [.wav], allowsMultipleSelection: false) { result in
                                 do {
                                     guard let selectedFile: URL = try result.get().first else { return }
@@ -199,9 +215,9 @@ struct JHomescreen: View {
                                 }
                                 
                                 
-                                if let track = shazamSession.matchedTrack{
+                                if let track = shazamSession.matchedTrack, let url = track.appleMusicURL {
                                     
-                                    Link(destination: track.appleMusicURL){
+                                    Link(destination: url){
                                         
                                         Text("Add to your Library")
                                     }
