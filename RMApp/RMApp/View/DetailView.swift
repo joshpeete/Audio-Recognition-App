@@ -1,48 +1,48 @@
-////
-////  DetailView.swift
-////  RMApp
-////
-////  Created by Vaishnavi Nannur on 11/3/22.
-////
 //
-//import SwiftUI
-//import AVFoundation
-//import Firebase
-//import FirebaseStorage
-//import UIKit
-//import MobileCoreServices
-//import FirebaseFirestore
+//  DetailView.swift
+//  RMApp
 //
-//struct DetailView: View {
-//    @ObservedObject var playlist = Playlist.instance
-//    @State var flag = false
+//  Created by Vaishnavi Nannur on 11/3/22.
 //
-//    var track: Track
-//
-//    func play(soundWithPath path: String) {
-//        DownloadManager.instance.download(filePath: path) { data, error in
-//            print("Download of \(path) complete")
-//            if let data = data {
-//                player = try? AVAudioPlayer(data: data)
-//                player?.play()
-//            } else if let error = error {
-//                print("Failed to download \(path): \(error)")
-//            }
-//        }
-//    }
-//    //this func allows the uploaded file to be paused - Josh
-//    func pause(soundWithPath path: String) {
-//        DownloadManager.instance.download(filePath: path) { data, error in
-//            print("Download of \(path) complete")
-//            if let data = data {
-//                player = try? AVAudioPlayer(data: data)
-//                player?.pause()
-//            } else if let error = error {
-//                print("Failed to download \(path): \(error)")
-//            }
-//        }
-//    }
-//
+
+import SwiftUI
+import AVFoundation
+import Firebase
+import FirebaseStorage
+import UIKit
+import MobileCoreServices
+import FirebaseFirestore
+
+struct DetailView: View {
+    @ObservedObject var playlist = Playlist.instance
+    @State var flag = false
+
+    var track: Playlist.Track
+    
+    func play(soundWithPath path: String) {
+        DownloadManager.instance.download(filePath: path) { data, error in
+            print("Download of \(path) complete")
+            if let data = data {
+                player = try? AVAudioPlayer(data: data)
+                player?.play()
+            } else if let error = error {
+                print("Failed to download \(path): \(error)")
+            }
+        }
+    }
+    //this func allows the uploaded file to be paused - Josh
+    func pause(soundWithPath path: String) {
+        DownloadManager.instance.download(filePath: path) { data, error in
+            print("Download of \(path) complete")
+            if let data = data {
+                player = try? AVAudioPlayer(data: data)
+                player?.pause()
+            } else if let error = error {
+                print("Failed to download \(path): \(error)")
+            }
+        }
+    }
+    
 //    //vaishu - upload
 //    func upload(file: Data, name: String) -> String {
 //        guard let uid = Auth.auth().currentUser?.uid else { return "" }
@@ -68,7 +68,7 @@
 //        }
 //        return fileRef.fullPath
 //    }
-//    //vaishu adding data
+    //vaishu adding data
 //    func addData(filename: String, length: String){
 //        let db = Firestore.firestore()
 //        db.collection("sample").addDocument(data: ["song": filename, "length": length]){error in
@@ -76,40 +76,43 @@
 //            }
 //        }
 //    }
-//
-//    var body: some View {
-//        Text("\(track.title)")
-//            .padding()
-//            .foregroundColor(.black)
-//            .border(.black, width: 4)
-//
-//        HStack{
-//            Button(action:{
-//                play(soundWithPath: track.path)
-//            })
-//            {Image(systemName:"play.fill")}
-//                .padding()
-//                .buttonStyle(.bordered)
-//
-//            Button(action:{
-//                pause(soundWithPath: track.path)
-//            })
-//            {Image(systemName:"pause.fill")}
-//                .padding()
-//                .buttonStyle(.bordered)
-//        }
-//        Button(action: {flag = true}){Text("Raga")}
-//            .padding()
-//            .buttonStyle(.bordered).foregroundColor(.black)
-//        if flag == true{
-//            VStack{
-//                Text("\(printres())")
-//            }
-//        }    }
-//}
-//
+    
+    var body: some View {
+        Text("\(track.title)")
+            .padding()
+            .foregroundColor(.black)
+            .border(.black, width: 4)
+            .background(.white)
+        
+        
+        HStack{
+            Button(action:{
+                play(soundWithPath: track.path)
+            })
+            {Image(systemName:"play.fill")}
+                .padding()
+                .buttonStyle(.bordered)
+            
+            Button(action:{
+                pause(soundWithPath: track.path)
+            })
+            {Image(systemName:"pause.fill")}
+                .padding()
+                .buttonStyle(.bordered)
+        }
+        Label("Raga: " + track.raga, systemImage: "music.note.list").font(.system(size: 20)).background(.white, in: RoundedRectangle(cornerRadius: 1))
+
+        
+    }
+}
+
 //struct DetailView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        DetailView(track: Track(path: "", title: ""))
+//        DetailView(track: Track(title: "",
+//                                artist: "",
+//                                artwork: URL(fileURLWithPath: ""),
+//                                appleMusicURL: URL(fileURLWithPath: ""),
+//                                path: ""))
 //    }
 //}
+

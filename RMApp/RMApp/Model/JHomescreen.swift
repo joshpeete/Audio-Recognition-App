@@ -21,6 +21,7 @@ struct Track: Identifiable{
     var artist: String
     var artwork: URL
     var appleMusicURL: URL
+    var path: String
 }
 
 struct JHomescreen: View {
@@ -33,93 +34,83 @@ struct JHomescreen: View {
     @State var audioPlayer: AVAudioPlayer!
     @ObservedObject var playlist = Playlist.instance
     @State var flag = false
+    @State var showMenu = false
     
     var body: some View{
         NavigationView{
-            VStack(spacing:12){
-                Button(action: { FirebaseInterface.instance.signOut() }) {
-                    Text("Sign Out")
+            VStack{
+                Button{
+                    self.showMenu.toggle()
+                }label: {
+                    Image(systemName: "line.horizontal.3")
+                        .foregroundColor(.black)
                 }
-                .padding()
                 .buttonStyle(.bordered)
-                ScrollView{
-                    VStack {
-                        Picker(selection: $select, label: Text("Toggle Button")){
-                            Text("Saved")
-                                .tag(true)
-                                .foregroundColor(.black)
-                                .font(.largeTitle)
-                            Text("Home")
-                                .tag(false)
-                                .foregroundColor(.black)
-                                .font(.largeTitle)
-                        }
-                        .pickerStyle(SegmentedPickerStyle())
-                        .font(.largeTitle)
-                        .padding(10)
-                        
-                        VStack{
-                            if select {
-//Start of Saved Page - Josh
-                              
-                                ForEach(playlist.tracks) { track in
-                                    //
-                                    Text("\(track.title)")
-                                        .padding()
-                                        .foregroundColor(.black)
-                                        .border(.black, width: 4)
+                
+                
+                if self.showMenu {
+                    CardView()
+                }
+                
+                
+                VStack {
+                    Picker(selection: $select, label: Text("Toggle Button")){
+                        Text("Saved")
+                            .tag(true)
+                            .foregroundColor(.black)
+                            .font(.largeTitle)
+                        Text("Home")
+                            .tag(false)
+                            .foregroundColor(.black)
+                            .font(.largeTitle)
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .font(.largeTitle)
+                    .padding(10)
+                    
+                    VStack{
+                        if select {
+                            //Start of Saved Page - Josh
+                            
+                            HStack{ Button(action:{
+                                isImporting.toggle()
+                                self.addData(filename: "", length: "")
+                            })
+                                {Text("Import Your Song Here")}
+                                    .padding().foregroundColor(.black)
+                                    .buttonStyle(.bordered)
+                            }
+                            
+                            .fileImporter( isPresented: $isImporting, allowedContentTypes: [.wav], allowsMultipleSelection: false) { result in
+                                do {
+                                    guard let selectedFile: URL = try result.get().first else { return }
+                                    guard selectedFile.startAccessingSecurityScopedResource() else { return }
+                                    let data = try Data(contentsOf: selectedFile)
                                     
-                                    HStack{
-                                        Button(action:{
-                                            play(soundWithPath: track.path)
-                                        })
-                                        {Image(systemName:"play.fill")}
-                                            .padding()
-                                            .buttonStyle(.bordered)
-                                        
-                                        Button(action:{
-                                            pause(soundWithPath: track.path)
-                                        })
-                                        {Image(systemName:"stop.fill")}
-                                            .padding()
-                                            .buttonStyle(.bordered)
-                                    }
-                                    Label(track.raga, systemImage: "music.note.list").font(.system(size: 20)).background(.white, in: RoundedRectangle(cornerRadius: 1))
-                                        
+                                    upload(file: data, name: selectedFile.lastPathComponent,raga: printres(url: selectedFile))
                                     
                                     
+                                    //                                            ragaTable[selectedFile.lastPathComponent] = printres(url: selectedFile)
+                                    //                                            print(ragaTable)
                                     
+                                    selectedFile.stopAccessingSecurityScopedResource()
+                                } catch {
+                                    Swift.print(error.localizedDescription)
                                 }
-                                
-                                HStack{ Button(action:{
-                                    isImporting.toggle()
-                                    self.addData(filename: "", length: "")
-                                })
-                                    {Text("Import Your Song Here")}
-                                        .padding().foregroundColor(.black)
-                                        .buttonStyle(.bordered)
+                            }
+                            //End of Saved Page - Josh
+                            List(playlist.tracks) { track in
+                                NavigationLink(destination: DetailView(track: track)){
+                                    AudioListView(title: track.title)
                                 }
-                                
-                                .fileImporter( isPresented: $isImporting, allowedContentTypes: [.wav], allowsMultipleSelection: false) { result in
-                                    do {
-                                        guard let selectedFile: URL = try result.get().first else { return }
-                                        guard selectedFile.startAccessingSecurityScopedResource() else { return }
-                                        let data = try Data(contentsOf: selectedFile)
-
-                                        upload(file: data, name: selectedFile.lastPathComponent,raga: printres(url: selectedFile))
-                                        
-                                        
-//                                            ragaTable[selectedFile.lastPathComponent] = printres(url: selectedFile)
-//                                            print(ragaTable)
-
-                                        selectedFile.stopAccessingSecurityScopedResource()
-                                    } catch {
-                                        Swift.print(error.localizedDescription)
-                                    }
-                                }
- //End of Saved Page - Josh
-                            }else{
-//Start of Home Page
+                                .listRowBackground(Color.clear)
+                            }
+                            .listStyle(.plain)
+                            .scrollContentBackground(.hidden)
+                            
+                        }else{
+                            ScrollView{
+                                //Start of Home Page
                                 ZStack{
                                     if let track = shazamSession.matchedTrack{
                                         //Blurred Image in the back
@@ -174,29 +165,55 @@ struct JHomescreen: View {
                                     }
                                 }
                                 
-                                Button{
-                                    //Button that starts Shazam functionality
-                                    shazamSession.listenMusic()
-                                }label: {
-                                    Image(systemName: shazamSession.isRecording ? "stop.circle.fill" : "music.mic.circle.fill")
-                                        .foregroundColor(.black)
-                                        .font(.system(size: 150))
-                                        .ignoresSafeArea()
-                                }
-                                .alert(shazamSession.errorMsg, isPresented: $shazamSession.showError){
-                                    Button("Close",role: .cancel){
+                                HStack {
+                                    VStack {
+                                        RecordButton(isRecording: $shazamSession.isListening) {
+                                            shazamSession.listenMusic(shouldRecognize: true)
+                                        }
+                                        .alert(shazamSession.errorMsg,
+                                               isPresented: $shazamSession.showError){
+                                            Button("Close",role: .cancel){
+                                            }
+                                        }
+                                        
+                                        Text("Listen")
+                                    }
+                                    
+                                    VStack {
+                                        RecordButton(isRecording: $shazamSession.isRecording, filled: false) {
+                                            shazamSession.listenMusic(shouldRecognize: false) { url in
+                                                do {
+                                                    let data = try Data(contentsOf: url)
+                                                    //try upload(file: url, name: url.lastPathComponent,raga: printres(url: url) )
+                                                    //try upload(file: url)
+                                                    //upload(file: data, name: url.lastPathComponent, raga: printres(url: url))
+                                                    print(url)
+                                                    
+                                                    //print(readWavIntoFloats(filepath: url))
+                                                    //print(testModel(url: url))
+                                                    print(printres(url: url))
+                                                } catch {
+                                                    print(error)
+                                                }
+                                            }
+                                        }
+                                        
+                                        Text("Live Recording")
                                     }
                                 }
+                                
                                 
                                 if let track = shazamSession.matchedTrack{
                                     
                                     Link(destination: track.appleMusicURL){
+                                        
                                         Text("Add to your Library")
                                     }
                                     .buttonStyle(.bordered)
                                     .shadow(radius: 4)
-                                    //End of HomePage - Josh
                                 }
+                                //End of homescreen- josh
+                                
                             }
                         }
                     }
@@ -237,8 +254,45 @@ struct JHomescreen: View {
         }
     }
     
+    //vaishu - upload
+    @discardableResult func upload(file: URL) throws -> String? {
+        guard file.startAccessingSecurityScopedResource() else { return nil }
+        let data = try Data(contentsOf: file)
+        
+        let result = upload(data: data, name: file.lastPathComponent)
+        
+        file.stopAccessingSecurityScopedResource()
+        
+        return result
+    }
     
-   
+    
+    @discardableResult func upload(data: Data, name: String) -> String {
+        guard let uid = Auth.auth().currentUser?.uid else { return "" }
+        let userTracks = Firestore.firestore().collection("users").document(uid).collection("tracks")
+        
+        let ref = Storage.storage().reference()
+        let fileRef = ref.child(uid).child(name)
+        let uploadTask = fileRef.putData(data, metadata: nil) { metadata, error in
+            if let error = error {
+                print("Failed to upload \(name): \(error)")
+            }
+            print("Completed upload of \(name)")
+        }
+        uploadTask.resume()
+        //tracks for updating files vaishu
+        userTracks.addDocument(data: ["song": name, "filePath": fileRef.fullPath]) {error in
+            
+            if let error = error {
+                print("Failed to update \(name): \(error)")
+            } else {
+                self.playlist.update()
+            }
+        }
+        return fileRef.fullPath
+    }
+    
+    
     func upload(file: Data, name: String, raga: String) -> String {
         guard let uid = Auth.auth().currentUser?.uid else { return "" }
         let userTracks = Firestore.firestore().collection("users").document(uid).collection("tracks")
@@ -263,8 +317,6 @@ struct JHomescreen: View {
         }
         return fileRef.fullPath
     }
-    
-    
     //vaishu adding data
     func addData(filename: String, length: String){
         let db = Firestore.firestore()
@@ -275,13 +327,7 @@ struct JHomescreen: View {
     }
 }
 
-//func deleteData(filename: String, length: String){
-//    let db = Firestore.firestore()
-//  db.collection("sample").removeLast(data: ["song": filename, "length": length]){error in
-//       if error == nil {
-//      }
-//    }
-//}
+
 
 
 struct JHomescreen_Previews: PreviewProvider {

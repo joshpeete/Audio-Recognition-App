@@ -42,7 +42,6 @@ func readWavIntoFloats(filepath: URL) -> [Float] {
     //let storageRef = storage.reference(forURL: filepath)
     //let url = String(storageRef)
 
-//    let local = URL(string: "file://Users/shakeer/Desktop/Working/RMApp/RMApp/ViewModel/asavari01.wav")
 //
    var floatArray:[Float] = []
 
@@ -110,6 +109,15 @@ func readWavIntoFloats(filepath: URL) -> [Float] {
     floatArray = Array(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:Int(buf.frameLength)))
 
     //print(floatArray)
+    //print(floatArray.count)
+    
+    while(floatArray.count < 15600){
+            floatArray.append(Float(0))
+        }
+                
+    
+    print(floatArray.count)
+    
     return floatArray
 
     //print(floatArray)
@@ -241,3 +249,4 @@ func printres(url:URL)->String!{
   
     
 }
+
