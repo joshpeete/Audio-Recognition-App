@@ -11,6 +11,8 @@ import Firebase
 
 
 struct ContentView: View {
+    @State public var firstname = ""
+    @State public var lastname = ""
     @State public var email = ""
     @State private var logOut = ""
     @State private var password = ""
@@ -43,8 +45,44 @@ struct ContentView: View {
                                 Image(systemName: "music.quarternote.3")
                                     .foregroundColor(.black)
                                     .font(.system(size: 90))
-                                    .offset(y: 50)
                             }
+                            .padding()
+                            
+                            TextField("Email",text:$email)
+                                .foregroundColor(.black)
+                                .keyboardType(.emailAddress)
+                                .autocapitalization(.none)
+                                .font(.system(size: 16))
+                                .bold()
+                                .textFieldStyle(.plain)
+                                .padding(12)
+                                .placeholder(when: email.isEmpty){
+                                    Text("Email")
+                                        .foregroundColor(.black)
+                                        .font(.system(size: 16))
+                                        .bold()
+                                        .padding(12)
+                                }
+                            Rectangle()//line under email
+                                .frame(width: 375, height: 1)
+                                .foregroundColor(.black)
+                            
+                            SecureField("Password",text:$password)
+                                .foregroundColor(.black)
+                                .textFieldStyle(.plain)
+                                .bold()
+                                .font(.system(size: 16))
+                                .padding(12)
+                                .placeholder(when: password.isEmpty){
+                                    Text("Password")
+                                        .foregroundColor(.black)
+                                        .bold()
+                                        .font(.system(size: 16))
+                                        .padding(12)
+                                }
+                            Rectangle()//line under password
+                                .frame(width: 375, height: 1)
+                                .foregroundColor(.black)
                             
                             ZStack{
                                 Button {
@@ -91,46 +129,84 @@ struct ContentView: View {
                                         } message: {
                                             Text("A password reset email was sent to \(email). Check your email and follow instructions.")
                                         }
-                            }.offset(y: 335)
+                            }.offset(y:10)
                             
+                        }else{
+                            TextField("First Name",text:$firstname)
+                                .foregroundColor(.black)
+                                .keyboardType(.webSearch)
+                                .autocapitalization(.none)
+                                .font(.system(size: 16))
+                                .bold()
+                                .textFieldStyle(.plain)
+                                .padding(12)
+                                .placeholder(when: firstname.isEmpty){
+                                    Text("First Name")
+                                        .foregroundColor(.black)
+                                        .font(.system(size: 16))
+                                        .bold()
+                                        .padding(12)
+                                }
+                            Rectangle()//line under email
+                                .frame(width: 375, height: 1)
+                                .foregroundColor(.black)
+                            TextField("Last Name",text:$lastname)
+                                .foregroundColor(.black)
+                                .keyboardType(.webSearch)
+                                .autocapitalization(.none)
+                                .font(.system(size: 16))
+                                .bold()
+                                .textFieldStyle(.plain)
+                                .padding(12)
+                                .placeholder(when: lastname.isEmpty){
+                                    Text("Last Name")
+                                        .foregroundColor(.black)
+                                        .font(.system(size: 16))
+                                        .bold()
+                                        .padding(12)
+                                }
+                            Rectangle()//line under email
+                                .frame(width: 375, height: 1)
+                                .foregroundColor(.black)
+                            
+                            TextField("Email",text:$email)
+                                .foregroundColor(.black)
+                                .keyboardType(.emailAddress)
+                                .autocapitalization(.none)
+                                .font(.system(size: 16))
+                                .bold()
+                                .textFieldStyle(.plain)
+                                .padding(12)
+                                .placeholder(when: email.isEmpty){
+                                    Text("Email")
+                                        .foregroundColor(.black)
+                                        .font(.system(size: 16))
+                                        .bold()
+                                        .padding(12)
+                                }
+                            Rectangle()//line under email
+                                .frame(width: 375, height: 1)
+                                .foregroundColor(.black)
+                            
+                            SecureField("Password",text:$password)
+                                .foregroundColor(.black)
+                                .textFieldStyle(.plain)
+                                .bold()
+                                .font(.system(size: 16))
+                                .padding(12)
+                                .placeholder(when: password.isEmpty){
+                                    Text("Password")
+                                        .foregroundColor(.black)
+                                        .bold()
+                                        .font(.system(size: 16))
+                                        .padding(12)
+                                }
+                            Rectangle()//line under email
+                                .frame(width: 375, height: 1)
+                                .foregroundColor(.black)
                         }
-                        TextField("Email",text:$email)
-                            .foregroundColor(.black)
-                            .keyboardType(.emailAddress)
-                            .autocapitalization(.none)
-                            .font(.system(size: 16))
-                            .bold()
-                            .textFieldStyle(.plain)
-                            .padding(12)
-                            .placeholder(when: email.isEmpty){
-                                Text("Email")
-                                    .foregroundColor(.black)
-                                    .font(.system(size: 16))
-                                    .bold()
-                                    .padding(12)
-                            }
-                        Rectangle()//line under email
-                            .frame(width: 375, height: 1)
-                            .foregroundColor(.black)
-                        
-                        SecureField("Password",text:$password)
-                            .foregroundColor(.black)
-                            .textFieldStyle(.plain)
-                            .bold()
-                            .font(.system(size: 16))
-                            .padding(12)
-                            .placeholder(when: password.isEmpty){
-                                Text("Password")
-                                    .foregroundColor(.black)
-                                    .bold()
-                                    .font(.system(size: 16))
-                                    .padding(12)
-                            }
                     }
-                    Rectangle()//line under password
-                        .frame(width: 375, height: 1)
-                        .foregroundColor(.black)
-                    
+//Registration Page End
                     Button{
                         handleAction()
                     }

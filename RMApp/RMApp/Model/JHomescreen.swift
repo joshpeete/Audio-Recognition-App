@@ -34,22 +34,28 @@ struct JHomescreen: View {
     @ObservedObject var playlist = Playlist.instance
     @State var flag = false
     @State var showMenu = false
+    @State var newButtonAction: Int? = nil
+    @State private var navigateTo = ""
+    @State private var isActive = false
     
     var body: some View{
         NavigationView{
             VStack{
-                Button{
-                    self.showMenu.toggle()
-                }label: {
-                    Image(systemName: "line.horizontal.3")
-                        .foregroundColor(.black)
+                Menu{
+                    Button("Sign Out", action: { FirebaseInterface.instance.signOut() })
+                    Button("Profile"){
+                        self.navigateTo = "profile"
+                        self.isActive = true
+                    }
+                } label: {
+                    Label("", systemImage: "line.horizontal.3")
                 }
-                .buttonStyle(.bordered)
-                
-                
-                if self.showMenu {
-                    CardView()
-                }
+                .background(
+                                NavigationLink(destination: Text(self.navigateTo), isActive: $isActive) {
+                                    EmptyView()
+                                })
+                .imageScale(.large)
+                .offset(x:175)
                 
                 
                 VStack {
@@ -76,8 +82,23 @@ struct JHomescreen: View {
                                 self.addData(filename: "", length: "")
                             })
                                 {Text("Import Your Song Here")}
-                                    .padding().foregroundColor(.black)
+                                    .padding()
+                                    .foregroundColor(.black)
                                     .buttonStyle(.bordered)
+                            }
+                            
+                            // TODO: Replace deprecated NavigiationView with NavigationStack and new style of NavigationLink
+                            NavigationLink(destination: NewButtonAction(),
+                                           tag: 1,
+                                           selection: $newButtonAction) {
+                                Button {
+                                    newButtonAction = 1
+                                } label: {
+                                    Text("New Button")
+                                }
+                                .padding()
+                                .foregroundColor(.black)
+                                .buttonStyle(.bordered)
                             }
                             
                             .fileImporter( isPresented: $isImporting, allowedContentTypes: [.wav], allowsMultipleSelection: false) { result in
