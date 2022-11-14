@@ -20,7 +20,6 @@ struct Track: Identifiable{
     var artist: String
     var artwork: URL
     var appleMusicURL: URL
-    var path: String
 }
 
 struct JHomescreen: View {
@@ -50,8 +49,7 @@ struct JHomescreen: View {
                 } label: {
                     Label("", systemImage: "line.horizontal.3")
                 }
-                .background(
-                                NavigationLink(destination: Text(self.navigateTo), isActive: $isActive) {
+                .background(NavigationLink(destination: Text(self.navigateTo), isActive: $isActive) {
                                     EmptyView()
                                 })
                 .imageScale(.large)
@@ -101,23 +99,23 @@ struct JHomescreen: View {
                                 .buttonStyle(.bordered)
                             }
                             
-                            .fileImporter( isPresented: $isImporting, allowedContentTypes: [.wav], allowsMultipleSelection: false) { result in
-                                do {
-                                    guard let selectedFile: URL = try result.get().first else { return }
-                                    guard selectedFile.startAccessingSecurityScopedResource() else { return }
-                                    let data = try Data(contentsOf: selectedFile)
-                                    
-                                    upload(file: data, name: selectedFile.lastPathComponent,raga: printres(url: selectedFile), accuracy:printAcc())
-                                    
-                                    
-                                    //                                            ragaTable[selectedFile.lastPathComponent] = printres(url: selectedFile)
-                                    //                                            print(ragaTable)
-                                    
-                                    selectedFile.stopAccessingSecurityScopedResource()
-                                } catch {
-                                    Swift.print(error.localizedDescription)
-                                }
-                            }
+                                           .fileImporter( isPresented: $isImporting, allowedContentTypes: [.wav], allowsMultipleSelection: false) { result in
+                                               do {
+                                                   guard let selectedFile: URL = try result.get().first else { return }
+                                                   guard selectedFile.startAccessingSecurityScopedResource() else { return }
+                                                   let data = try Data(contentsOf: selectedFile)
+                                                   
+                                                   upload(file: data, name: selectedFile.lastPathComponent,raga: printres(url: selectedFile), accuracy:printAcc())
+                                                   
+                                                   
+                                                   //                                            ragaTable[selectedFile.lastPathComponent] = printres(url: selectedFile)
+                                                   //                                            print(ragaTable)
+                                                   
+                                                   selectedFile.stopAccessingSecurityScopedResource()
+                                               } catch {
+                                                   Swift.print(error.localizedDescription)
+                                               }
+                                           }
                             //End of Saved Page - Josh
                             List(playlist.tracks) { track in
                                 NavigationLink(destination: DetailView(track: track)){
@@ -184,58 +182,33 @@ struct JHomescreen: View {
                                         .shadow(radius: 4)
                                     }
                                 }
-                                
-                                HStack {
-                                    VStack {
-                                        RecordButton(isRecording: $shazamSession.isListening) {
-                                            shazamSession.listenMusic(shouldRecognize: true)
-                                        }
-                                        .alert(shazamSession.errorMsg,
-                                               isPresented: $shazamSession.showError){
-                                            Button("Close",role: .cancel){
-                                            }
-                                        }
-                                        
-                                        Text("Listen")
-                                    }
-                                    
-                                    VStack {
-                                        RecordButton(isRecording: $shazamSession.isRecording, filled: false) {
-                                            shazamSession.listenMusic(shouldRecognize: false) { url in
-                                                do {
-                                                    let data = try Data(contentsOf: url)
-                                                    
-                                                  
-                                                    try upload(file: data, name: url.lastPathComponent, raga: printres(url: url), accuracy: printAcc())
-                                                    print(data)
-                                                } catch {
-                                                    print(error)
-                                                }
-                                            }
-                                        }
-                                        
-                                        Text("Live Recording")
+                                Button{
+                                    //Button that starts Shazam functionality
+                                    shazamSession.listenMusic()
+                                }label: {
+                                    Image(systemName: shazamSession.isRecording ? "stop.circle.fill" : "music.mic.circle.fill")
+                                        .foregroundColor(.black)
+                                        .font(.system(size: 150))
+                                        .ignoresSafeArea()
+                                }
+                                .alert(shazamSession.errorMsg, isPresented: $shazamSession.showError){
+                                    Button("Close",role: .cancel){
                                     }
                                 }
-                                
                                 
                                 if let track = shazamSession.matchedTrack{
                                     
                                     Link(destination: track.appleMusicURL){
-                                        
                                         Text("Add to your Library")
                                     }
                                     .buttonStyle(.bordered)
                                     .shadow(radius: 4)
+                                    //End of HomePage - Josh
                                 }
-                                //End of homescreen- josh
-                                
                             }
                         }
                     }
-                    
                 }
-                
             }
             .navigationTitle("Raga-Mania")
             .foregroundColor(.black)
