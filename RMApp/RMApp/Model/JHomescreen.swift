@@ -17,12 +17,12 @@ var player:AVAudioPlayer!
 
 struct Track: Identifiable{
     var id = UUID().uuidString
-    var title: String
-    var artist: String
+    var title = ""
+    var artist = ""
     var artwork: URL? = nil
     var appleMusicURL: URL? = nil
-    var path: String
-    var raga: String = ""
+    var path = ""
+    var raga = ""
 }
 
 struct JHomescreen: View {
@@ -216,7 +216,7 @@ struct JHomescreen: View {
                                 
                                 
                                 if let track = shazamSession.matchedTrack, let url = track.appleMusicURL {
-                                    
+
                                     Link(destination: url){
                                         
                                         Text("Add to your Library")

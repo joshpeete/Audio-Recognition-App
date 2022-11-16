@@ -38,6 +38,7 @@ class ShazamRecognizer: NSObject, ObservableObject, SHSessionDelegate{
                 self.matchedTrack = Track(title: firstItem.title ?? "",
                                           artist: firstItem.artist ?? "",
                                           artwork: firstItem.artworkURL,
+                                          appleMusicURL: firstItem.appleMusicURL,
                                           path: "")
                 
                 self.callCompletion()
