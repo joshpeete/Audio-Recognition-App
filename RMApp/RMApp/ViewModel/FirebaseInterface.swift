@@ -10,7 +10,6 @@ import Firebase
 
 class FirebaseInterface: ObservableObject {
     static let instance = FirebaseInterface()
-    
     @Published var userIsLoggedIn = Auth.auth().currentUser != nil
     
     func signOut() {

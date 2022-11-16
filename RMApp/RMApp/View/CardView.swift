@@ -13,9 +13,24 @@ import MobileCoreServices
 import FirebaseFirestore
 
 struct CardView: View {
-    @State var showMenu = true
+    
+    
+    @State var email = ""
+    
     var body: some View {
-            Text("help")
+        List{
+            Section("Profile Page"){
+                VStack(spacing: 12){
+                Text("First Name")
+                }
+                VStack(spacing: 12){
+                Text("Last Name")
+                }
+                VStack(spacing: 12){
+                    TextField("Email", text:$email)
+                }
+            }
+        }
     }
 }
 

@@ -35,6 +35,7 @@
 		D7296A7E28E3B81800D0049E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D7296A7D28E3B81800D0049E /* GoogleService-Info.plist */; };
 		D7296A8028E3DD2B00D0049E /* JHomescreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7296A7F28E3DD2B00D0049E /* JHomescreen.swift */; };
 		D788C8562921D27700D90419 /* NewButtonAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D788C8552921D27700D90419 /* NewButtonAction.swift */; };
+		D788C85A29254C2E00D90419 /* MoreInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D788C85929254C2E00D90419 /* MoreInfo.swift */; };
 		D7E44DBE2921CDA600239923 /* RecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E44DBD2921CDA600239923 /* RecordButton.swift */; };
 		D7E44DC02921CE2F00239923 /* AudioNav.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E44DBF2921CE2F00239923 /* AudioNav.swift */; };
 		D7E44DC22921CE6500239923 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E44DC12921CE6500239923 /* DetailView.swift */; };
@@ -89,6 +90,7 @@
 		D7296A7D28E3B81800D0049E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D7296A7F28E3DD2B00D0049E /* JHomescreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JHomescreen.swift; sourceTree = "<group>"; };
 		D788C8552921D27700D90419 /* NewButtonAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewButtonAction.swift; sourceTree = "<group>"; };
+		D788C85929254C2E00D90419 /* MoreInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreInfo.swift; sourceTree = "<group>"; };
 		D7E44DBD2921CDA600239923 /* RecordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordButton.swift; sourceTree = "<group>"; };
 		D7E44DBF2921CE2F00239923 /* AudioNav.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioNav.swift; sourceTree = "<group>"; };
 		D7E44DC12921CE6500239923 /* DetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				D7E44DBD2921CDA600239923 /* RecordButton.swift */,
 				D7296A6228E3A22400D0049E /* Splashview.swift */,
 				D728F9A228EDED7D009989EB /* CardView.swift */,
+				D788C85929254C2E00D90419 /* MoreInfo.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -399,6 +402,7 @@
 				D7296A3B28E3A1B900D0049E /* ContentView.swift in Sources */,
 				D7296A3928E3A1B900D0049E /* RMAppApp.swift in Sources */,
 				D728F9A328EDED7D009989EB /* CardView.swift in Sources */,
+				D788C85A29254C2E00D90419 /* MoreInfo.swift in Sources */,
 				D7E44DC42921CE9700239923 /* AudioListView.swift in Sources */,
 				D728F9BA2904B100009989EB /* FirebaseInterface.swift in Sources */,
 				D7E44DBE2921CDA600239923 /* RecordButton.swift in Sources */,

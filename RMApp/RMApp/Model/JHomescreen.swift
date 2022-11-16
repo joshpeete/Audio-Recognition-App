@@ -35,7 +35,8 @@ struct JHomescreen: View {
     @State var showMenu = false
     @State var newButtonAction: Int? = nil
     @State private var navigateTo = ""
-    @State private var isActive = false
+    @State private var profile = false
+    @State private var moreInfo = false
     
     var body: some View{
         NavigationView{
@@ -43,15 +44,23 @@ struct JHomescreen: View {
                 Menu{
                     Button("Sign Out", action: { FirebaseInterface.instance.signOut() })
                     Button("Profile"){
-                        self.navigateTo = "profile"
-                        self.isActive = true
+                        self.profile = true
+                    }
+                    Button("More Information"){
+                        self.moreInfo = true
                     }
                 } label: {
                     Label("", systemImage: "line.horizontal.3")
                 }
-                .background(NavigationLink(destination: Text(self.navigateTo), isActive: $isActive) {
-                                    EmptyView()
-                                })
+                .background(
+                    NavigationLink(destination: CardView(), isActive: $profile) {
+                        EmptyView()
+                    })
+                .background(
+                    NavigationLink(destination: MoreInfo(), isActive: $moreInfo) {
+                        EmptyView()
+                    })
+                
                 .imageScale(.large)
                 .offset(x:175)
                 
@@ -182,6 +191,7 @@ struct JHomescreen: View {
                                         .shadow(radius: 4)
                                     }
                                 }
+                                
                                 Button{
                                     //Button that starts Shazam functionality
                                     shazamSession.listenMusic()
@@ -204,11 +214,13 @@ struct JHomescreen: View {
                                     .buttonStyle(.bordered)
                                     .shadow(radius: 4)
                                     //End of HomePage - Josh
+                                    
                                 }
                             }
                         }
                     }
                 }
+                
             }
             .navigationTitle("Raga-Mania")
             .foregroundColor(.black)

@@ -4,7 +4,6 @@
 //
 //  Created by Joshua Peete on 10/18/22.
 //
-
 import SwiftUI
 import ShazamKit
 import AVKit
@@ -37,7 +36,7 @@ class ShazamRecognizer: NSObject, ObservableObject, SHSessionDelegate{
     func session( _ session: SHSession, didNotFindMatchFor signature: SHSignature, error: Error?){
         //No Match
         DispatchQueue.main.async {
-            self.errorMsg = "\(error!)"
+            self.errorMsg = "Could Not Find a Match"
             self.showError.toggle()
             //stopping audio recording
             self.stopRecording()
@@ -102,5 +101,3 @@ class ShazamRecognizer: NSObject, ObservableObject, SHSessionDelegate{
         }
     }
 }
-
-

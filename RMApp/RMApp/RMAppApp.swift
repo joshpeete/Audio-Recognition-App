@@ -10,6 +10,7 @@ import Firebase
 
 @main
 struct RMAppApp: App {
+    @Environment(\.colorScheme) var colorScheme
     init(){
         FirebaseApp.configure()
         //This will change the font size of the picker
