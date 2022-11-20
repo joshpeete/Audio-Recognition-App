@@ -15,6 +15,8 @@ import FirebaseStorage
 
 import AVFoundation
 
+public var maxpred: Float  = -1
+
 
 
 //import CoreML
@@ -42,6 +44,7 @@ func readWavIntoFloats(filepath: URL) -> [Float] {
     //let storageRef = storage.reference(forURL: filepath)
     //let url = String(storageRef)
 
+//    let local = URL(string: "file://Users/shakeer/Desktop/Working/RMApp/RMApp/ViewModel/asavari01.wav")
 //
    var floatArray:[Float] = []
 
@@ -101,6 +104,7 @@ func readWavIntoFloats(filepath: URL) -> [Float] {
     //let fileUrl = URL(fileURLWithPath: url)
    // let url = URL(fileURLWithPath: storageRef)
     let file = try! AVAudioFile(forReading: filepath)
+    
     let format = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: file.fileFormat.sampleRate, channels: 1, interleaved: false)!
     let buf = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 15600)!
     try! file.read(into: buf)
@@ -108,16 +112,9 @@ func readWavIntoFloats(filepath: URL) -> [Float] {
     // this makes a copy, you might not want that
     floatArray = Array(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:Int(buf.frameLength)))
 
-    //print(floatArray)
-    //print(floatArray.count)
-    
     while(floatArray.count < 15600){
-            floatArray.append(Float(0))
-        }
-                
-    
-    print(floatArray.count)
-    
+        floatArray.append(Float(0))
+    }
     return floatArray
 
     //print(floatArray)
@@ -229,13 +226,13 @@ func printres(url:URL)->String!{
     
     
    
-    let maxpred = singlresult.max()
+    maxpred = singlresult.max() ?? -1
     
         
         
     
-    if (maxpred! > Float(0.1)){
-        idx = singlresult.index(of:maxpred!) ?? 10}
+    if (maxpred > Float(0.1)){
+        idx = singlresult.index(of:maxpred) ?? 10}
    
     
     var myIntValue = Int(idx)
@@ -243,10 +240,17 @@ func printres(url:URL)->String!{
     //print(singlresult)
     
     let finalOutput:String! = raganames[myIntValue]!
-    print(finalOutput!)
-    print(singlresult)
+    //print(finalOutput!)
+    //print(singlresult)
+    
+    print(ohgod)
     return finalOutput
   
     
 }
 
+func printAcc()->String!{
+    let roundednum = round(maxpred * 100) / 100.0
+    let maxstring = String(roundednum)
+    return maxstring
+}

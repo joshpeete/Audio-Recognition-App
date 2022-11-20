@@ -15,6 +15,17 @@ import FirebaseFirestore
 
 var player:AVAudioPlayer!
 
+var isSaving: Bool = false
+
+var Ragastring = ""
+var RagaAccuracy = ""
+var RagaFileName = ""
+var RagaData = Data.init()
+
+
+
+//let semaphore = DispatchSemaphore(value: 1)
+
 struct Track: Identifiable{
     var id = UUID().uuidString
     var title: String
@@ -31,10 +42,16 @@ struct JHomescreen: View {
     @State private var color: Color = .gray
     @StateObject var shazamSession = ShazamRecognizer()
     @State private var isImporting: Bool = false
+    @State private var isImporting2: Bool = false
     @State var audioPlayer: AVAudioPlayer!
     @ObservedObject var playlist = Playlist.instance
     @State var flag = false
     @State var showMenu = false
+    @State var newButtonAction: Int? = nil
+    
+
+    
+    
     
     var body: some View{
         NavigationView{
@@ -79,7 +96,34 @@ struct JHomescreen: View {
                                 {Text("Import Your Song Here")}
                                     .padding().foregroundColor(.black)
                                     .buttonStyle(.bordered)
+                                
+                                NavigationLink(destination: NewButtonAction(),
+                                               tag: 1,
+                                               selection: $newButtonAction) {
+                                    Button {
+                                        isImporting.toggle()
+//
+                                        //semaphore.wait() // 0
+                                        
+                                        
+                                        
+//                                        DispatchQueue.main.asyncAfter(deadline: .now() + 5)
+//                                        {
+//                                            newButtonAction = 1
+//                                        }
+                                       
+                                       
+                                    } label: {
+                                        Text("New Button")
+                                    }
+                                    .padding().foregroundColor(.black)
+                                    .buttonStyle(.bordered)
+                                }
+                                
+                                
+                                
                             }
+                            
                             
                             .fileImporter( isPresented: $isImporting, allowedContentTypes: [.wav], allowsMultipleSelection: false) { result in
                                 do {
@@ -87,7 +131,48 @@ struct JHomescreen: View {
                                     guard selectedFile.startAccessingSecurityScopedResource() else { return }
                                     let data = try Data(contentsOf: selectedFile)
                                     
-                                    upload(file: data, name: selectedFile.lastPathComponent,raga: printres(url: selectedFile))
+                                    isSaving=false
+                                    
+                                    
+                                    //semaphore.wait()
+                                    
+//                                        upload(file: data, name: selectedFile.lastPathComponent,raga: printres(url: selectedFile), accuracy: printAcc())
+                                    
+                                    Ragastring = printres(url: selectedFile)
+                                    RagaAccuracy = printAcc()
+                                    RagaFileName = selectedFile.lastPathComponent
+                                    RagaData = data
+                                    
+                                    
+//                                    do{
+//                                        sleep(2)
+//                                    }
+                                    
+                                    //semaphore.signal() //1
+//                                    do{
+//                                        sleep(2)
+//                                    }
+                                    
+                                    newButtonAction = 1
+                                    
+                                    //semaphore.wait() //0
+                                    //semaphore.signal()
+                                    
+                                   
+                                    
+                                    
+//                                    if isSaving{
+//                                        semaphore.signal() //1
+//                                    }
+////
+//                                  isSaving.toggle()
+//                                    if isSaving{
+//                                        upload(file: RagaData, name: RagaFileName, raga: Ragastring, accuracy: RagaAccuracy)
+//                                        isSaving = false
+//                                    }
+//
+//
+//                                        isSaving=false
                                     
                                     
                                     //                                            ragaTable[selectedFile.lastPathComponent] = printres(url: selectedFile)
@@ -97,7 +182,28 @@ struct JHomescreen: View {
                                 } catch {
                                     Swift.print(error.localizedDescription)
                                 }
+                                
+                                //plssave()
                             }
+                            
+                            
+                            
+                                        
+                            //plssave()
+                           
+//                                if isSaving{
+//                                    upload(file: RagaData, name: RagaFileName, raga: Ragastring, accuracy: RagaAccuracy)
+//                                    isSaving = false
+//                                }
+//                                else{
+//                                    isSaving = false
+//                                }
+                            
+                            
+                                
+                            
+                            
+                            
                             //End of Saved Page - Josh
                             List(playlist.tracks) { track in
                                 NavigationLink(destination: DetailView(track: track)){
@@ -183,15 +289,10 @@ struct JHomescreen: View {
                                         RecordButton(isRecording: $shazamSession.isRecording, filled: false) {
                                             shazamSession.listenMusic(shouldRecognize: false) { url in
                                                 do {
-                                                    let data = try Data(contentsOf: url)
-                                                    //try upload(file: url, name: url.lastPathComponent,raga: printres(url: url) )
-                                                    //try upload(file: url)
-                                                    //upload(file: data, name: url.lastPathComponent, raga: printres(url: url))
-                                                    print(url)
                                                     
-                                                    //print(readWavIntoFloats(filepath: url))
-                                                    //print(testModel(url: url))
-                                                    print(printres(url: url))
+                                                    let data = try Data(contentsOf: url)
+                                                    try upload(file: data, name: url.lastPathComponent, raga: printres(url: url), accuracy: printAcc())
+                                                   
                                                 } catch {
                                                     print(error)
                                                 }
@@ -203,15 +304,15 @@ struct JHomescreen: View {
                                 }
                                 
                                 
-                                if let track = shazamSession.matchedTrack{
-                                    
-                                    Link(destination: track.appleMusicURL){
-                                        
-                                        Text("Add to your Library")
-                                    }
-                                    .buttonStyle(.bordered)
-                                    .shadow(radius: 4)
-                                }
+//                                if let track = shazamSession.matchedTrack{
+//
+//                                    Link(destination: track.appleMusicURL){
+//
+//                                        Text("Add to your Library")
+//                                    }
+//                                    .buttonStyle(.bordered)
+//                                    .shadow(radius: 4)
+//                                }
                                 //End of homescreen- josh
                                 
                             }
@@ -228,6 +329,19 @@ struct JHomescreen: View {
     }
     
     
+    func plssave()
+    {
+        //upload(file: RagaData, name: RagaFileName, raga: Ragastring, accuracy: RagaAccuracy)
+
+        if isSaving{
+            upload(file: RagaData, name: RagaFileName, raga: Ragastring, accuracy: RagaAccuracy)
+            isSaving = false
+        }
+        else{
+            isSaving = false
+        }
+    }
+
     
     //this allows the uploaded file to be played - vaishu
     func play(soundWithPath path: String) {
@@ -293,30 +407,32 @@ struct JHomescreen: View {
     }
     
     
-    func upload(file: Data, name: String, raga: String) -> String {
-        guard let uid = Auth.auth().currentUser?.uid else { return "" }
-        let userTracks = Firestore.firestore().collection("users").document(uid).collection("tracks")
-        
-        let ref = Storage.storage().reference()
-        let fileRef = ref.child(uid).child(name)
-        let uploadTask = fileRef.putData(file, metadata: nil) { metadata, error in
-            if let error = error {
-                print("Failed to upload \(name): \(error)")
+    func upload(file: Data, name: String, raga: String, accuracy: String) -> String {
+            guard let uid = Auth.auth().currentUser?.uid else { return "" }
+            let userTracks = Firestore.firestore().collection("users").document(uid).collection("tracks")
+
+            let ref = Storage.storage().reference()
+            let fileRef = ref.child(uid).child(name)
+            let uploadTask = fileRef.putData(file, metadata: nil) { metadata, error in
+                if let error = error {
+                    print("Failed to upload (name): (error)")
+                }
+                print("Completed upload of (name)")
             }
-            print("Completed upload of \(name)")
-        }
-        uploadTask.resume()
-        //tracks for updating files vaishu
-        userTracks.addDocument(data: ["song": name, "filePath": fileRef.fullPath , "raga" : raga]) {error in
-            
-            if let error = error {
-                print("Failed to update \(name): \(error)")
-            } else {
-                self.playlist.update()
+            uploadTask.resume()
+            //tracks for updating files vaishu
+            userTracks.addDocument(data: ["song": name, "filePath": fileRef.fullPath , "raga" : raga, "accuracy" : accuracy]) {error in
+
+                if let error = error {
+                    print("Failed to update (name): (error)")
+                } else {
+                    self.playlist.update()
+                }
             }
+            return fileRef.fullPath
         }
-        return fileRef.fullPath
-    }
+    
+    
     //vaishu adding data
     func addData(filename: String, length: String){
         let db = Firestore.firestore()
@@ -341,4 +457,5 @@ extension View{
         return UIScreen.main.bounds
     }
 }
+
 

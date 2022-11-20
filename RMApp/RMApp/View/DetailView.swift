@@ -101,6 +101,8 @@ struct DetailView: View {
                 .buttonStyle(.bordered)
         }
         Label("Raga: " + track.raga, systemImage: "music.note.list").font(.system(size: 20)).background(.white, in: RoundedRectangle(cornerRadius: 1))
+        
+        Label("Accuracy: " + track.accuracy, systemImage: "percent").font(.system(size: 20)).background(.white, in: RoundedRectangle(cornerRadius: 1))
 
         
     }

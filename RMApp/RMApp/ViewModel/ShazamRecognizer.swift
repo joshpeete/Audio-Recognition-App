@@ -55,7 +55,7 @@ class ShazamRecognizer: NSObject, ObservableObject, SHSessionDelegate{
             self.stopRecording()
         }
     }
-    //ur mom
+    
     func stopRecording(){
         audioEngine.stop()
         withAnimation{
