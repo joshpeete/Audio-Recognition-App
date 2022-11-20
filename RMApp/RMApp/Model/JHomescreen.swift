@@ -89,32 +89,15 @@ struct JHomescreen: View {
                         if select {
                             //Start of Saved Page - Josh
                             
-                            HStack{ Button(action:{
-                                isImporting.toggle()
-                                self.addData(filename: "", length: "")
-                            })
-                                {Text("Import Your Song Here")}
-                                    .padding().foregroundColor(.black)
-                                    .buttonStyle(.bordered)
-                                
+                            HStack{
                                 NavigationLink(destination: NewButtonAction(),
                                                tag: 1,
                                                selection: $newButtonAction) {
                                     Button {
                                         isImporting.toggle()
-//
-                                        //semaphore.wait() // 0
-                                        
-                                        
-                                        
-//                                        DispatchQueue.main.asyncAfter(deadline: .now() + 5)
-//                                        {
-//                                            newButtonAction = 1
-//                                        }
-                                       
                                        
                                     } label: {
-                                        Text("New Button")
+                                        Text("Import Your Song Here")
                                     }
                                     .padding().foregroundColor(.black)
                                     .buttonStyle(.bordered)
@@ -134,71 +117,32 @@ struct JHomescreen: View {
                                     isSaving=false
                                     
                                     
-                                    //semaphore.wait()
-                                    
-//                                        upload(file: data, name: selectedFile.lastPathComponent,raga: printres(url: selectedFile), accuracy: printAcc())
+                      
                                     
                                     Ragastring = printres(url: selectedFile)
                                     RagaAccuracy = printAcc()
                                     RagaFileName = selectedFile.lastPathComponent
                                     RagaData = data
                                     
-                                    
-//                                    do{
-//                                        sleep(2)
-//                                    }
-                                    
-                                    //semaphore.signal() //1
-//                                    do{
-//                                        sleep(2)
-//                                    }
-                                    
+                
                                     newButtonAction = 1
                                     
-                                    //semaphore.wait() //0
-                                    //semaphore.signal()
+                                  
                                     
                                    
                                     
-                                    
-//                                    if isSaving{
-//                                        semaphore.signal() //1
-//                                    }
-////
-//                                  isSaving.toggle()
-//                                    if isSaving{
-//                                        upload(file: RagaData, name: RagaFileName, raga: Ragastring, accuracy: RagaAccuracy)
-//                                        isSaving = false
-//                                    }
-//
-//
-//                                        isSaving=false
-                                    
-                                    
-                                    //                                            ragaTable[selectedFile.lastPathComponent] = printres(url: selectedFile)
-                                    //                                            print(ragaTable)
+                                                    
                                     
                                     selectedFile.stopAccessingSecurityScopedResource()
                                 } catch {
                                     Swift.print(error.localizedDescription)
                                 }
                                 
-                                //plssave()
+                           
                             }
                             
                             
-                            
-                                        
-                            //plssave()
-                           
-//                                if isSaving{
-//                                    upload(file: RagaData, name: RagaFileName, raga: Ragastring, accuracy: RagaAccuracy)
-//                                    isSaving = false
-//                                }
-//                                else{
-//                                    isSaving = false
-//                                }
-                            
+                        
                             
                                 
                             
