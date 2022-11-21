@@ -13,10 +13,10 @@ import MobileCoreServices
 import FirebaseFirestore
 
 struct CardView: View {
-    
+    //used to hold the information that went inside of the card when matching songs, now it controls the PFP
     
     @State var email = ""
-    
+    //figure out how to call the email from firestore and call it here to be displayed
     var body: some View {
         List{
             Section("Profile Page"){

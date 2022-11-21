@@ -4,6 +4,7 @@
 //
 //  Created by Joshua Peete on 9/27/22.
 //
+
 import SwiftUI
 import AVFoundation
 import Firebase
@@ -16,10 +17,12 @@ var player:AVAudioPlayer!
 
 struct Track: Identifiable{
     var id = UUID().uuidString
-    var title: String
-    var artist: String
-    var artwork: URL
-    var appleMusicURL: URL
+    var title = ""
+    var artist = ""
+    var artwork: URL? = nil
+    var appleMusicURL: URL? = nil
+    var path = ""
+    var raga = ""
 }
 
 struct JHomescreen: View {
@@ -34,7 +37,6 @@ struct JHomescreen: View {
     @State var flag = false
     @State var showMenu = false
     @State var newButtonAction: Int? = nil
-    @State private var navigateTo = ""
     @State private var profile = false
     @State private var moreInfo = false
     
@@ -60,10 +62,8 @@ struct JHomescreen: View {
                     NavigationLink(destination: MoreInfo(), isActive: $moreInfo) {
                         EmptyView()
                     })
-                
                 .imageScale(.large)
                 .offset(x:175)
-                
                 
                 VStack {
                     Picker(selection: $select, label: Text("Toggle Button")){
@@ -84,47 +84,46 @@ struct JHomescreen: View {
                         if select {
                             //Start of Saved Page - Josh
                             
-                            HStack{ Button(action:{
-                                isImporting.toggle()
-                                self.addData(filename: "", length: "")
-                            })
-                                {Text("Import Your Song Here")}
-                                    .padding()
-                                    .foregroundColor(.black)
-                                    .buttonStyle(.bordered)
-                            }
-                            
-                            // TODO: Replace deprecated NavigiationView with NavigationStack and new style of NavigationLink
-                            NavigationLink(destination: NewButtonAction(),
-                                           tag: 1,
-                                           selection: $newButtonAction) {
+                            HStack {
                                 Button {
-                                    newButtonAction = 1
+                                    isImporting.toggle()
+                                    self.addData(filename: "", length: "")
                                 } label: {
-                                    Text("New Button")
+                                    Text("Import Your Song Here")
                                 }
-                                .padding()
-                                .foregroundColor(.black)
+                                .padding().foregroundColor(.black)
                                 .buttonStyle(.bordered)
+                                
+                                // TODO: Replace deprecated NavigiationView with NavigationStack and new style of NavigationLink
+                                NavigationLink(destination: NewButtonAction(),
+                                               tag: 1,
+                                               selection: $newButtonAction) {
+                                    Button {
+                                        newButtonAction = 1
+                                    } label: {
+                                        Text("New Button")
+                                    }
+                                    .padding().foregroundColor(.black)
+                                    .buttonStyle(.bordered)
+                                }
                             }
-                            
-                                           .fileImporter( isPresented: $isImporting, allowedContentTypes: [.wav], allowsMultipleSelection: false) { result in
-                                               do {
-                                                   guard let selectedFile: URL = try result.get().first else { return }
-                                                   guard selectedFile.startAccessingSecurityScopedResource() else { return }
-                                                   let data = try Data(contentsOf: selectedFile)
-                                                   
-                                                   upload(file: data, name: selectedFile.lastPathComponent,raga: printres(url: selectedFile), accuracy:printAcc())
-                                                   
-                                                   
-                                                   //                                            ragaTable[selectedFile.lastPathComponent] = printres(url: selectedFile)
-                                                   //                                            print(ragaTable)
-                                                   
-                                                   selectedFile.stopAccessingSecurityScopedResource()
-                                               } catch {
-                                                   Swift.print(error.localizedDescription)
-                                               }
-                                           }
+                            .fileImporter( isPresented: $isImporting, allowedContentTypes: [.wav], allowsMultipleSelection: false) { result in
+                                do {
+                                    guard let selectedFile: URL = try result.get().first else { return }
+                                    guard selectedFile.startAccessingSecurityScopedResource() else { return }
+                                    let data = try Data(contentsOf: selectedFile)
+                                    
+                                    upload(file: data, name: selectedFile.lastPathComponent,raga: printres(url: selectedFile))
+                                    
+                                    
+                                    //                                            ragaTable[selectedFile.lastPathComponent] = printres(url: selectedFile)
+                                    //                                            print(ragaTable)
+                                    
+                                    selectedFile.stopAccessingSecurityScopedResource()
+                                } catch {
+                                    Swift.print(error.localizedDescription)
+                                }
+                            }
                             //End of Saved Page - Josh
                             List(playlist.tracks) { track in
                                 NavigationLink(destination: DetailView(track: track)){
@@ -192,33 +191,55 @@ struct JHomescreen: View {
                                     }
                                 }
                                 
-                                Button{
-                                    //Button that starts Shazam functionality
-                                    shazamSession.listenMusic()
-                                }label: {
-                                    Image(systemName: shazamSession.isRecording ? "stop.circle.fill" : "music.mic.circle.fill")
-                                        .foregroundColor(.black)
-                                        .font(.system(size: 150))
-                                        .ignoresSafeArea()
-                                }
-                                .alert(shazamSession.errorMsg, isPresented: $shazamSession.showError){
-                                    Button("Close",role: .cancel){
+                                HStack {
+                                    VStack {
+                                        RecordButton(isRecording: $shazamSession.isListening) {
+                                            shazamSession.listenMusic(shouldRecognize: true)
+                                        }
+                                        .alert(shazamSession.errorMsg,
+                                               isPresented: $shazamSession.showError){
+                                            Button("Close",role: .cancel){
+                                            }
+                                        }
+                                        
+                                        Text("Match")
+                                    }
+                                    
+                                    VStack {
+                                        RecordButton(isRecording: $shazamSession.isRecording, filled: false) {
+                                            shazamSession.listenMusic(shouldRecognize: false) { url in
+                                                do {
+                                                    let data = try Data(contentsOf: url)
+                                                    //try upload(file: url, name: url.lastPathComponent,raga: printres(url: url) )
+                                                    //try upload(file: url)
+                                                    //upload(file: data, name: url.lastPathComponent, raga: printres(url: url))
+                                                    print(url)
+                                                } catch {
+                                                    print(error)
+                                                }
+                                            }
+                                        }
+                                        
+                                        Text("Live Recording")
                                     }
                                 }
                                 
-                                if let track = shazamSession.matchedTrack{
-                                    
-                                    Link(destination: track.appleMusicURL){
+                                
+                                if let track = shazamSession.matchedTrack, let url = track.appleMusicURL {
+
+                                    Link(destination: url){
+                                        
                                         Text("Add to your Library")
                                     }
                                     .buttonStyle(.bordered)
                                     .shadow(radius: 4)
-                                    //End of HomePage - Josh
-                                    
                                 }
+                                //End of homescreen- josh
+                                
                             }
                         }
                     }
+                    
                 }
                 
             }
@@ -294,7 +315,7 @@ struct JHomescreen: View {
     }
     
     
-    func upload(file: Data, name: String, raga: String, accuracy: String) -> String {
+    func upload(file: Data, name: String, raga: String) -> String {
         guard let uid = Auth.auth().currentUser?.uid else { return "" }
         let userTracks = Firestore.firestore().collection("users").document(uid).collection("tracks")
         
@@ -308,7 +329,7 @@ struct JHomescreen: View {
         }
         uploadTask.resume()
         //tracks for updating files vaishu
-        userTracks.addDocument(data: ["song": name, "filePath": fileRef.fullPath , "raga" : raga, "accuracy" : accuracy]) {error in
+        userTracks.addDocument(data: ["song": name, "filePath": fileRef.fullPath , "raga" : raga]) {error in
             
             if let error = error {
                 print("Failed to update \(name): \(error)")
@@ -339,6 +360,7 @@ struct JHomescreen_Previews: PreviewProvider {
 
 extension View{
     func getRect()->CGRect{
-        return UIScreen.main.bounds
+        return UIScreen.main.bounds //gets dimensions for whatever screen is applicable
     }
 }
+

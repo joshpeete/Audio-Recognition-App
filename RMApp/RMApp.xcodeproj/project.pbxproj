@@ -36,8 +36,8 @@
 		D7296A8028E3DD2B00D0049E /* JHomescreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7296A7F28E3DD2B00D0049E /* JHomescreen.swift */; };
 		D788C8562921D27700D90419 /* NewButtonAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D788C8552921D27700D90419 /* NewButtonAction.swift */; };
 		D788C85A29254C2E00D90419 /* MoreInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D788C85929254C2E00D90419 /* MoreInfo.swift */; };
+		D788C85C2925709B00D90419 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D788C85B2925709B00D90419 /* VideoView.swift */; };
 		D7E44DBE2921CDA600239923 /* RecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E44DBD2921CDA600239923 /* RecordButton.swift */; };
-		D7E44DC02921CE2F00239923 /* AudioNav.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E44DBF2921CE2F00239923 /* AudioNav.swift */; };
 		D7E44DC22921CE6500239923 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E44DC12921CE6500239923 /* DetailView.swift */; };
 		D7E44DC42921CE9700239923 /* AudioListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E44DC32921CE9700239923 /* AudioListView.swift */; };
 		FB7C6E3029027798004507E5 /* RagaRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7C6E2F29027798004507E5 /* RagaRecognizer.swift */; };
@@ -91,8 +91,8 @@
 		D7296A7F28E3DD2B00D0049E /* JHomescreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JHomescreen.swift; sourceTree = "<group>"; };
 		D788C8552921D27700D90419 /* NewButtonAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewButtonAction.swift; sourceTree = "<group>"; };
 		D788C85929254C2E00D90419 /* MoreInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreInfo.swift; sourceTree = "<group>"; };
+		D788C85B2925709B00D90419 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		D7E44DBD2921CDA600239923 /* RecordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordButton.swift; sourceTree = "<group>"; };
-		D7E44DBF2921CE2F00239923 /* AudioNav.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioNav.swift; sourceTree = "<group>"; };
 		D7E44DC12921CE6500239923 /* DetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		D7E44DC32921CE9700239923 /* AudioListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioListView.swift; sourceTree = "<group>"; };
 		FB7C6E2F29027798004507E5 /* RagaRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RagaRecognizer.swift; sourceTree = "<group>"; };
@@ -131,15 +131,11 @@
 		D728F9AF28FF199E009989EB /* View */ = {
 			isa = PBXGroup;
 			children = (
-				D788C8552921D27700D90419 /* NewButtonAction.swift */,
 				D7E44DC32921CE9700239923 /* AudioListView.swift */,
 				D7E44DC12921CE6500239923 /* DetailView.swift */,
 				D7296A3A28E3A1B900D0049E /* ContentView.swift */,
-				D7E44DBF2921CE2F00239923 /* AudioNav.swift */,
 				D7E44DBD2921CDA600239923 /* RecordButton.swift */,
 				D7296A6228E3A22400D0049E /* Splashview.swift */,
-				D728F9A228EDED7D009989EB /* CardView.swift */,
-				D788C85929254C2E00D90419 /* MoreInfo.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -152,6 +148,10 @@
 				D728F9C32906D827009989EB /* InputConversion.py */,
 				D728F9BF2906D817009989EB /* asavari01.wav */,
 				D728F9BD2904B114009989EB /* Playlist.swift */,
+				D788C85B2925709B00D90419 /* VideoView.swift */,
+				D728F9A228EDED7D009989EB /* CardView.swift */,
+				D788C85929254C2E00D90419 /* MoreInfo.swift */,
+				D788C8552921D27700D90419 /* NewButtonAction.swift */,
 				D728F9CA29072C59009989EB /* RagaRecognizer.swift */,
 				D728F9B528FF78E3009989EB /* ShazamRecognizer.swift */,
 				FB7C6E2F29027798004507E5 /* RagaRecognizer.swift */,
@@ -386,7 +386,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D7E44DC02921CE2F00239923 /* AudioNav.swift in Sources */,
 				D7296A6328E3A22400D0049E /* Splashview.swift in Sources */,
 				D7E44DC22921CE6500239923 /* DetailView.swift in Sources */,
 				FB7C6E3329027875004507E5 /* Mlmodel.mlmodel in Sources */,
@@ -401,6 +400,7 @@
 				D728F9C929070DE6009989EB /* SoundAnalysisPreprocessing.mlmodel in Sources */,
 				D7296A3B28E3A1B900D0049E /* ContentView.swift in Sources */,
 				D7296A3928E3A1B900D0049E /* RMAppApp.swift in Sources */,
+				D788C85C2925709B00D90419 /* VideoView.swift in Sources */,
 				D728F9A328EDED7D009989EB /* CardView.swift in Sources */,
 				D788C85A29254C2E00D90419 /* MoreInfo.swift in Sources */,
 				D7E44DC42921CE9700239923 /* AudioListView.swift in Sources */,

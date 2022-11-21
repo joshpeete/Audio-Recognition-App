@@ -244,11 +244,19 @@ func handleAction() {//links buttons to functions
             }
         }
     }
+//josh
 func isValidEmail(_ email: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: email)
+    }
+
+//josh
+func isValidPasswordString(_ password:String) -> Bool {
+        let pwdRegEx = "(?:(?:(?=.*?[0-9])(?=.*?[-!@#$%&*ˆ+=_])|(?:(?=.*?[0-9])|(?=.*?[A-Z])|(?=.*?[-!@#$%&*ˆ+=_])))|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[-!@#$%&*ˆ+=_]))[A-Za-z0-9-!@#$%&*ˆ+=_]{6,15}"
+
+        let pwdTest = NSPredicate(format:"SELF MATCHES %@", pwdRegEx)
+        return pwdTest.evaluate(with: password)
     }
     
     //vaishu and josh
@@ -256,6 +264,7 @@ func isValidEmail(_ email: String) -> Bool {
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             if let error = error{
                 print(error.localizedDescription)
+                firebase.userIsLoggedIn = false
             }
             firebase.userIsLoggedIn = true
             Playlist.instance.update()
