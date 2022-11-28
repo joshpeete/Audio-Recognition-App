@@ -7,7 +7,9 @@ target 'RMApp' do
 
   # Pods for RMApp
 
-	pod 'Firebase/Auth' 
+	pod 'Firebase/Auth'
+	pod 'Firebase/Core'
+	pod 'Firebase/Firestore' 
 
   target 'RMAppTests' do
     inherit! :search_paths

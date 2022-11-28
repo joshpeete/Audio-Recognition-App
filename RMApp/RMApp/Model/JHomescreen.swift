@@ -15,14 +15,24 @@ import FirebaseFirestore
 
 var player:AVAudioPlayer!
 
+var isSaving: Bool = false
+
+var Ragastring = ""
+var RagaAccuracy = ""
+var RagaFileName = ""
+var RagaData = Data.init()
+
+
+
+//let semaphore = DispatchSemaphore(value: 1)
+
 struct Track: Identifiable{
     var id = UUID().uuidString
-    var title = ""
-    var artist = ""
-    var artwork: URL? = nil
-    var appleMusicURL: URL? = nil
-    var path = ""
-    var raga = ""
+    var title: String
+    var artist: String
+    var artwork: URL
+    var appleMusicURL: URL
+    var path: String
 }
 
 struct JHomescreen: View {
@@ -32,38 +42,45 @@ struct JHomescreen: View {
     @State private var color: Color = .gray
     @StateObject var shazamSession = ShazamRecognizer()
     @State private var isImporting: Bool = false
+    @State private var isImporting2: Bool = false
     @State var audioPlayer: AVAudioPlayer!
     @ObservedObject var playlist = Playlist.instance
     @State var flag = false
     @State var showMenu = false
     @State var newButtonAction: Int? = nil
+    @State var shouldRecord = true
     @State private var profile = false
     @State private var moreInfo = false
+    
+
+    
+    
     
     var body: some View{
         NavigationView{
             VStack{
                 Menu{
-                    Button("Sign Out", action: { FirebaseInterface.instance.signOut() })
-                    Button("Profile"){
-                        self.profile = true
-                    }
-                    Button("More Information"){
-                        self.moreInfo = true
-                    }
-                } label: {
-                    Label("", systemImage: "line.horizontal.3")
-                }
-                .background(
-                    NavigationLink(destination: CardView(), isActive: $profile) {
-                        EmptyView()
-                    })
-                .background(
-                    NavigationLink(destination: MoreInfo(), isActive: $moreInfo) {
-                        EmptyView()
-                    })
-                .imageScale(.large)
-                .offset(x:175)
+                                    Button("Sign Out", action: { FirebaseInterface.instance.signOut() })
+                                    Button("Profile"){
+                                        self.profile = true
+                                    }
+                                    Button("More Information"){
+                                        self.moreInfo = true
+                                    }
+                                } label: {
+                                    Label("", systemImage: "line.horizontal.3")
+                                }
+                                .background(
+                                    NavigationLink(destination: CardView(), isActive: $profile) {
+                                        EmptyView()
+                                    })
+                                .background(
+                                    NavigationLink(destination: MoreInfo(), isActive: $moreInfo) {
+                                        EmptyView()
+                                    })
+                                .imageScale(.large)
+                                .offset(x:175)
+                
                 
                 VStack {
                     Picker(selection: $select, label: Text("Toggle Button")){
@@ -84,46 +101,65 @@ struct JHomescreen: View {
                         if select {
                             //Start of Saved Page - Josh
                             
-                            HStack {
-                                Button {
-                                    isImporting.toggle()
-                                    self.addData(filename: "", length: "")
-                                } label: {
-                                    Text("Import Your Song Here")
-                                }
-                                .padding().foregroundColor(.black)
-                                .buttonStyle(.bordered)
-                                
-                                // TODO: Replace deprecated NavigiationView with NavigationStack and new style of NavigationLink
+                            HStack{
                                 NavigationLink(destination: NewButtonAction(),
                                                tag: 1,
                                                selection: $newButtonAction) {
                                     Button {
-                                        newButtonAction = 1
+                                        isImporting.toggle()
+                                       
                                     } label: {
-                                        Text("New Button")
+                                        Text("Import Your Song Here")
                                     }
                                     .padding().foregroundColor(.black)
                                     .buttonStyle(.bordered)
                                 }
+                                
+                                
+                                
                             }
+                            
+                            
                             .fileImporter( isPresented: $isImporting, allowedContentTypes: [.wav], allowsMultipleSelection: false) { result in
                                 do {
                                     guard let selectedFile: URL = try result.get().first else { return }
                                     guard selectedFile.startAccessingSecurityScopedResource() else { return }
                                     let data = try Data(contentsOf: selectedFile)
                                     
-                                    upload(file: data, name: selectedFile.lastPathComponent,raga: printres(url: selectedFile))
+                                    isSaving=false
                                     
                                     
-                                    //                                            ragaTable[selectedFile.lastPathComponent] = printres(url: selectedFile)
-                                    //                                            print(ragaTable)
+                      
+                                    
+                                    Ragastring = printres(url: selectedFile)
+                                    RagaAccuracy = printAcc()
+                                    RagaFileName = selectedFile.lastPathComponent
+                                    RagaData = data
+                                    
+                
+                                    newButtonAction = 1
+                                    
+                                  
+                                    
+                                   
+                                    
+                                                    
                                     
                                     selectedFile.stopAccessingSecurityScopedResource()
                                 } catch {
                                     Swift.print(error.localizedDescription)
                                 }
+                                
+                           
                             }
+                            
+                            
+                        
+                            
+                                
+                            
+                            
+                            
                             //End of Saved Page - Josh
                             List(playlist.tracks) { track in
                                 NavigationLink(destination: DetailView(track: track)){
@@ -192,9 +228,19 @@ struct JHomescreen: View {
                                 }
                                 
                                 HStack {
+                                    Spacer()
+                                    
                                     VStack {
-                                        RecordButton(isRecording: $shazamSession.isListening) {
-                                            shazamSession.listenMusic(shouldRecognize: true)
+                                        RecordButton(isRecording: $shazamSession.isRecording) {
+                                            shazamSession.listenMusic(shouldRecognize: !shouldRecord) { url in
+                                                do {
+                                                    let data = try Data(contentsOf: url)
+                                                    try upload(file: data, name: url.lastPathComponent, raga: printres(url: url), accuracy: printAcc())
+                                                    print(url)
+                                                } catch {
+                                                    print(error)
+                                                }
+                                            }
                                         }
                                         .alert(shazamSession.errorMsg,
                                                isPresented: $shazamSession.showError){
@@ -202,38 +248,26 @@ struct JHomescreen: View {
                                             }
                                         }
                                         
-                                        Text("Match")
+                                        Toggle(isOn: $shouldRecord) {
+                                            Text("Live Recording")
+                                        }
+                                        .frame(width: 250)
                                     }
                                     
-                                    VStack {
-                                        RecordButton(isRecording: $shazamSession.isRecording, filled: false) {
-                                            shazamSession.listenMusic(shouldRecognize: false) { url in
-                                                do {
-                                                    let data = try Data(contentsOf: url)
-                                                    //try upload(file: url, name: url.lastPathComponent,raga: printres(url: url) )
-                                                    //try upload(file: url)
-                                                    //upload(file: data, name: url.lastPathComponent, raga: printres(url: url))
-                                                    print(url)
-                                                } catch {
-                                                    print(error)
-                                                }
-                                            }
-                                        }
-                                        
-                                        Text("Live Recording")
-                                    }
+                                    Spacer()
                                 }
                                 
-                                
                                 if let track = shazamSession.matchedTrack, let url = track.appleMusicURL {
-
+                                    
                                     Link(destination: url){
                                         
                                         Text("Add to your Library")
                                     }
                                     .buttonStyle(.bordered)
                                     .shadow(radius: 4)
+                                    .padding(15)
                                 }
+
                                 //End of homescreen- josh
                                 
                             }
@@ -250,6 +284,19 @@ struct JHomescreen: View {
     }
     
     
+    func plssave()
+    {
+        //upload(file: RagaData, name: RagaFileName, raga: Ragastring, accuracy: RagaAccuracy)
+
+        if isSaving{
+            upload(file: RagaData, name: RagaFileName, raga: Ragastring, accuracy: RagaAccuracy)
+            isSaving = false
+        }
+        else{
+            isSaving = false
+        }
+    }
+
     
     //this allows the uploaded file to be played - vaishu
     func play(soundWithPath path: String) {
@@ -315,30 +362,32 @@ struct JHomescreen: View {
     }
     
     
-    func upload(file: Data, name: String, raga: String) -> String {
-        guard let uid = Auth.auth().currentUser?.uid else { return "" }
-        let userTracks = Firestore.firestore().collection("users").document(uid).collection("tracks")
-        
-        let ref = Storage.storage().reference()
-        let fileRef = ref.child(uid).child(name)
-        let uploadTask = fileRef.putData(file, metadata: nil) { metadata, error in
-            if let error = error {
-                print("Failed to upload \(name): \(error)")
+    func upload(file: Data, name: String, raga: String, accuracy: String) -> String {
+            guard let uid = Auth.auth().currentUser?.uid else { return "" }
+            let userTracks = Firestore.firestore().collection("users").document(uid).collection("tracks")
+
+            let ref = Storage.storage().reference()
+            let fileRef = ref.child(uid).child(name)
+            let uploadTask = fileRef.putData(file, metadata: nil) { metadata, error in
+                if let error = error {
+                    print("Failed to upload (name): (error)")
+                }
+                print("Completed upload of (name)")
             }
-            print("Completed upload of \(name)")
-        }
-        uploadTask.resume()
-        //tracks for updating files vaishu
-        userTracks.addDocument(data: ["song": name, "filePath": fileRef.fullPath , "raga" : raga]) {error in
-            
-            if let error = error {
-                print("Failed to update \(name): \(error)")
-            } else {
-                self.playlist.update()
+            uploadTask.resume()
+            //tracks for updating files vaishu
+            userTracks.addDocument(data: ["song": name, "filePath": fileRef.fullPath , "raga" : raga, "accuracy" : accuracy]) {error in
+
+                if let error = error {
+                    print("Failed to update (name): (error)")
+                } else {
+                    self.playlist.update()
+                }
             }
+            return fileRef.fullPath
         }
-        return fileRef.fullPath
-    }
+    
+    
     //vaishu adding data
     func addData(filename: String, length: String){
         let db = Firestore.firestore()
@@ -360,7 +409,8 @@ struct JHomescreen_Previews: PreviewProvider {
 
 extension View{
     func getRect()->CGRect{
-        return UIScreen.main.bounds //gets dimensions for whatever screen is applicable
+        return UIScreen.main.bounds
     }
 }
+
 

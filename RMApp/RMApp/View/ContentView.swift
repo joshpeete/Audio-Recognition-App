@@ -16,10 +16,15 @@ struct ContentView: View {
     @State public var email = ""
     @State private var logOut = ""
     @State private var password = ""
+    @State private var validatePassword = ""
     @State private var select = false
     @State private var showResetPasswordConfirmation = false
     @State private var resetPasswordConfirmationAlert = false
     @ObservedObject var firebase = FirebaseInterface.instance
+    
+    
+    
+    //@ObservedObject var sessionStore = SessionStore()
     
     var body: some View {
         if firebase.userIsLoggedIn{
@@ -201,7 +206,27 @@ struct ContentView: View {
                                         .font(.system(size: 16))
                                         .padding(12)
                                 }
-                            Rectangle()//line under email
+                            Rectangle()//line under
+                                .frame(width: 375, height: 1)
+                                .foregroundColor(.black)
+                            
+                            SecureField("Confirm Password",text:$validatePassword)
+                                .foregroundColor(.black)
+                                .keyboardType(.emailAddress)
+                                .autocapitalization(.none)
+                                .font(.system(size: 16))
+                                .bold()
+                                .textFieldStyle(.plain)
+                                .padding(12)
+                                .placeholder(when: validatePassword.isEmpty){
+                                    Text("Confirm Password")
+                                        .foregroundColor(.black)
+                                        .font(.system(size: 16))
+                                        .bold()
+                                        .padding(12)
+                                }
+                            
+                            Rectangle()//line under
                                 .frame(width: 375, height: 1)
                                 .foregroundColor(.black)
                         }
@@ -235,7 +260,7 @@ func handleAction() {//links buttons to functions
         if email.isEmpty || password.isEmpty{
             
         }else{
-            if isValidEmail(email){
+            if isValidEmail(email) && isValidPasswordString(password) {
                 if select {
                     loginUser()
                 } else {
@@ -276,7 +301,26 @@ func isValidPasswordString(_ password:String) -> Bool {
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             if error != nil {
                 print(error?.localizedDescription ?? "")
+                
             }
+            else{
+                //if no error store user information
+                
+                
+                
+                let db = Firestore.firestore()
+                
+//                db.collection("users").addDocument(data:["firstname" : firstname , "lastname": lastname, "uid" : user!.user.uid,"dateofcreation" : Date() ]){ (error) in
+//
+//                }
+                
+                db.collection("users").document(user!.user.uid).setData(["firstname" : firstname , "lastname": lastname, "uid" : user!.user.uid,"dateofcreation" : Date() ])
+                
+                
+            }
+            
+            
+            
             //add text pop-up that says user account created
             //firebase.userIsLoggedIn = true
             //isActive = false
@@ -291,6 +335,27 @@ func isValidPasswordString(_ password:String) -> Bool {
             // error alert
         }
     }
+   
+    // function that will show messages on error pop up
+    func validateFields() -> String?{
+        
+        //Check required fields are filled in
+        if email == "" || password == ""{
+            return "Please fill in email and password"
+        }
+        
+        let passwordAttempt = password
+        
+        if isValidPasswordString(passwordAttempt) == false {
+            return " Please make sure password is at least 8 characters, contains special character, contains a number"
+        }
+        
+        return nil
+    }
+    
+    
+    
+    
 }
 
 

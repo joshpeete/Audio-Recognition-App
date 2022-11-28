@@ -37,8 +37,8 @@ class ShazamRecognizer: NSObject, ObservableObject, SHSessionDelegate{
             DispatchQueue.main.async {
                 self.matchedTrack = Track(title: firstItem.title ?? "",
                                           artist: firstItem.artist ?? "",
-                                          artwork: firstItem.artworkURL,
-                                          appleMusicURL: firstItem.appleMusicURL,
+                                          artwork: firstItem.artworkURL ?? URL(string: "")!,
+                                          appleMusicURL: firstItem.appleMusicURL!,
                                           path: "")
                 
                 self.callCompletion()
@@ -55,7 +55,7 @@ class ShazamRecognizer: NSObject, ObservableObject, SHSessionDelegate{
             self.stopRecording()
         }
     }
-    //unsure why this is necessary
+    
     func stopRecording(){
         audioEngine.stop()
         withAnimation{
@@ -109,9 +109,9 @@ class ShazamRecognizer: NSObject, ObservableObject, SHSessionDelegate{
         
         //removing if already installed
         inputNode.removeTap(onBus: .zero)
+                
         
-        
-        //installing when you tap the button
+        //instslling when you tap the button
         inputNode.installTap(onBus: .zero, bufferSize: 1024, format: format){ [weak self] (buffer, time) in
             //ShazamKit Session Start
             if self?.recognize == true {
@@ -128,7 +128,7 @@ class ShazamRecognizer: NSObject, ObservableObject, SHSessionDelegate{
                         
                         dateFormatter.dateStyle = .medium
                         dateFormatter.timeStyle = .medium
-                        let name = dateFormatter.string(from: Date()) + ".wav"
+                        let name = dateFormatter.string(from: Date())
                         
                         url = url.appendingPathComponent(name)
                         
@@ -145,31 +145,27 @@ class ShazamRecognizer: NSObject, ObservableObject, SHSessionDelegate{
                     print(error)
                 }
                 //self?.file = try AVAudioFormat( sampleRate: Float32,
-                //layout: 1)
+                                                //layout: 1)
             }
         }
         //starting audio matching
         audioEngine.prepare()
         
         do{
-            try audioEngine.start()
-            print("Starting")
-            withAnimation{
-                DispatchQueue.main.async {
-                    if self.recognize {
-                        self.isListening = true
-                    } else {
-                        self.isRecording = true
+                    try audioEngine.start()
+                    print("Starting")
+                    withAnimation{
+                        DispatchQueue.main.async {
+                            self.isRecording = true
+                        }
                     }
+                }
+                catch{
+                    self.errorMsg = error.localizedDescription
+                    self.showError.toggle()
                 }
             }
         }
-        catch{
-            self.errorMsg = error.localizedDescription
-            self.showError.toggle()
-        }
-    }
-}
 
 
 
