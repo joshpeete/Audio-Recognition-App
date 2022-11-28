@@ -17,6 +17,7 @@ struct DetailView: View {
     @ObservedObject var playlist = Playlist.instance
     @State var flag = false
     @State var ragaData = ""
+    @State var audioPlayer: AVAudioPlayer? = nil
     
     var track: Track
     
@@ -24,24 +25,24 @@ struct DetailView: View {
         DownloadManager.instance.download(filePath: path) { data, error in
             print("Download of \(path) complete")
             if let data = data {
-                player = try? AVAudioPlayer(data: data)
-                player?.play()
+                audioPlayer = try? AVAudioPlayer(data: data)
+                audioPlayer?.play()
             } else if let error = error {
                 print("Failed to download \(path): \(error)")
             }
         }
     }
+    
+//    func play(data: Data?) {
+//        if let data = data {
+//            audioPlayer = try? AVAudioPlayer(data: data)
+//            audioPlayer?.play()
+//        }
+//    }
+    
     //this func allows the uploaded file to be paused - Josh
     func pause(soundWithPath path: String) {
-        DownloadManager.instance.download(filePath: path) { data, error in
-            print("Download of \(path) complete")
-            if let data = data {
-                player = try? AVAudioPlayer(data: data)
-                player?.pause()
-            } else if let error = error {
-                print("Failed to download \(path): \(error)")
-            }
-        }
+        audioPlayer?.pause()
     }
     
     //    //vaishu - upload
@@ -86,7 +87,8 @@ struct DetailView: View {
         
         HStack{
             Button(action:{
-                play(soundWithPath: track.path)
+                 play(soundWithPath: track.path)
+                //play(data: try? Data(contentsOf: URL(fileURLWithPath: track.path)))
             })
             {Image(systemName:"play.fill")}
                 .padding()
@@ -128,6 +130,8 @@ struct DetailView: View {
                 url = url.appending(component: name)
                 
                 try data.write(to: url)
+                
+                return;
                 
                 let result = printres(url: url)
                 if let result = result {

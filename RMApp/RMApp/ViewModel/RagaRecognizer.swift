@@ -102,12 +102,26 @@ func readWavIntoFloats(filepath: URL) -> [Float] {
     //let fileUrl = URL(fileURLWithPath: url)
     // let url = URL(fileURLWithPath: storageRef)
     let file = try! AVAudioFile(forReading: filepath)
-    let format = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: file.fileFormat.sampleRate, channels: 1, interleaved: false)!
-    let buf = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 15600)!
-    try! file.read(into: buf)
+    guard let format = AVAudioFormat(commonFormat: .pcmFormatFloat32,
+                                         sampleRate: file.fileFormat.sampleRate,
+                                         channels: 1,
+                                         interleaved: false) else {
+        return floatArray
+    }
     
-    // this makes a copy, you might not want that
-    floatArray = Array(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:Int(buf.frameLength)))
+    guard let buf = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 15600) else {
+
+        return floatArray
+    }
+    
+    do {
+        try file.read(into: buf)
+        
+        // this makes a copy, you might not want that
+        floatArray = Array(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:Int(buf.frameLength)))
+    } catch {
+        print(error)
+    }
     
     //print(floatArray)
     return floatArray

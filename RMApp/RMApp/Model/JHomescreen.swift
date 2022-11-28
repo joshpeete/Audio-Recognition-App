@@ -13,8 +13,6 @@ import UIKit
 import MobileCoreServices
 import FirebaseFirestore
 
-var player:AVAudioPlayer!
-
 struct Track: Identifiable{
     var id = UUID().uuidString
     var title = ""
@@ -23,7 +21,8 @@ struct Track: Identifiable{
     var appleMusicURL: URL? = nil
     var path = ""
     var raga = ""
-}
+    var date: Date? = nil
+    }
 
 struct JHomescreen: View {
     @State private var select = false
@@ -37,6 +36,8 @@ struct JHomescreen: View {
     @State var flag = false
     @State var showMenu = false
     @State var newButtonAction: Int? = nil
+    @State var shouldRecord = true
+    @State var ascending = false
     
     var body: some View{
         NavigationView{
@@ -80,6 +81,15 @@ struct JHomescreen: View {
                                     self.addData(filename: "", length: "")
                                 } label: {
                                     Text("Import Your Song Here")
+                                }
+                                .padding().foregroundColor(.black)
+                                .buttonStyle(.bordered)
+                                
+                                Button {
+                                    ascending.toggle()
+                                    Playlist.instance.tracks.sort(ascending: ascending)
+                                } label: {
+                                    Image(systemName: "arrow.up.arrow.down")
                                 }
                                 .padding().foregroundColor(.black)
                                 .buttonStyle(.bordered)
@@ -182,9 +192,18 @@ struct JHomescreen: View {
                                 }
                                 
                                 HStack {
+                                    Spacer()
+                                    
                                     VStack {
-                                        RecordButton(isRecording: $shazamSession.isListening) {
-                                            shazamSession.listenMusic(shouldRecognize: true)
+                                        RecordButton(isRecording: $shazamSession.isRecording) {
+                                            shazamSession.listenMusic(shouldRecognize: !shouldRecord) { url in
+                                                do {
+                                                    try upload(file: url)
+                                                    print(url)
+                                                } catch {
+                                                    print(error)
+                                                }
+                                            }
                                         }
                                         .alert(shazamSession.errorMsg,
                                                isPresented: $shazamSession.showError){
@@ -192,79 +211,52 @@ struct JHomescreen: View {
                                             }
                                         }
                                         
-                                        Text("Listen")
+                                        Toggle(isOn: $shouldRecord) {
+                                            Text("Live Recording")
+                                        }
+                                        .frame(width: 250)
                                     }
                                     
-                                    VStack {
-                                        RecordButton(isRecording: $shazamSession.isRecording, filled: false) {
-                                            shazamSession.listenMusic(shouldRecognize: false) { url in
-                                                do {
-                                                    let data = try Data(contentsOf: url)
-                                                    //try upload(file: url, name: url.lastPathComponent,raga: printres(url: url) )
-                                                    //try upload(file: url)
-                                                    //upload(file: data, name: url.lastPathComponent, raga: printres(url: url))
-                                                    print(url)
-                                                } catch {
-                                                    print(error)
-                                                }
-                                            }
-                                        }
-                                        
-                                        Text("Live Recording")
-                                    }
+                                    Spacer()
+                                    
+                                    //                                    VStack {
+                                    //                                        RecordButton(isRecording: $shazamSession.isRecording, filled: false) {
+                                    //                                            shazamSession.listenMusic(shouldRecognize: false) { url in
+                                    //                                                do {
+                                    //                                                    let data = try Data(contentsOf: url)
+                                    //                                                    //try upload(file: url, name: url.lastPathComponent,raga: printres(url: url) )
+                                    //                                                    //try upload(file: url)
+                                    //                                                    //upload(file: data, name: url.lastPathComponent, raga: printres(url: url))
+                                    //                                                    print(url)
+                                    //                                                } catch {
+                                    //                                                    print(error)
+                                    //                                                }
+                                    //                                            }
+                                    //                                        }
+                                    //
+                                    //                                        Text("Live Recording")
+                                    //                                    }
                                 }
                                 
                                 
-                                if let track = shazamSession.matchedTrack, let url = track.appleMusicURL {
-
-                                    Link(destination: url){
-                                        
-                                        Text("Add to your Library")
-                                    }
-                                    .buttonStyle(.bordered)
-                                    .shadow(radius: 4)
-                                }
-                                //End of homescreen- josh
                                 
                             }
+                            //End of homescreen- josh
+                            
                         }
                     }
-                    
                 }
                 
             }
-            .navigationTitle("Raga-Mania")
-            .foregroundColor(.black)
-            .background(LinearGradient(gradient: Gradient(colors: [.white, .gray]), startPoint: .top, endPoint: .bottom))
+            
         }
+        .navigationTitle("Raga-Mania")
+        .foregroundColor(.black)
+        .background(LinearGradient(gradient: Gradient(colors: [.white, .gray]), startPoint: .top, endPoint: .bottom))
     }
     
     
     
-    //this allows the uploaded file to be played - vaishu
-    func play(soundWithPath path: String) {
-        DownloadManager.instance.download(filePath: path) { data, error in
-            print("Download of \(path) complete")
-            if let data = data {
-                player = try? AVAudioPlayer(data: data)
-                player?.play()
-            } else if let error = error {
-                print("Failed to download \(path): \(error)")
-            }
-        }
-    }
-    //this func allows the uploaded file to be paused - Josh
-    func pause(soundWithPath path: String) {
-        DownloadManager.instance.download(filePath: path) { data, error in
-            print("Download of \(path) complete")
-            if let data = data {
-                player = try? AVAudioPlayer(data: data)
-                player?.stop()
-            } else if let error = error {
-                print("Failed to download \(path): \(error)")
-            }
-        }
-    }
     
     //vaishu - upload
     @discardableResult func upload(file: URL) throws -> String? {
@@ -293,7 +285,9 @@ struct JHomescreen: View {
         }
         uploadTask.resume()
         //tracks for updating files vaishu
-        userTracks.addDocument(data: ["song": name, "filePath": fileRef.fullPath]) {error in
+        userTracks.addDocument(data: ["song": name,
+                                      "filePath": fileRef.fullPath,
+                                      "date": Date() ]) {error in
             
             if let error = error {
                 print("Failed to update \(name): \(error)")

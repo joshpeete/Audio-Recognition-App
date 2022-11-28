@@ -17,7 +17,7 @@ class ShazamRecognizer: NSObject, ObservableObject, SHSessionDelegate{
     @Published var errorMsg = ""
     @Published var showError = false
     @Published var isRecording = false
-    @Published var isListening = false
+    //@Published var isListening = false
     var recordingCompletion: RecordingCompletion? = nil
     var file: AVAudioFile? = nil
     var recognize: Bool = true
@@ -55,12 +55,11 @@ class ShazamRecognizer: NSObject, ObservableObject, SHSessionDelegate{
             self.stopRecording()
         }
     }
-    //ur mom
+
     func stopRecording(){
         audioEngine.stop()
         withAnimation{
             isRecording = false
-            isListening = false
         }
         self.callCompletion()
     }
@@ -70,7 +69,7 @@ class ShazamRecognizer: NSObject, ObservableObject, SHSessionDelegate{
         
         recordingCompletion?(file.url)
         recordingCompletion = nil
-        
+
         do {
             try FileManager.default.removeItem(at: file.url)
             self.file = nil
@@ -128,7 +127,7 @@ class ShazamRecognizer: NSObject, ObservableObject, SHSessionDelegate{
                         
                         dateFormatter.dateStyle = .medium
                         dateFormatter.timeStyle = .medium
-                        let name = dateFormatter.string(from: Date()) + ".wav"
+                        let name = dateFormatter.string(from: Date())// + ".wav"
                         
                         url = url.appendingPathComponent(name)
                         
@@ -156,11 +155,7 @@ class ShazamRecognizer: NSObject, ObservableObject, SHSessionDelegate{
             print("Starting")
             withAnimation{
                 DispatchQueue.main.async {
-                    if self.recognize {
-                        self.isListening = true
-                    } else {
-                        self.isRecording = true
-                    }
+                    self.isRecording = true
                 }
             }
         }
