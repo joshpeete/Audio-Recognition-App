@@ -253,12 +253,17 @@ struct ContentView: View {
             }
             .navigationViewStyle(StackNavigationViewStyle())
             .ignoresSafeArea()
-            .foregroundColor(.black)
+            //alert needs to go here
         }
     }
+        
+    
+    
 func handleAction() {//links buttons to functions
-        if email.isEmpty || password.isEmpty{
-            
+    if email.isEmpty || password.isEmpty || firstname.isEmpty || lastname.isEmpty{
+        print("These fields cannot be empty")
+    } else if validatePassword != password{
+            print("The password's you've entered do not match")
         }else{
             if isValidEmail(email) && isValidPasswordString(password) {
                 if select {
@@ -266,6 +271,8 @@ func handleAction() {//links buttons to functions
                 } else {
                     createNewAccount()
                 }
+            }else{
+                print("Invalid Submission")
             }
         }
     }
@@ -284,16 +291,17 @@ func isValidPasswordString(_ password:String) -> Bool {
         return pwdTest.evaluate(with: password)
     }
     
-    //vaishu and josh
+    //josh
     func loginUser() {//login func
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             if let error = error{
                 print(error.localizedDescription)
                 firebase.userIsLoggedIn = false
+            }else{
+                firebase.userIsLoggedIn = true
+                print("Successful Login")
+                Playlist.instance.update()
             }
-            firebase.userIsLoggedIn = true
-            Playlist.instance.update()
-
         }
    }
     
@@ -315,7 +323,7 @@ func isValidPasswordString(_ password:String) -> Bool {
 //                }
                 
                 db.collection("users").document(user!.user.uid).setData(["firstname" : firstname , "lastname": lastname, "uid" : user!.user.uid,"dateofcreation" : Date() ])
-                
+                print("Account Successfully Created")
                 
             }
             
@@ -340,8 +348,8 @@ func isValidPasswordString(_ password:String) -> Bool {
     func validateFields() -> String?{
         
         //Check required fields are filled in
-        if email == "" || password == ""{
-            return "Please fill in email and password"
+        if email == "" || password == "" || firstname == "" || lastname == ""{
+            print("error, one of these fields is incorrect")
         }
         
         let passwordAttempt = password
@@ -353,10 +361,8 @@ func isValidPasswordString(_ password:String) -> Bool {
         return nil
     }
     
-    
-    
-    
 }
+    
 
 
 struct ContentView_Previews: PreviewProvider {
