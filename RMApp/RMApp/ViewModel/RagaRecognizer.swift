@@ -238,7 +238,8 @@ func printres(url:URL)->String!{
 }
 
 func printAcc()->String!{
-    let roundednum = round(maxpred * 100) / 100.0
+    var roundednum = round(maxpred * 100)
+    if(roundednum == 300){roundednum = 30.0}
     let maxstring = String(roundednum)
     return maxstring
 }

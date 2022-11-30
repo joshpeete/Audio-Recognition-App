@@ -260,11 +260,18 @@ struct JHomescreen: View {
                                             }
                                         }.popover(isPresented: $presentPopup, arrowEdge: .bottom) {
                                             
-                                            Label(tempraga, systemImage: "music.note.list").font(.system(size: 20)).background(.white, in: RoundedRectangle(cornerRadius: 1))
                                             
-                                            Label(tempconf, systemImage: "percent").font(.system(size: 20)).background(.white, in: RoundedRectangle(cornerRadius: 1))
-                                              .frame(width: 100, height: 100)
-                                        }
+                                            Text("File Saved!").font(.system(size: 26)).position(x:200, y:50)
+                                            
+                                            
+                                                
+                                                Label("Raga: " + tempraga, systemImage: "music.note.list").font(.system(size: 40)).background(.white, in: RoundedRectangle(cornerRadius: 1)).position(x:200, y:100)
+                                                
+                                                Text("Confidence Level: " + tempconf + "%").font(.system(size: 20)).background(.white, in: RoundedRectangle(cornerRadius: 1)).position(x:200, y:-100)
+                                            
+                                            
+                                            
+                                        }.foregroundColor(.blue)
                                         .alert(shazamSession.errorMsg,
                                                isPresented: $shazamSession.showError){
                                             Button("Close",role: .cancel){
