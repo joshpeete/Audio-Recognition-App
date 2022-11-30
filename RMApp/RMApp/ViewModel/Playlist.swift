@@ -12,7 +12,7 @@ import Firebase
 class Playlist: ObservableObject {
     static let instance = Playlist()
     @Published var tracks: [Track] = []
-    
+
     struct Track: Identifiable {
         let id = UUID()
         let path: String
@@ -20,11 +20,11 @@ class Playlist: ObservableObject {
         let raga: String
         let accuracy: String
     }
-    
+
     func update() {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         let userTracks = Firestore.firestore().collection("users").document(uid).collection("tracks")
-        
+
         Task {
             var tracks: [Track] = []
             do {
@@ -34,13 +34,13 @@ class Playlist: ObservableObject {
                         tracks.append(Track(path: path, title: title, raga: raga, accuracy: accuracy ))
                     }
                 }
-                
+
                 let foundTracks = tracks
                 await MainActor.run {
                     self.tracks = foundTracks
                 }
             } catch {
-                print("Error when fetching tracks: \(error)")
+                print("Error when fetching tracks: (error)")
             }
         }
     }

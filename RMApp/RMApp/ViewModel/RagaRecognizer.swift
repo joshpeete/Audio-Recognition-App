@@ -4,7 +4,6 @@
 //
 //  Created by Shakeer on 10/21/22.
 //
-
 import Foundation
 import Swift
 import CoreML
@@ -21,7 +20,6 @@ public var maxpred: Float  = -1
 
 //import CoreML
 // ...
-
 //func readWavIntoFloats(fname: String, ext: String) -> [Float] {
 //
 //    let url = Bundle.main.url(forResource: fname, withExtension: ext)
@@ -36,14 +34,12 @@ public var maxpred: Float  = -1
 //    return floatArray
 //
 //}
-
 func readWavIntoFloats(filepath: URL) -> [Float] {
 
     //let url = Bundle.main.url(forResource: fname, withExtension: ".wav")
     //let storage = Storage.storage()
     //let storageRef = storage.reference(forURL: filepath)
     //let url = String(storageRef)
-
 //    let local = URL(string: "file://Users/shakeer/Desktop/Working/RMApp/RMApp/ViewModel/asavari01.wav")
 //
    var floatArray:[Float] = []
@@ -58,7 +54,6 @@ func readWavIntoFloats(filepath: URL) -> [Float] {
 //
 //      }
 //    }
-
 
 //        DownloadManager.instance.download(filePath: filepath) { data, error in
 //            print("Download of \(filepath) complete")
@@ -79,7 +74,6 @@ func readWavIntoFloats(filepath: URL) -> [Float] {
 //
 
 
-
 //    storageRef.downloadURL{ url, error in
 //        if let error = error {
 //          // Handle any errors
@@ -93,14 +87,11 @@ func readWavIntoFloats(filepath: URL) -> [Float] {
 //            floatArray = Array(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:Int(buf.frameLength)))
 //
 
-
 //
 //        }
 //      }
 
-
    // let url = URL(string: "gs://raga-mania-7d2bb.appspot.com/gL1KgkmytfUuQZa5q3fAoXTMcIA3/StarWars3.wav")
-
     //let fileUrl = URL(fileURLWithPath: url)
    // let url = URL(fileURLWithPath: storageRef)
     let file = try! AVAudioFile(forReading: filepath)
@@ -118,7 +109,6 @@ func readWavIntoFloats(filepath: URL) -> [Float] {
     return floatArray
 
     //print(floatArray)
-
 }
 
 

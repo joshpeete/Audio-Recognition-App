@@ -38,7 +38,7 @@ class ShazamRecognizer: NSObject, ObservableObject, SHSessionDelegate{
                 self.matchedTrack = Track(title: firstItem.title ?? "",
                                           artist: firstItem.artist ?? "",
                                           artwork: firstItem.artworkURL ?? URL(string: "")!,
-                                          appleMusicURL: URL(fileURLWithPath: ""),
+                                          appleMusicURL: firstItem.appleMusicURL!,
                                           path: "")
                 
                 self.callCompletion()
@@ -55,7 +55,7 @@ class ShazamRecognizer: NSObject, ObservableObject, SHSessionDelegate{
             self.stopRecording()
         }
     }
-    //ur mom
+    
     func stopRecording(){
         audioEngine.stop()
         withAnimation{
@@ -152,24 +152,20 @@ class ShazamRecognizer: NSObject, ObservableObject, SHSessionDelegate{
         audioEngine.prepare()
         
         do{
-            try audioEngine.start()
-            print("Starting")
-            withAnimation{
-                DispatchQueue.main.async {
-                    if self.recognize {
-                        self.isListening = true
-                    } else {
-                        self.isRecording = true
+                    try audioEngine.start()
+                    print("Starting")
+                    withAnimation{
+                        DispatchQueue.main.async {
+                            self.isRecording = true
+                        }
                     }
+                }
+                catch{
+                    self.errorMsg = error.localizedDescription
+                    self.showError.toggle()
                 }
             }
         }
-        catch{
-            self.errorMsg = error.localizedDescription
-            self.showError.toggle()
-        }
-    }
-}
 
 
 

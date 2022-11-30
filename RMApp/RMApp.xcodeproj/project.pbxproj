@@ -8,7 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		4598A65629204FDC007D3AF7 /* RecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4598A65529204FDC007D3AF7 /* RecordButton.swift */; };
-		D728F9A328EDED7D009989EB /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D728F9A228EDED7D009989EB /* CardView.swift */; };
+		45AC0F8629220705009D8E63 /* NewButtonAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AC0F8529220705009D8E63 /* NewButtonAction.swift */; };
+		45DA330629370226002C6E57 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DA330329370225002C6E57 /* CardView.swift */; };
+		45DA330729370226002C6E57 /* MoreInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DA330429370225002C6E57 /* MoreInfo.swift */; };
+		45DA330829370226002C6E57 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DA330529370225002C6E57 /* VideoView.swift */; };
 		D728F9A528EE2130009989EB /* sample-9s.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D728F9A428EE2130009989EB /* sample-9s.mp3 */; };
 		D728F9A728F8EEE7009989EB /* sample-15s.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D728F9A628F8EEE7009989EB /* sample-15s.mp3 */; };
 		D728F9A928F8EEF5009989EB /* sample-6s.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D728F9A828F8EEF5009989EB /* sample-6s.mp3 */; };
@@ -37,7 +40,6 @@
 		FB7C6E3029027798004507E5 /* RagaRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7C6E2F29027798004507E5 /* RagaRecognizer.swift */; };
 		FB7C6E3329027875004507E5 /* Mlmodel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = FB7C6E3229027875004507E5 /* Mlmodel.mlmodel */; };
 		FBC97ECB291A0F7E0047513C /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC97ECA291A0F7E0047513C /* DetailView.swift */; };
-		FBC97ECD291A102F0047513C /* AudioNav.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC97ECC291A102F0047513C /* AudioNav.swift */; };
 		FBC97ECF291A12660047513C /* AudioListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC97ECE291A12660047513C /* AudioListView.swift */; };
 /* End PBXBuildFile section */
 
@@ -60,7 +62,10 @@
 
 /* Begin PBXFileReference section */
 		4598A65529204FDC007D3AF7 /* RecordButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordButton.swift; sourceTree = "<group>"; };
-		D728F9A228EDED7D009989EB /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		45AC0F8529220705009D8E63 /* NewButtonAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewButtonAction.swift; sourceTree = "<group>"; };
+		45DA330329370225002C6E57 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		45DA330429370225002C6E57 /* MoreInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreInfo.swift; sourceTree = "<group>"; };
+		45DA330529370225002C6E57 /* VideoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		D728F9A428EE2130009989EB /* sample-9s.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "sample-9s.mp3"; sourceTree = "<group>"; };
 		D728F9A628F8EEE7009989EB /* sample-15s.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "sample-15s.mp3"; sourceTree = "<group>"; };
 		D728F9A828F8EEF5009989EB /* sample-6s.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "sample-6s.mp3"; sourceTree = "<group>"; };
@@ -89,7 +94,6 @@
 		FB7C6E2F29027798004507E5 /* RagaRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RagaRecognizer.swift; sourceTree = "<group>"; };
 		FB7C6E3229027875004507E5 /* Mlmodel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Mlmodel.mlmodel; sourceTree = "<group>"; };
 		FBC97ECA291A0F7E0047513C /* DetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
-		FBC97ECC291A102F0047513C /* AudioNav.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioNav.swift; sourceTree = "<group>"; };
 		FBC97ECE291A12660047513C /* AudioListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -129,8 +133,6 @@
 				D7296A3A28E3A1B900D0049E /* ContentView.swift */,
 				D7296A6228E3A22400D0049E /* Splashview.swift */,
 				FBC97ECA291A0F7E0047513C /* DetailView.swift */,
-				FBC97ECC291A102F0047513C /* AudioNav.swift */,
-				D728F9A228EDED7D009989EB /* CardView.swift */,
 				FBC97ECE291A12660047513C /* AudioListView.swift */,
 			);
 			path = View;
@@ -139,11 +141,15 @@
 		D728F9B128FF19B5009989EB /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				45DA330329370225002C6E57 /* CardView.swift */,
+				45DA330429370225002C6E57 /* MoreInfo.swift */,
+				45DA330529370225002C6E57 /* VideoView.swift */,
 				D728F9B92904B100009989EB /* FirebaseInterface.swift */,
 				D728F9BB2904B10A009989EB /* DownloadManager.swift */,
 				D728F9C32906D827009989EB /* InputConversion.py */,
 				D728F9BD2904B114009989EB /* Playlist.swift */,
 				D728F9CA29072C59009989EB /* RagaRecognizer.swift */,
+				45AC0F8529220705009D8E63 /* NewButtonAction.swift */,
 				D728F9B528FF78E3009989EB /* ShazamRecognizer.swift */,
 				FB7C6E2F29027798004507E5 /* RagaRecognizer.swift */,
 			);
@@ -376,7 +382,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FBC97ECD291A102F0047513C /* AudioNav.swift in Sources */,
 				D7296A6328E3A22400D0049E /* Splashview.swift in Sources */,
 				4598A65629204FDC007D3AF7 /* RecordButton.swift in Sources */,
 				FB7C6E3329027875004507E5 /* Mlmodel.mlmodel in Sources */,
@@ -384,15 +389,18 @@
 				D7296A8028E3DD2B00D0049E /* JHomescreen.swift in Sources */,
 				D728F9BE2904B114009989EB /* Playlist.swift in Sources */,
 				D728F9B628FF78E3009989EB /* ShazamRecognizer.swift in Sources */,
+				45DA330729370226002C6E57 /* MoreInfo.swift in Sources */,
+				45AC0F8629220705009D8E63 /* NewButtonAction.swift in Sources */,
 				D728F9C729070DDE009989EB /* MLModelRnn.mlkitmodel in Sources */,
 				D728F9BC2904B10B009989EB /* DownloadManager.swift in Sources */,
 				D728F9CB29072C59009989EB /* RagaRecognizer.swift in Sources */,
 				FBC97ECF291A12660047513C /* AudioListView.swift in Sources */,
 				D728F9C929070DE6009989EB /* SoundAnalysisPreprocessing.mlmodel in Sources */,
+				45DA330629370226002C6E57 /* CardView.swift in Sources */,
 				D7296A3B28E3A1B900D0049E /* ContentView.swift in Sources */,
 				D7296A3928E3A1B900D0049E /* RMAppApp.swift in Sources */,
-				D728F9A328EDED7D009989EB /* CardView.swift in Sources */,
 				FBC97ECB291A0F7E0047513C /* DetailView.swift in Sources */,
+				45DA330829370226002C6E57 /* VideoView.swift in Sources */,
 				D728F9BA2904B100009989EB /* FirebaseInterface.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

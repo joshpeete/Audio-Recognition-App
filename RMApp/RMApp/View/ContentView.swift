@@ -11,13 +11,20 @@ import Firebase
 
 
 struct ContentView: View {
-    @State private var email = ""
+    @State public var firstname = ""
+    @State public var lastname = ""
+    @State public var email = ""
     @State private var logOut = ""
     @State private var password = ""
+    @State private var validatePassword = ""
     @State private var select = false
     @State private var showResetPasswordConfirmation = false
     @State private var resetPasswordConfirmationAlert = false
     @ObservedObject var firebase = FirebaseInterface.instance
+    
+    
+    
+    //@ObservedObject var sessionStore = SessionStore()
     
     var body: some View {
         if firebase.userIsLoggedIn{
@@ -43,8 +50,44 @@ struct ContentView: View {
                                 Image(systemName: "music.quarternote.3")
                                     .foregroundColor(.black)
                                     .font(.system(size: 90))
-                                    .offset(y: 50)
                             }
+                            .padding()
+                            
+                            TextField("Email",text:$email)
+                                .foregroundColor(.black)
+                                .keyboardType(.emailAddress)
+                                .autocapitalization(.none)
+                                .font(.system(size: 16))
+                                .bold()
+                                .textFieldStyle(.plain)
+                                .padding(12)
+                                .placeholder(when: email.isEmpty){
+                                    Text("Email")
+                                        .foregroundColor(.black)
+                                        .font(.system(size: 16))
+                                        .bold()
+                                        .padding(12)
+                                }
+                            Rectangle()//line under email
+                                .frame(width: 375, height: 1)
+                                .foregroundColor(.black)
+                            
+                            SecureField("Password",text:$password)
+                                .foregroundColor(.black)
+                                .textFieldStyle(.plain)
+                                .bold()
+                                .font(.system(size: 16))
+                                .padding(12)
+                                .placeholder(when: password.isEmpty){
+                                    Text("Password")
+                                        .foregroundColor(.black)
+                                        .bold()
+                                        .font(.system(size: 16))
+                                        .padding(12)
+                                }
+                            Rectangle()//line under password
+                                .frame(width: 375, height: 1)
+                                .foregroundColor(.black)
                             
                             ZStack{
                                 Button {
@@ -91,46 +134,104 @@ struct ContentView: View {
                                         } message: {
                                             Text("A password reset email was sent to \(email). Check your email and follow instructions.")
                                         }
-                            }.offset(y: 335)
+                            }.offset(y:10)
                             
+                        }else{
+                            TextField("First Name",text:$firstname)
+                                .foregroundColor(.black)
+                                .keyboardType(.webSearch)
+                                .autocapitalization(.none)
+                                .font(.system(size: 16))
+                                .bold()
+                                .textFieldStyle(.plain)
+                                .padding(12)
+                                .placeholder(when: firstname.isEmpty){
+                                    Text("First Name")
+                                        .foregroundColor(.black)
+                                        .font(.system(size: 16))
+                                        .bold()
+                                        .padding(12)
+                                }
+                            Rectangle()//line under email
+                                .frame(width: 375, height: 1)
+                                .foregroundColor(.black)
+                            TextField("Last Name",text:$lastname)
+                                .foregroundColor(.black)
+                                .keyboardType(.webSearch)
+                                .autocapitalization(.none)
+                                .font(.system(size: 16))
+                                .bold()
+                                .textFieldStyle(.plain)
+                                .padding(12)
+                                .placeholder(when: lastname.isEmpty){
+                                    Text("Last Name")
+                                        .foregroundColor(.black)
+                                        .font(.system(size: 16))
+                                        .bold()
+                                        .padding(12)
+                                }
+                            Rectangle()//line under email
+                                .frame(width: 375, height: 1)
+                                .foregroundColor(.black)
+                            
+                            TextField("Email",text:$email)
+                                .foregroundColor(.black)
+                                .keyboardType(.emailAddress)
+                                .autocapitalization(.none)
+                                .font(.system(size: 16))
+                                .bold()
+                                .textFieldStyle(.plain)
+                                .padding(12)
+                                .placeholder(when: email.isEmpty){
+                                    Text("Email")
+                                        .foregroundColor(.black)
+                                        .font(.system(size: 16))
+                                        .bold()
+                                        .padding(12)
+                                }
+                            Rectangle()//line under email
+                                .frame(width: 375, height: 1)
+                                .foregroundColor(.black)
+                            
+                            SecureField("Password",text:$password)
+                                .foregroundColor(.black)
+                                .textFieldStyle(.plain)
+                                .bold()
+                                .font(.system(size: 16))
+                                .padding(12)
+                                .placeholder(when: password.isEmpty){
+                                    Text("Password")
+                                        .foregroundColor(.black)
+                                        .bold()
+                                        .font(.system(size: 16))
+                                        .padding(12)
+                                }
+                            Rectangle()//line under
+                                .frame(width: 375, height: 1)
+                                .foregroundColor(.black)
+                            
+                            SecureField("Confirm Password",text:$validatePassword)
+                                .foregroundColor(.black)
+                                .keyboardType(.emailAddress)
+                                .autocapitalization(.none)
+                                .font(.system(size: 16))
+                                .bold()
+                                .textFieldStyle(.plain)
+                                .padding(12)
+                                .placeholder(when: validatePassword.isEmpty){
+                                    Text("Confirm Password")
+                                        .foregroundColor(.black)
+                                        .font(.system(size: 16))
+                                        .bold()
+                                        .padding(12)
+                                }
+                            
+                            Rectangle()//line under
+                                .frame(width: 375, height: 1)
+                                .foregroundColor(.black)
                         }
-                        TextField("Email",text:$email)
-                            .foregroundColor(.black)
-                            .keyboardType(.emailAddress)
-                            .autocapitalization(.none)
-                            .font(.system(size: 16))
-                            .bold()
-                            .textFieldStyle(.plain)
-                            .padding(12)
-                            .placeholder(when: email.isEmpty){
-                                Text("Email")
-                                    .foregroundColor(.black)
-                                    .font(.system(size: 16))
-                                    .bold()
-                                    .padding(12)
-                            }
-                        Rectangle()//line under email
-                            .frame(width: 375, height: 1)
-                            .foregroundColor(.black)
-                        
-                        SecureField("Password",text:$password)
-                            .foregroundColor(.black)
-                            .textFieldStyle(.plain)
-                            .bold()
-                            .font(.system(size: 16))
-                            .padding(12)
-                            .placeholder(when: password.isEmpty){
-                                Text("Password")
-                                    .foregroundColor(.black)
-                                    .bold()
-                                    .font(.system(size: 16))
-                                    .padding(12)
-                            }
                     }
-                    Rectangle()//line under password
-                        .frame(width: 375, height: 1)
-                        .foregroundColor(.black)
-                    
+//Registration Page End
                     Button{
                         handleAction()
                     }
@@ -147,6 +248,7 @@ struct ContentView: View {
                 .padding()
                 }
                 .navigationTitle(select ? "Login" :"Create Account")
+                .padding()
                 .background(LinearGradient(gradient: Gradient(colors: [.white, .gray]), startPoint: .top, endPoint: .bottom))
             }
             .navigationViewStyle(StackNavigationViewStyle())
@@ -158,7 +260,7 @@ func handleAction() {//links buttons to functions
         if email.isEmpty || password.isEmpty{
             
         }else{
-            if isValidEmail(email){
+            if isValidEmail(email) && isValidPasswordString(password) {
                 if select {
                     loginUser()
                 } else {
@@ -167,11 +269,19 @@ func handleAction() {//links buttons to functions
             }
         }
     }
+//josh
 func isValidEmail(_ email: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: email)
+    }
+
+//josh
+func isValidPasswordString(_ password:String) -> Bool {
+        let pwdRegEx = "(?:(?:(?=.*?[0-9])(?=.*?[-!@#$%&*ˆ+=_])|(?:(?=.*?[0-9])|(?=.*?[A-Z])|(?=.*?[-!@#$%&*ˆ+=_])))|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[-!@#$%&*ˆ+=_]))[A-Za-z0-9-!@#$%&*ˆ+=_]{6,15}"
+
+        let pwdTest = NSPredicate(format:"SELF MATCHES %@", pwdRegEx)
+        return pwdTest.evaluate(with: password)
     }
     
     //vaishu and josh
@@ -179,6 +289,7 @@ func isValidEmail(_ email: String) -> Bool {
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             if let error = error{
                 print(error.localizedDescription)
+                firebase.userIsLoggedIn = false
             }
             firebase.userIsLoggedIn = true
             Playlist.instance.update()
@@ -190,7 +301,26 @@ func isValidEmail(_ email: String) -> Bool {
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             if error != nil {
                 print(error?.localizedDescription ?? "")
+                
             }
+            else{
+                //if no error store user information
+                
+                
+                
+                let db = Firestore.firestore()
+                
+//                db.collection("users").addDocument(data:["firstname" : firstname , "lastname": lastname, "uid" : user!.user.uid,"dateofcreation" : Date() ]){ (error) in
+//
+//                }
+                
+                db.collection("users").document(user!.user.uid).setData(["firstname" : firstname , "lastname": lastname, "uid" : user!.user.uid,"dateofcreation" : Date() ])
+                
+                
+            }
+            
+            
+            
             //add text pop-up that says user account created
             //firebase.userIsLoggedIn = true
             //isActive = false
@@ -205,6 +335,27 @@ func isValidEmail(_ email: String) -> Bool {
             // error alert
         }
     }
+   
+    // function that will show messages on error pop up
+    func validateFields() -> String?{
+        
+        //Check required fields are filled in
+        if email == "" || password == ""{
+            return "Please fill in email and password"
+        }
+        
+        let passwordAttempt = password
+        
+        if isValidPasswordString(passwordAttempt) == false {
+            return " Please make sure password is at least 8 characters, contains special character, contains a number"
+        }
+        
+        return nil
+    }
+    
+    
+    
+    
 }
 
 
