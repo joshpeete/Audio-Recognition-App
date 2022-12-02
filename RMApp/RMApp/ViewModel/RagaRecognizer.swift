@@ -14,7 +14,7 @@ import FirebaseStorage
 
 import AVFoundation
 
-public var maxpred: Float  = -1
+public var maxpred: Float  = 0
 
 
 
@@ -194,51 +194,63 @@ func testModel2(url:URL)->MLModelRnnOutput?
 
 func printres(url:URL)->String!{
     var idx = 10;
-//    let pred = testModel()!.preprocessedAudioSamples
-//
-//    let pred3 = testModel()!.preprocessedAudioSamplesShapedArray
-//    let pred4 = testModel()!.self
-    
+    var idx2 = 10;
+    var idx3 = 10;
+    maxpred = 0;
     
     let ohgod=testModel2(url: url)!.IdentityShapedArray
-    
-   
-    
-    //print(ohgod)
-    
-    
-    
-    
     var singlresult = ohgod.scalars
     
-    let raganames = [0: "Asavari", 1: "Bageshree" , 2: "Bhairavi", 3: "Bhoop", 4: "Bhoopali",
+    var ragaArray  = String()
+
+    var raganames = [0: "Asavari", 1: "Bageshree" , 2: "Bhairavi", 3: "Bhoop", 4: "Bhoopali",
                      5: "Darbari", 6: "Dkanada", 7: "Malkauns" , 8 : "Sarang", 9: "Yaman" , 10: "Can't Recognize Raga!"]
-    
-    
-   
-    maxpred = singlresult.max() ?? -1
-    
-        
-        
-    
-    if (maxpred > Float(0.1)){
-        idx = singlresult.index(of:maxpred) ?? 10}
-   
-    
-    var myIntValue = Int(idx)
-    
-    //print(singlresult)
-    
-    let finalOutput:String! = raganames[myIntValue]!
-    print(finalOutput!)
+
+    //maxpred is for confidence level
+   // maxpred = singlresult.max() ?? -1
     print(singlresult)
-    return finalOutput
-  
     
+    let fmax = singlresult.max()
+    idx = singlresult.index(of:fmax!) ?? 10
+    maxpred += singlresult[idx]
+    ragaArray.append(raganames[idx] ?? "ER")
+    ragaArray.append(", ")
+    print("first:")
+    print(fmax)
+    singlresult[idx] = -1
+    
+
+    let smax = singlresult.max()
+    idx2 = singlresult.index(of:smax!) ?? 10
+    maxpred += singlresult[idx2]
+    ragaArray.append(raganames[idx2] ?? "ER")
+    ragaArray.append(", ")
+    print("second:")
+    print(smax)
+    singlresult[idx2] = -1
+    
+    let tmax = singlresult.max()
+    idx3 = singlresult.index(of:tmax!) ?? 10
+    maxpred += singlresult[idx3]
+    ragaArray.append(raganames[idx3] ?? "ER")
+    print("third:")
+    print(tmax)
+    
+
+
+//    var myIntValue = Int(idx)
+//    let finalOutput:String! = raganames[myIntValue]!
+   
+    return ragaArray
+
+
 }
+
+
 
 func printAcc()->String!{
     var roundednum = round(maxpred * 100)
+
     if(roundednum == 300){roundednum = 30.0}
     let maxstring = String(roundednum)
     return maxstring

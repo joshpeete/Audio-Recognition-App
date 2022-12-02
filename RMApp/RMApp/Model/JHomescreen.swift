@@ -311,7 +311,7 @@ struct JHomescreen: View {
             }
             .navigationTitle("Raga-Mania")
             .foregroundColor(.black)
-            .background(LinearGradient(gradient: Gradient(colors: [.white, .gray]), startPoint: .top, endPoint: .bottom))
+            .background(LinearGradient(gradient: Gradient(colors: [.init(red: 0.67, green: 0.84, blue: 0.90), .init(red: 0.89, green: 0.84, blue: 0.90)]), startPoint: .top, endPoint: .bottom))
         }
     }
     

@@ -25,9 +25,9 @@ struct NewButtonAction: View {
         
         
         
-        Label("Raga: " + ragastring, systemImage: "music.note.list").font(.system(size: 20)).background(.white, in: RoundedRectangle(cornerRadius: 1))
+        Label("Raga: " + ragastring, systemImage: "music.note.list").font(.system(size: 40)).background(.white, in: RoundedRectangle(cornerRadius: 1))
         
-        Label("Accuracy: " + ragaAccuracy, systemImage: "percent").font(.system(size: 20)).background(.white, in: RoundedRectangle(cornerRadius: 1))
+        Text("Confidence Level: " + ragaAccuracy + "%").font(.system(size: 20)).background(.white, in: RoundedRectangle(cornerRadius: 1))
         
         
         

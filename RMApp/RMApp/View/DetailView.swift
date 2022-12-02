@@ -81,7 +81,11 @@ struct DetailView: View {
         Text("\(track.title)")
             .padding()
             .foregroundColor(.black)
-            .border(.black, width: 4)
+            .border(.black, width: 4).position(x:200, y:50)
+        
+        Label("Raga: " + track.raga, systemImage: "music.note.list").font(.system(size: 40)).background(.white, in: RoundedRectangle(cornerRadius: 1)).position(x:200, y:100)
+        
+        Text("Confidence Level: " + track.accuracy + "%").font(.system(size: 20)).background(.white, in: RoundedRectangle(cornerRadius: 1)).position(x:200, y:-50)
         
         HStack{
             Button(action:{
@@ -98,9 +102,7 @@ struct DetailView: View {
                 .padding()
                 .buttonStyle(.bordered)
         }
-        Label("Raga: " + track.raga, systemImage: "music.note.list").font(.system(size: 20)).background(.white, in: RoundedRectangle(cornerRadius: 1))
-        
-        Label("Accuracy: " + track.accuracy, systemImage: "percent").font(.system(size: 20)).background(.white, in: RoundedRectangle(cornerRadius: 1))
+       
 
         
     }
