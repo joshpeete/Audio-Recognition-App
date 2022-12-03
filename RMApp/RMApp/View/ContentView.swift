@@ -10,6 +10,15 @@ import SwiftUI
 import Firebase
 
 
+enum ActiveAlert{
+    case first
+    case second
+    case third
+    case fourth
+    case fifth
+    case sixth
+}
+
 struct ContentView: View {
     @State public var firstname = ""
     @State public var lastname = ""
@@ -22,9 +31,15 @@ struct ContentView: View {
     @State private var resetPasswordConfirmationAlert = false
     @ObservedObject var firebase = FirebaseInterface.instance
     
-    
-    
+    @State private var showAlert1 = false
+    @State private var showAlert2 = false
+    @State private var showAlert3 = false
+    @State private var showAlert4 = false
+    @State private var showAlert5 = false
+    @State private var showAlert6 = false
     //@ObservedObject var sessionStore = SessionStore()
+    
+    @State private var activeAlert:ActiveAlert = .first
     
     var body: some View {
         if firebase.userIsLoggedIn{
@@ -231,6 +246,91 @@ struct ContentView: View {
                                 .foregroundColor(.black)
                         }
                     }
+//                    .alert(isPresented: self.$showAlert1){
+//                        Alert(
+//                                                    title: Text("No Email Or Password"),
+//                                                    dismissButton: .default(Text("Ok"))
+//
+//                                                )
+//                    }
+//
+//                    .alert(isPresented: self.$showAlert2){
+//                        Alert(
+//                                                    title: Text("Fields Cannot Be Empty"),
+//                                                    dismissButton: .default(Text("Ok"))
+//
+//                                                )
+//                    }
+//                    .alert(isPresented: self.$showAlert3){
+//                        Alert(
+//                                                    title: Text("Passwords Do Not Match"),
+//                                                    dismissButton: .default(Text("Ok"))
+//
+//                                                )
+//                    }
+//                    .alert(isPresented: self.$showAlert4){
+//                        Alert(
+//                                                    title: Text("Account Successfully Created"),
+//                                                    dismissButton: .default(Text("Ok"))
+//
+//                                                )
+//                    }
+//                    .alert(isPresented: self.$showAlert5){
+//                        Alert(
+//                                                    title: Text("Account Already Exists"),
+//                                                    dismissButton: .default(Text("Ok"))
+//
+//                                                )
+//                    }
+//                    .alert(isPresented: self.$showAlert6){
+//                        Alert(
+//                                                    title: Text("Invalid Credentials"),
+//                                                    dismissButton: .default(Text("Ok"))
+//
+//                                                )
+//                    }
+                    .alert(isPresented: self.$showAlert1){
+                        switch activeAlert{
+                        case .first:
+                            return Alert(
+                                title: Text("No Email Or Password"),
+                                dismissButton: .default(Text("Ok"))
+                                
+                                
+                            )
+                        case .second:
+                            return  Alert(
+                                title: Text("Fields Cannot Be Empty"),
+                                dismissButton: .default(Text("Ok"))
+                                
+                            )
+                        case .third:
+                            return  Alert(
+                                title: Text("Passwords Do Not Match"),
+                                dismissButton: .default(Text("Ok"))
+                                
+                            )
+                        case .fourth:
+                            return Alert(
+                                title: Text("Passwords Do Not Match"),
+                                dismissButton: .default(Text("Ok"))
+                                
+                            )
+                        case .fifth:
+                            return    Alert(
+                                title: Text("Account Already Exists"),
+                                dismissButton: .default(Text("Ok"))
+                                
+                            )
+                        case .sixth:
+                            return  Alert(
+                                title: Text("Invalid Credentials"),
+                                dismissButton: .default(Text("Ok"))
+                                
+                            )
+                        }
+                    }
+                    
 //Registration Page End
                     Button{
                         handleAction()
@@ -256,19 +356,36 @@ struct ContentView: View {
             .foregroundColor(.black)
         }
     }
-func handleAction() {//links buttons to functions
-        if email.isEmpty || password.isEmpty{
-            
-        }else{
-            if isValidEmail(email) && isValidPasswordString(password) {
-                if select {
-                    loginUser()
-                } else {
-                    createNewAccount()
+    
+//func handleAction() {//links buttons to functions
+//        if email.isEmpty || password.isEmpty{
+//            showAlert1 = true
+//        }else if validatePassword != password{
+//            print("The password's you've entered do not match")
+//        }else{
+//            if isValidEmail(email) && isValidPasswordString(password) {
+//                if select {
+//                    loginUser()
+//                } else {
+//                    createNewAccount()
+//                }
+//            }else{
+//                print("Invalid Submission")
+//            }
+//        }
+//    }
+    
+    
+    func handleAction() {//links buttons to functions
+
+                    if select {
+                        loginUser()
+                    } else {
+                        createNewAccount()
+                    }
                 }
-            }
-        }
-    }
+    
+    
 //josh
 func isValidEmail(_ email: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
@@ -284,48 +401,139 @@ func isValidPasswordString(_ password:String) -> Bool {
         return pwdTest.evaluate(with: password)
     }
     
-    //vaishu and josh
-    func loginUser() {//login func
-        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
-            if let error = error{
-                print(error.localizedDescription)
-                firebase.userIsLoggedIn = false
-            }
-            firebase.userIsLoggedIn = true
-            Playlist.instance.update()
 
-        }
-   }
+    
+//    func loginUser() {//login func
+//           Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+//               if let error = error{
+//                   print(error.localizedDescription)
+//                   firebase.userIsLoggedIn = false
+//               }else{
+//                   firebase.userIsLoggedIn = true
+//                   print("Successful Login")
+//                   Playlist.instance.update()
+//                   GetFirstName()
+//                   GetLastName()
+//                   GetEmail()
+//               }
+//           }
+//      }
+    
+    func loginUser() {//login func
+            Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+                if email.isEmpty || password.isEmpty{
+                    //print("These fields cannot be empty")
+                    showAlert1 = true
+                    self.activeAlert = .first
+                }
+                    
+//                }else if isValidEmail(email) && isValidPasswordString(password){
+//                        firebase.userIsLoggedIn = true
+//                        print("Successful Login")
+//                        Playlist.instance.update()
+//                        GetFirstName()
+//                        GetLastName()
+//                        GetEmail()
+//                    }
+                
+                
+//                else {let error = error
+//                    print(error?.localizedDescription)
+//                    //showAlert6 = true
+//                    showAlert1 = true
+//                    self.activeAlert = .sixth
+//                }
+                else if error != nil{
+                    let error = error
+                    print(error?.localizedDescription)
+                    //showAlert6 = true
+                    showAlert1 = true
+                    self.activeAlert = .sixth
+                    
+                }
+                else{
+                    firebase.userIsLoggedIn = true
+                    print("Successful Login")
+                    Playlist.instance.update()
+                    GetFirstName()
+                    GetLastName()
+                    GetEmail()
+                }
+                
+                }
+            }
+    
+//    func createNewAccount(){
+//        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
+//            if error != nil {
+//                print(error?.localizedDescription ?? "")
+//
+//            }
+//            else{
+//
+//                let db = Firestore.firestore()
+//
+//
+//                db.collection("users").document(user!.user.uid).setData(["firstname" : firstname , "lastname": lastname, "uid" : user!.user.uid,"dateofcreation" : Date(), "email" : email])
+//
+//            }
+//
+//        }
+//    }
     
     func createNewAccount(){
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
-            if error != nil {
-                print(error?.localizedDescription ?? "")
-                
+            if email.isEmpty || password.isEmpty || firstname.isEmpty || lastname.isEmpty || validatePassword.isEmpty{
+                print("These fields cannot be empty")
+                //showAlert2 = true
+                showAlert1 = true
+                self.activeAlert = .second
+            } else if validatePassword != password{
+                print("The password's you've entered do not match")
+                //showAlert3 = true
+                showAlert1 = true
+                self.activeAlert = .third
             }
+//            else if isValidEmail(email) && isValidPasswordString(password){
+//                //if no error store user information
+//                let db = Firestore.firestore()
+//
+//
+//                db.collection("users").document(user!.user.uid).setData(["firstname" : firstname , "lastname": lastname, "uid" : user!.user.uid,"dateofcreation" : Date(), "email" : email])
+//                print("Account Successfully Created")
+//                //showAlert4 = true
+//                showAlert1 = true
+//                self.activeAlert = .fourth
+//
+//            }
+            //else {let error = error
+            else if error != nil{
+                print(error?.localizedDescription)
+                //showAlert5 = true
+                showAlert1 = true
+                self.activeAlert = .fifth
+            }
+            //add text pop-up that says user account created
+            
             else{
                 //if no error store user information
-                
-                
-                
                 let db = Firestore.firestore()
                 
-//                db.collection("users").addDocument(data:["firstname" : firstname , "lastname": lastname, "uid" : user!.user.uid,"dateofcreation" : Date() ]){ (error) in
-//
-//                }
                 
-                db.collection("users").document(user!.user.uid).setData(["firstname" : firstname , "lastname": lastname, "uid" : user!.user.uid,"dateofcreation" : Date() ])
-                
+                db.collection("users").document(user!.user.uid).setData(["firstname" : firstname , "lastname": lastname, "uid" : user!.user.uid,"dateofcreation" : Date(), "email" : email])
+                print("Account Successfully Created")
+                //showAlert4 = true
+                showAlert1 = true
+                self.activeAlert = .fourth
                 
             }
-            
-            
-            
-            //add text pop-up that says user account created
-            //firebase.userIsLoggedIn = true
-            //isActive = false
         }
     }
+    
+    
+    
+    
+    
     
     func resetPassword() {
         Auth.auth().sendPasswordReset(withEmail: email) { error in
@@ -336,23 +544,7 @@ func isValidPasswordString(_ password:String) -> Bool {
         }
     }
    
-    // function that will show messages on error pop up
-    func validateFields() -> String?{
-        
-        //Check required fields are filled in
-        if email == "" || password == ""{
-            return "Please fill in email and password"
-        }
-        
-        let passwordAttempt = password
-        
-        if isValidPasswordString(passwordAttempt) == false {
-            return " Please make sure password is at least 8 characters, contains special character, contains a number"
-        }
-        
-        return nil
-    }
-    
+  
     
     
     
