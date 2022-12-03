@@ -18,8 +18,8 @@ struct DetailView: View {
     @State var flag = false
     @State var ragaData = ""
     @State var audioPlayer: AVAudioPlayer? = nil
-    
-    var track: Track
+    @State var track: Track
+    @FocusState var isFocused: Bool
     
     func play(soundWithPath path: String) {
         DownloadManager.instance.download(filePath: path) { data, error in
@@ -80,10 +80,20 @@ struct DetailView: View {
     //    }
     
     var body: some View {
-        Text("\(track.title)")
-            .padding()
-            .foregroundColor(.black)
-            .border(.black, width: 4)
+        TextField(text: $track.title) {
+            EmptyView()
+        }
+        .focused($isFocused)
+        .padding()
+        .foregroundColor(.black)
+        .border(.black, width: 4)
+        .onChange(of: isFocused) { _ in
+            print(isFocused ? "Focused" : "Not Focused")
+        }
+        .onSubmit {
+            print("Submit")
+            updateTrack()
+        }
         
         HStack{
             Button(action:{
@@ -106,6 +116,24 @@ struct DetailView: View {
             .onAppear {
                 getRagaData(path: track.path)
             }
+    }
+    
+    func updateTrack() {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        let userTracks = Firestore.firestore().collection("users").document(uid).collection("tracks")
+        
+        print("\(track.title) \(track.date ?? Date()) \(track.id)")
+
+        userTracks.document(track.id).updateData([
+            "song": track.title
+        ]) { err in
+            if let err = err {
+                print("Error updating document: \(err)")
+            } else {
+                print("Document successfully updated")
+                Playlist.instance.update()
+            }
+        }
     }
     
     func getRagaData(path: String) {

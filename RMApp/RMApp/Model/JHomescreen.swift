@@ -22,7 +22,14 @@ struct Track: Identifiable{
     var path = ""
     var raga = ""
     var date: Date? = nil
-    }
+    var confidenceLevel = 0
+}
+
+enum SortOptions: Int, Hashable {
+    case ascendingDate
+    case descendingDate
+    case confidenceLevel
+}
 
 struct JHomescreen: View {
     @State private var select = false
@@ -85,14 +92,43 @@ struct JHomescreen: View {
                                 .padding().foregroundColor(.black)
                                 .buttonStyle(.bordered)
                                 
-                                Button {
-                                    ascending.toggle()
-                                    Playlist.instance.tracks.sort(ascending: ascending)
+                                Menu {
+                                    Button {
+                                        playlist.sortOption = .ascendingDate
+                                        playlist.tracks.sort(sortOrder: playlist.sortOption)
+                                    } label: {
+                                        if playlist.sortOption == .ascendingDate {
+                                            Label("Ascending Date", systemImage: "checkmark")
+                                        } else {
+                                            Text("Ascending Date")
+                                        }
+                                    }
+                                    Button {
+                                        playlist.sortOption = .descendingDate
+                                        playlist.tracks.sort(sortOrder: playlist.sortOption)
+                                    } label: {
+                                        if playlist.sortOption == .descendingDate {
+                                            Label("Descending Date", systemImage: "checkmark")
+                                        } else {
+                                            Text("Descending Date")
+                                        }
+                                    }
+                                    Button {
+                                        playlist.sortOption = .confidenceLevel
+                                        playlist.tracks.sort(sortOrder: playlist.sortOption)
+                                    } label: {
+                                        if playlist.sortOption == .confidenceLevel {
+                                            Label("Confidence Level", systemImage: "checkmark")
+                                        } else {
+                                            Text("Confidence Level")
+                                        }
+                                    }
                                 } label: {
                                     Image(systemName: "arrow.up.arrow.down")
+                                        .padding(6.5)
+                                        .background(Color(UIColor.lightGray))
+                                        .cornerRadius(10)
                                 }
-                                .padding().foregroundColor(.black)
-                                .buttonStyle(.bordered)
                                 
                                 // TODO: Replace deprecated NavigiationView with NavigationStack and new style of NavigationLink
                                 NavigationLink(destination: NewButtonAction(),
@@ -212,7 +248,7 @@ struct JHomescreen: View {
                                         }
                                         
                                         Toggle(isOn: $shouldRecord) {
-                                            Text("Live Recording")
+                                            Text(shouldRecord ? "Live Recording" : "Recognize song")
                                         }
                                         .frame(width: 250)
                                     }
@@ -303,20 +339,34 @@ struct JHomescreen: View {
         guard let uid = Auth.auth().currentUser?.uid else { return "" }
         let userTracks = Firestore.firestore().collection("users").document(uid).collection("tracks")
         
+        var songTitle = name
+        if playlist.tracks.contains(where: { $0.title == songTitle }) {
+            var index = 1
+            while playlist.tracks.contains(where: { $0.title == songTitle + " (\(index)) " }) {
+                index += 1
+            }
+            
+            songTitle += " (\(index)) "
+        }
+        
         let ref = Storage.storage().reference()
-        let fileRef = ref.child(uid).child(name)
+        let fileRef = ref.child(uid).child(songTitle)
         let uploadTask = fileRef.putData(file, metadata: nil) { metadata, error in
             if let error = error {
-                print("Failed to upload \(name): \(error)")
+                print("Failed to upload \(songTitle): \(error)")
             }
-            print("Completed upload of \(name)")
+            print("Completed upload of \(songTitle)")
         }
         uploadTask.resume()
         //tracks for updating files vaishu
-        userTracks.addDocument(data: ["song": name, "filePath": fileRef.fullPath , "raga" : raga]) {error in
-            
+        let trackData: [String : Any] = ["song": songTitle,
+                                         "filePath": fileRef.fullPath,
+                                         "raga" : raga,
+                                         "date" : Date()]
+        
+        userTracks.addDocument(data: trackData) {error in
             if let error = error {
-                print("Failed to update \(name): \(error)")
+                print("Failed to update \(songTitle): \(error)")
             } else {
                 self.playlist.update()
             }
@@ -347,4 +397,3 @@ extension View{
         return UIScreen.main.bounds
     }
 }
-

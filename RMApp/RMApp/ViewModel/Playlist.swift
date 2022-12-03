@@ -13,6 +13,9 @@ class Playlist: ObservableObject {
     static let instance = Playlist()
     @Published var tracks: [Track] = []
     
+    @Published var sortOption = SortOptions.ascendingDate
+
+    
 //    var id = UUID().uuidString
 //    var title: String
 //    var artist: String
@@ -31,18 +34,20 @@ class Playlist: ObservableObject {
                 for json in trackList {
                     if let path = json["filePath"] as? String,
                         let title = json["song"] as? String/*, let raga = json["raga"] as? String*/ {
-                        tracks.append(Track(title: title,
+                        tracks.append(Track(id: json.documentID,
+                                            title: title,
                                             artist: "",
                                             artwork: nil,
                                             appleMusicURL: nil,
                                             path: path,
                                             raga: "",
-                                            date: json["date"] as? Date
+                                            date: (json["date"] as? Timestamp)?.dateValue()
                                            ))//json["raga", default: ""])
                     }
                 }
                 
-                tracks.sort()
+                tracks.sort(sortOrder: sortOption)
+                
                 
                 let foundTracks = tracks
                 await MainActor.run {
@@ -56,7 +61,7 @@ class Playlist: ObservableObject {
 }
 
 extension Array where Element == Track {
-    mutating func sort(ascending: Bool = false) {
+    mutating func sort(sortOrder: SortOptions = .ascendingDate) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .medium
@@ -78,11 +83,15 @@ extension Array where Element == Track {
         }
         
         self.sort { track1, track2 in
-            if ascending {
+            switch sortOrder {
+            case .ascendingDate:
                 return date(for: track1) < date(for: track2)
-            } else {
+            case .descendingDate:
                 return date(for: track1) > date(for: track2)
+            case .confidenceLevel:
+                return track1.confidenceLevel > track2.confidenceLevel
             }
+            
         }
     }
 }
