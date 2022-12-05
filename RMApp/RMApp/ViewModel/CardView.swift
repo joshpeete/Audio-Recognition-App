@@ -21,16 +21,16 @@ var formatted = "" //formatted date
 struct CardView: View {
     var body: some View {
         
-        
+       
         
         List{
             Section("Profile Page"){
                 VStack(spacing: 12){
-                Text("First Name : \(fname)")
-                //Text(fname)
+                    Text("First Name : \(fname)")
+                    //Text(fname)
                 }
                 VStack(spacing: 12){
-                Text("Last Name : \(lname)")
+                    Text("Last Name : \(lname)")
                 }
                 VStack(spacing: 12){
                     Text("Email: \(emailfb)")
@@ -170,7 +170,7 @@ func GetEmail(){
    
         docRef.getDocument(source: .cache){ (document, error) in
             if let document = document {
-                email = String(describing: document.get("email")!)
+                email = String(describing: document.get("email") ?? " ")
                 //DOC = String(describing: document.get("dateofcreation")!)
                 //DOC = document.get("dateofcreation") as! Date
                 DOC = (document.get("dateofcreation") as? Timestamp)?.dateValue() ?? Date()

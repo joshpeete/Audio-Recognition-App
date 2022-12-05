@@ -47,14 +47,14 @@ class ShazamRecognizer: NSObject, ObservableObject, SHSessionDelegate{
     }
     
     func session( _ session: SHSession, didNotFindMatchFor signature: SHSignature, error: Error?){
-        //No Match
-        DispatchQueue.main.async {
-            self.errorMsg = "\(error!)"
-            self.showError.toggle()
-            //stopping audio recording
-            self.stopRecording()
+            //No Match
+            DispatchQueue.main.async {
+                self.errorMsg = "Cannot find Match"
+                self.showError.toggle()
+                //stopping audio recording
+                self.stopRecording()
+            }
         }
-    }
     
     func stopRecording(){
         audioEngine.stop()

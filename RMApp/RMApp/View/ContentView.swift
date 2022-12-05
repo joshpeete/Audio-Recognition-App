@@ -17,6 +17,7 @@ enum ActiveAlert{
     case fourth
     case fifth
     case sixth
+    case seventh
 }
 
 struct ContentView: View {
@@ -328,6 +329,12 @@ struct ContentView: View {
                                 dismissButton: .default(Text("Ok"))
                                 
                             )
+                        case .seventh:
+                            return  Alert(
+                                title: Text("Account Successfully Created"),
+                                dismissButton: .default(Text("Ok"))
+                                
+                            )
                         }
                     }
                     
@@ -349,7 +356,7 @@ struct ContentView: View {
                 }
                 .navigationTitle(select ? "Login" :"Create Account")
                 .padding()
-                .background(LinearGradient(gradient: Gradient(colors: [.white, .gray]), startPoint: .top, endPoint: .bottom))
+                .background(LinearGradient(gradient: Gradient(colors: [.init(red: 0.67, green: 0.84, blue: 0.90), .init(red: 0.89, green: 0.84, blue: 0.90)]), startPoint: .top, endPoint: .bottom))
             }
             .navigationViewStyle(StackNavigationViewStyle())
             .ignoresSafeArea()
@@ -524,7 +531,7 @@ func isValidPasswordString(_ password:String) -> Bool {
                 print("Account Successfully Created")
                 //showAlert4 = true
                 showAlert1 = true
-                self.activeAlert = .fourth
+                self.activeAlert = .seventh
                 
             }
         }
