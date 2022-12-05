@@ -17,14 +17,19 @@ struct MoreInfo: View {
                         Text("What is a Raga?")
                     }
                 }
+                Link(destination: URL(string:  "https://www.ipassio.com/blog/list-of-ragas-in-carnatic-music")!) { //link to second article
+                    VStack {
+                        Text("List of Raga's")
+                    }
+                }
             }
-            }
+        }.padding(10)
         YoutubeView(videoID: "xugP5eNqodQ?t=9") //embedded code marker from Youtube
             .frame(maxWidth: UIScreen.main.bounds.width * 0.9, maxHeight: UIScreen.main.bounds.height * 0.3) //from Get Rect equation
                 .cornerRadius(12)
-                .offset(y:-350)
+                .offset(y:-300)
         }
-    }
+}
 
 
 
@@ -33,3 +38,4 @@ struct MoreInfo_Previews: PreviewProvider {
         MoreInfo()
     }
 }
+
