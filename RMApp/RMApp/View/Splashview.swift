@@ -12,7 +12,7 @@ struct Splashview: View {
     @State private var isActive = false
     @State private var size = 0.8
     @State private var opacity = 0.5
-    
+
     var body: some View{
         if isActive{
             ContentView()//if the app is turned on show the registration/login page
@@ -40,6 +40,9 @@ struct Splashview: View {
                 self.isActive = true//activation
             }
         }
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
+    .background(LinearGradient(gradient: Gradient(colors: [.init(red: 0.67, green: 0.84, blue: 0.90), .init(red: 0.89, green: 0.84, blue: 0.90)]), startPoint: .top, endPoint: .bottom))
+
     }
 }
 }
