@@ -89,13 +89,13 @@ func testModel(url:URL)->SoundAnalysisPreprocessingOutput?
     return nil
 }
 
-func testModel2(url:URL)->ThirtyTimeOutput?
+func testModel2(url:URL)->ValidationOutput?
 {
     let multi = testModel(url: url)!.preprocessedAudioSamplesShapedArray
     
     do{
         let config = MLModelConfiguration()
-        let model = try ThirtyTime(configuration: config)
+        let model = try Validation(configuration: config)
         let prediction = try model.prediction(lstm_input: multi)
     
         return prediction

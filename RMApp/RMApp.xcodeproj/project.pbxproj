@@ -11,6 +11,8 @@
 		45A11D79293DB32D002363C9 /* forty.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 45A11D78293DB32C002363C9 /* forty.mlmodel */; };
 		45A11D7B293DB83E002363C9 /* ThirtyTime.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 45A11D7A293DB83E002363C9 /* ThirtyTime.mlmodel */; };
 		45A11D7D293DBAD5002363C9 /* ThirtyShuffle.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 45A11D7C293DBAD5002363C9 /* ThirtyShuffle.mlmodel */; };
+		45A11D7F293DC46A002363C9 /* NoTest.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 45A11D7E293DC469002363C9 /* NoTest.mlmodel */; };
+		45A11D81293DCB0A002363C9 /* Validation.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 45A11D80293DCB0A002363C9 /* Validation.mlmodel */; };
 		45ABD7A2293C26E900897150 /* JHomescreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ABD7A1293C26E900897150 /* JHomescreen.swift */; };
 		45AC0F8629220705009D8E63 /* NewButtonAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AC0F8529220705009D8E63 /* NewButtonAction.swift */; };
 		45DA330629370226002C6E57 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DA330329370225002C6E57 /* CardView.swift */; };
@@ -68,6 +70,8 @@
 		45A11D78293DB32C002363C9 /* forty.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = forty.mlmodel; sourceTree = "<group>"; };
 		45A11D7A293DB83E002363C9 /* ThirtyTime.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = ThirtyTime.mlmodel; sourceTree = "<group>"; };
 		45A11D7C293DBAD5002363C9 /* ThirtyShuffle.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = ThirtyShuffle.mlmodel; sourceTree = "<group>"; };
+		45A11D7E293DC469002363C9 /* NoTest.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = NoTest.mlmodel; sourceTree = "<group>"; };
+		45A11D80293DCB0A002363C9 /* Validation.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Validation.mlmodel; sourceTree = "<group>"; };
 		45ABD7A1293C26E900897150 /* JHomescreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JHomescreen.swift; path = ../../../JHomescreen.swift; sourceTree = "<group>"; };
 		45AC0F8529220705009D8E63 /* NewButtonAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewButtonAction.swift; sourceTree = "<group>"; };
 		45DA330329370225002C6E57 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -165,6 +169,8 @@
 		D728F9B228FF19BF009989EB /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				45A11D80293DCB0A002363C9 /* Validation.mlmodel */,
+				45A11D7E293DC469002363C9 /* NoTest.mlmodel */,
 				45A11D7C293DBAD5002363C9 /* ThirtyShuffle.mlmodel */,
 				45A11D7A293DB83E002363C9 /* ThirtyTime.mlmodel */,
 				45A11D78293DB32C002363C9 /* forty.mlmodel */,
@@ -401,7 +407,9 @@
 				45DA330729370226002C6E57 /* MoreInfo.swift in Sources */,
 				45AC0F8629220705009D8E63 /* NewButtonAction.swift in Sources */,
 				D728F9C729070DDE009989EB /* MLModelRnn.mlkitmodel in Sources */,
+				45A11D81293DCB0A002363C9 /* Validation.mlmodel in Sources */,
 				D728F9BC2904B10B009989EB /* DownloadManager.swift in Sources */,
+				45A11D7F293DC46A002363C9 /* NoTest.mlmodel in Sources */,
 				D728F9CB29072C59009989EB /* RagaRecognizer.swift in Sources */,
 				FBC97ECF291A12660047513C /* AudioListView.swift in Sources */,
 				45A11D7D293DBAD5002363C9 /* ThirtyShuffle.mlmodel in Sources */,
