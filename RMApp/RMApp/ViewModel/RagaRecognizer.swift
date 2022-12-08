@@ -89,13 +89,14 @@ func testModel(url:URL)->SoundAnalysisPreprocessingOutput?
     return nil
 }
 
-func testModel2(url:URL)->ValidationOutput?
+//function to call model for inputted files
+func testModel2(url:URL)->SpreadOutput?
 {
     let multi = testModel(url: url)!.preprocessedAudioSamplesShapedArray
     
     do{
         let config = MLModelConfiguration()
-        let model = try Validation(configuration: config)
+        let model = try Spread(configuration: config)
         let prediction = try model.prediction(lstm_input: multi)
     
         return prediction
@@ -106,8 +107,27 @@ func testModel2(url:URL)->ValidationOutput?
     return nil
 }
 
+//function to input raga for live recording
+func testModelLive(url:URL)->fortyOutput?
+{
+    let multi = testModel(url: url)!.preprocessedAudioSamplesShapedArray
+    
+    do{
+        let config = MLModelConfiguration()
+        let model = try forty(configuration: config)
+        let prediction = try model.prediction(lstm_input: multi)
+        print("live recording raga")
+    
+        return prediction
+        
+    } catch{
+
+    }
+    return nil
+}
 
 
+//function to print raga and save to firebase
 func printres(url:URL)->String!{
     var idx = 10;
     var idx2 = 10;
@@ -115,6 +135,81 @@ func printres(url:URL)->String!{
     maxpred = 0;
     
     let ohgod=testModel2(url: url)!.IdentityShapedArray
+    var singlresult = ohgod.scalars
+    
+    var ragaArray  = String()
+
+    var raganames = [0: "Asavari", 1: "Bageshree" , 2: "Bhairavi", 3: "Bhoop", 4: "Bhoopali",
+                     5: "Darbari", 6: "Dkanada", 7: "Malkauns" , 8 : "Sarang", 9: "Yaman" , 10: "Can't Recognize Raga!"]
+
+    //maxpred is for confidence level
+   // maxpred = singlresult.max() ?? -1
+    print(singlresult)
+    
+    if(singlresult.max()! > 0.80){
+        maxpred = singlresult.max()!
+        idx = singlresult.index(of:maxpred) ?? 10
+        ragaArray.append(raganames[idx] ?? "ER")
+    }
+    else if(singlresult.max()! >= 0.45){
+        let fmax = singlresult.max()
+        idx = singlresult.index(of:fmax!) ?? 10
+        maxpred += singlresult[idx]
+        ragaArray.append(raganames[idx] ?? "ER")
+        ragaArray.append(", ")
+        print("first:")
+        print(fmax)
+        singlresult[idx] = -1
+        
+        
+        let smax = singlresult.max()
+        idx2 = singlresult.index(of:smax!) ?? 10
+        maxpred += singlresult[idx2]
+        ragaArray.append(raganames[idx2] ?? "ER")
+        print("second:")
+        print(smax)
+    }
+    else{
+        
+        let fmax = singlresult.max()
+        idx = singlresult.index(of:fmax!) ?? 10
+        maxpred += singlresult[idx]
+        ragaArray.append(raganames[idx] ?? "ER")
+        ragaArray.append(", ")
+        print("first:")
+        print(fmax)
+        singlresult[idx] = -1
+        
+        
+        let smax = singlresult.max()
+        idx2 = singlresult.index(of:smax!) ?? 10
+        maxpred += singlresult[idx2]
+        ragaArray.append(raganames[idx2] ?? "ER")
+        ragaArray.append(", ")
+        print("second:")
+        print(smax)
+        singlresult[idx2] = -1
+        
+        let tmax = singlresult.max()
+        idx3 = singlresult.index(of:tmax!) ?? 10
+        maxpred += singlresult[idx3]
+        ragaArray.append(raganames[idx3] ?? "ER")
+        print("third:")
+        print(tmax)
+    }
+   
+    return ragaArray
+
+
+}
+
+func printresLive(url:URL)->String!{
+    var idx = 10;
+    var idx2 = 10;
+    var idx3 = 10;
+    maxpred = 0;
+    
+    let ohgod=testModelLive(url: url)!.IdentityShapedArray
     var singlresult = ohgod.scalars
     
     var ragaArray  = String()
